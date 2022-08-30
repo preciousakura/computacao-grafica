@@ -66,7 +66,7 @@ typedef struct Canvas {
     }
 
     Vector canvasToViewport(double x, double y) {
-        return Vector(-vp.w/2.0 + dx/2.0 + y*dx, vp.h/2.0 - dy/2.0 - x * dy, vp.d);
+        return Vector(-vp.w/2.0 + dx/2.0 + y*dx, vp.h/2.0 - dy/2.0 - x * dy, -vp.d);
     }
 } Canvas;
 

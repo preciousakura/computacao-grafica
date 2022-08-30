@@ -1,18 +1,19 @@
 #include "utils.cpp"
 
 int main() {
+    Viewport vp(2.0, 2.0, 2.0);
+
     std::vector<Sphere> spheres;
     
-    Sphere red(Vector(0, -1, 3), 1, Color(255, 0, 0));
-    Sphere blue(Vector(2, 0, 4), 1, Color(0, 0, 255));
-    Sphere green(Vector(-2, 0, 4), 1, Color(0, 255, 0));
+    Sphere red(Vector(0, 0, -(vp.d + 1)), 1, Color(255, 0, 0));
+    Sphere blue(Vector(2.2, 0, -(vp.d + 1)), 1, Color(0, 0, 255));
+    Sphere green(Vector(-2.2, 0, -(vp.d + 1)), 1, Color(0, 255, 0));
 
     spheres.push_back(red);
     spheres.push_back(blue);
     spheres.push_back(green);
 
-    Viewport vp(1.0, 1.0, 1.0);
-    Canvas canva(500.0, 500.0, vp, Color(0, 0, 0));
+    Canvas canva(500.0, 500.0, vp, Color(100, 100, 100));
     Scene scene(spheres, Vector(0, 0, 0), canva);
 
     std::ofstream out("out.ppm");

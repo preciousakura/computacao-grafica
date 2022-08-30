@@ -63,8 +63,8 @@ class Canvas:
 
 
 class Scene:
-    def __init__(self, sphere, v_camera, canva):
-        self.sphere = sphere
+    def __init__(self, spheres, v_camera, canva):
+        self.spheres = spheres
         self.v_camera = v_camera
         self.canva = canva
 
@@ -73,14 +73,15 @@ class Scene:
 
         closest_sphere = None
 
-        [t1, t2] = self.sphere.intersecao(self.v_camera, d)
-        if((t1 >= t_min and t1 <= t_max) and t1 < closest_t):
-            closest_t = t1
-            closest_sphere = self.sphere
+        for sphere in self.spheres:
+            [t1, t2] = sphere.intersecao(self.v_camera, d)
+            if((t1 >= t_min and t1 <= t_max) and t1 < closest_t):
+                closest_t = t1
+                closest_sphere = sphere
 
-        if((t2 >= t_min and t2 <= t_max) and t2 < closest_t):
-            closest_t = t2
-            closest_sphere = self.sphere
+            if((t2 >= t_min and t2 <= t_max) and t2 < closest_t):
+                closest_t = t2
+                closest_sphere = sphere
             
         if(closest_sphere == None):
             return self.canva.bg_color
@@ -88,12 +89,15 @@ class Scene:
 
 
 
-vp = Viewport(2.0, 2.0, 1.0) # tela
+vp = Viewport(2.0, 2.0, 2.0) # tela
 canva = Canvas(500, 500, vp, Color(100, 100, 100))
 
-sphere = Sphere(Vector(0, 0, -(vp.distance + 1)), 1, Color(255, 0, 0))
+s_red = Sphere(Vector(0, 0, -(vp.distance + 1)), 1, Color(255, 0, 0))
+s_blue = Sphere(Vector(2.2, 0, -(vp.distance + 1)), 1, Color(0, 0, 255))
+s_green = Sphere(Vector(-2.2, 0, -(vp.distance + 1)), 1, Color(0, 255, 0))
 
-scene = Scene(sphere, Vector(0, 0, 0), canva)
+spheres = [s_red, s_green, s_blue]
+scene = Scene(spheres, Vector(0, 0, 0), canva)
 
 image = Image.new(mode="RGB", size=(canva.width, canva.height))
 pixels = image.load()

@@ -108,5 +108,5 @@ for x in range(canva.width):
         color = scene.traceRay(d, 1.0, math.inf)
         pixels[y, x] = (color.r, color.g, color.b)
 
-image.save("out", format="png")
+image.save("out.png", format="png")
 image.show()

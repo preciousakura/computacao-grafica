@@ -36,8 +36,8 @@ class Sphere:
         if(delta < 0):
             return math.inf, math.inf
 
-        t1 = (-b + math.sqrt(delta)) / 2 * a
-        t2 = (-b - math.sqrt(delta)) / 2 * a
+        t1 = (-b + math.sqrt(delta)) / (2 * a)
+        t2 = (-b - math.sqrt(delta)) / (2 * a)
         
         return (t1, t2)
         
@@ -59,7 +59,7 @@ class Canvas:
     def canvasToViewport(self, x, y):
         return Vector(-self.viewport.width/2.0 + self.dx/2.0 + y*self.dx, 
                        self.viewport.height/2.0 - self.dy/2.0 - x * self.dy, 
-                       -self.viewport.distance)
+                       self.viewport.distance)
 
 
 class Scene:

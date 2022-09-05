@@ -22,7 +22,7 @@ typedef struct Vector {
 typedef struct Color {
     double r, g, b;
     Color() {r=g=b=0;}
-    Color(double i, double j, double k) {r = i, g = j, b = k;}
+    Color(double i, double j, double k) {r = std::min(i, 1.0), g = std::min(j, 1.0), b = std::min(k, 1.0);}
     Color operator * (double c) { return Color(r * c, g * c, b * c); }
     static Color convert_rgb(int r, int g, int b) {return Color(1.0 * r / 255, 1.0 * g / 255, 1.0 * b / 255);}
     int convert_r() {return r * 255;}

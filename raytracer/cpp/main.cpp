@@ -3,6 +3,7 @@
 #define CHANNEL_NUM 3
 
 #include "utils.cpp"
+
 #include "stb_image.hpp"
 #include "stb_image_write.hpp"
 
@@ -22,12 +23,12 @@ int main() {
     spheres.push_back(red);
     spheres.push_back(blue);
     spheres.push_back(green);
-    spheres.push_back(yellow);
+    // spheres.push_back(yellow);
 
     std::vector<Light> lights;
 
     Light a_light(0.2, LightType::ambient);
-    Light p_light(0.6, LightType::point, Vector(2, 1, 0));
+    Light p_light(0.6, LightType::point, Vector(0, 0, 0));
     Light d_light(0.2, LightType::directional, Vector(1, 4, 4));
 
     lights.push_back(a_light);
@@ -45,6 +46,7 @@ int main() {
             imageW[c++] = color.convert_r(), imageW[c++] = color.convert_g(), imageW[c++] = color.convert_b();
         }
     }
+    
     stbi_write_png("out.png", canva.w, canva.h, CHANNEL_NUM, imageW, canva.w * CHANNEL_NUM);
     return 0;
 }

@@ -73,6 +73,10 @@ typedef struct Sphere {
     Vector getNormal(Vector p_i) {return (p_i - c) / r;}
 } Sphere;
 
+typedef struct Plan {
+
+} Plan;
+
 typedef struct Viewport {
     double w, h, d;
     Viewport(double vp_w, double vp_h, double vp_d) { w = vp_w, h = vp_h, d = vp_d; }

@@ -2,9 +2,9 @@
 #include "../header/sphere.hpp"
 
 Sphere::Sphere(){}
-Sphere::Sphere(Vector center, double r, double s, Color color) : center(center), radius(r), specular(s), color(color){}
+Sphere::Sphere(Vector center, double r, Color kd, Color ka, Color ke, double s) : center(center), radius(r), Object(kd, ka, ke, s){}
 
-std::tuple<double, double> Sphere::intersectRaysphere(Vector O, Vector D){
+std::tuple<double, double> Sphere::intersect(Vector O, Vector D){
     Vector CO = O - this->center;
 
     double a = D*D;
@@ -19,11 +19,11 @@ std::tuple<double, double> Sphere::intersectRaysphere(Vector O, Vector D){
     return {t1, t2};
 }
 
+Vector Sphere::get_normal(Vector P) {
+    return (P - center)/ radius;
+}
+
 Vector Sphere::get_center(){ return this->center; }
 void Sphere::set_center(Vector center){ this->center = center; }
 double Sphere::get_radius(){ return this->radius; }
 void Sphere::set_radius(double radius){ this->radius = radius; }
-double Sphere::get_specular(){ return this->specular; }
-void Sphere::set_specular(double specular){ this->specular = specular; }
-Color Sphere::get_color(){ return this->color; }
-void Sphere::set_color(Color color){ this->color = color; }

@@ -1,22 +1,23 @@
 #include "../header/plan.hpp"
 #include <cmath>
 
-Plan::Plan(Vector p, Vector n, Color color, double s) : P(p), N(n), color(color), specular(s) {}
-Plan::Plan() {}
+Plan::Plan(){}
+Plan::Plan(Vector p, Vector n, Color kd, Color ka, Color ke, double s) : P(p), N(n), Object(kd, ka, ke, s) {}
 
-double Plan::intersectRayPlan(Vector O, Vector D) {
+std::tuple<double, double> Plan::intersect(Vector O, Vector D) {
     Vector W = O - P;
     double ti = -(W * N) / (D * N); 
-    if(ti < 0) return INFINITY;
+    if(ti < 0) return {INFINITY, INFINITY};
 
-    return ti;
+    return {ti, INFINITY};
 }
+
+Vector Plan::get_normal(Vector P) {
+    return N;
+}
+
 
 void Plan::set_p(Vector ponto) { P = ponto; }
 Vector Plan::get_p() { return P; }
 void Plan::set_n(Vector normal) { N = normal; }
 Vector Plan::get_n() { return N; }
-void Plan::set_color(Color color) { color = color; }
-Color Plan::get_color() { return color; }
-double Plan::get_specular(){ return this->specular; }
-void Plan::set_specular(double specular){ this->specular = specular; }

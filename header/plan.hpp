@@ -1,28 +1,25 @@
 #ifndef PLAN_HPP
 #define PLAN_HPP
 
-#include "vector.hpp"
-#include "color.hpp"
+#include "object.hpp"
 
-class Plan {
+class Plan : public Object {
     private:
         Vector P, N;
-        Color color;
+        Color kd, ka, ke;
         double specular;
-    public:
-        Plan();
-        Plan(Vector P, Vector N, Color color, double s);
 
-        double intersectRayPlan(Vector p, Vector d);
+    public:
+        Plan(Vector P, Vector N, Color kd, Color ka, Color ke, double s);
+        Plan();
+
+        std::tuple<double, double> intersect(Vector p, Vector d);
+        Vector get_normal(Vector P);
 
         void set_p(Vector ponto);
         Vector get_p();
         void set_n(Vector normal);
         Vector get_n();
-        void set_color(Color color);
-        Color get_color();
-        double get_specular();
-        void set_specular(double specular);
 };
 
 #endif

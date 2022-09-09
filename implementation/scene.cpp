@@ -7,10 +7,10 @@ Scene::Scene(Vector O, Viewport vw, Canva c) : O(O), viewport(vw), canva(c) {
     this->dy = 1.0*vw.get_h()/c.get_h(); 
 }
 
-Vector Scene::compute_lighting(Vector P, Vector N, Vector V, int s) {
+Vector Scene::compute_lighting(Vector P, Vector N, Vector V, int s, Object* o) {
     Vector i;
     for(Light* l : lights)
-        i = i + l->calculate_intensity(P, N, V, s);
+        i = i + l->calculate_intensity(P, N, V, s, o);
     return i;
 }
 
@@ -49,7 +49,7 @@ Color Scene::trace_ray(Vector O, Vector D, double t_min, double t_max) {
     
 
     Vector P = O + D * closest_t;
-    return closest_object->get_ka() * compute_lighting(P, closest_object->get_normal(P), -D, closest_object->get_specular());    
+    return closest_object->get_ka() * compute_lighting(P, closest_object->get_normal(P), -D, closest_object->get_specular(), closest_object);    
 }
 
 Vector Scene::canva_to_viewport(int i, int j){ 

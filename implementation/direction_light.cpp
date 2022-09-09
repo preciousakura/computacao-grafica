@@ -2,7 +2,7 @@
 
 DirectionLight::DirectionLight(Vector intensity, Vector direction) : Light(intensity), direction(direction){}
 
-Vector DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, int s){ 
+Vector DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o){ 
     Vector i;
     Vector L = get_direction();  
     double ndl = N*L;

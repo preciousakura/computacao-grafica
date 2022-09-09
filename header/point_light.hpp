@@ -10,7 +10,7 @@ class PointLight : public Light {
     public:
         PointLight(Vector intensity, Vector position);
     
-        Vector calculate_intensity(Vector P, Vector N, Vector V, int s);
+        Vector calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o);
     
         Vector get_position();
         void set_position(Vector position);

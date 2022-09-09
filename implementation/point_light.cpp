@@ -2,7 +2,7 @@
 
 PointLight::PointLight(Vector intensity, Vector position) : Light(intensity), position(position){}
 
-Vector PointLight::calculate_intensity(Vector P, Vector N, Vector V, int s){ 
+Vector PointLight::calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o){ 
     Vector i;
     Vector L = this->get_position()-P;  
     double ndl = N*L;

@@ -1,7 +1,7 @@
 #ifndef LIGHT_HPP
 #define LIGHT_HPP
 
-#include "vector.hpp"
+#include "object.hpp"
 
 class Light {
     private:
@@ -9,7 +9,7 @@ class Light {
 
     public:
         Light(Vector i);
-        virtual Vector calculate_intensity(Vector P, Vector N, Vector V, int s) = 0;
+        virtual Vector calculate_intensity(Vector P, Vector N, Vector V, int s, Object* o) = 0;
         Vector specular(Vector N, Vector L, Vector V, int s);
 
         Vector get_intensity();

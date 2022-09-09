@@ -19,10 +19,10 @@ int main(){
 
     Scene scene(O, viewport, canva);
     
-    scene.add_sphere(Sphere(Vector(0, 0, -100), 40, 10, Color::convert_rgb(0, 0, 255))); 
+    scene.add_sphere(Sphere(Vector(0, 0, -100), 40, 10, Color(0.7, 0.2, 0.2))); 
 
-    scene.add_plan(Plan(Vector(0, -40, 0), Vector(0, 1, 0), Color::convert_rgb(30, 40, 50), 1));
-    scene.add_plan(Plan(Vector(0, 0, -200), Vector(0, 0, 1), Color::convert_rgb(80, 90, 100), 1));
+    scene.add_plan(Plan(Vector(0, -40, 0), Vector(0, 1, 0), Color(0.2, 0.7, 0.2), 1));
+    scene.add_plan(Plan(Vector(0, 0, -200), Vector(0, 0, 1), Color(0.3, 0.3, 0.7), 1));
     
     scene.add_light(new AmbientLight(0.3)); 
     scene.add_light(new PointLight(0.7, Vector(0, 60, -30))); 

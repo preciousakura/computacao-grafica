@@ -7,10 +7,11 @@ Scene::Scene(Vector O, Viewport vw, Canva c) : O(O), viewport(vw), canva(c) {
     this->dy = 1.0*vw.get_h()/c.get_h(); 
 }
 
-double Scene::compute_lighting(Vector P, Vector N, Vector V, int s) {
-    double i = 0.0;
+Color Scene::compute_lighting(Vector P, Vector N, Vector V, int s) {
+    Color i;
+
     for(Light* l : lights)
-        i += l->calculate_intensity(P, N, V, s);
+        i = i + l->calculate_intensity(P, N, V, s);
     return i;
 }
 

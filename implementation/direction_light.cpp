@@ -1,13 +1,13 @@
 #include "../header/direction_light.hpp"
 
-DirectionLight::DirectionLight(double intensity, Vector direction) : Light(intensity), direction(direction){}
+DirectionLight::DirectionLight(Color intensity, Vector direction) : Light(intensity), direction(direction){}
 
-double DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, int s){ 
-    double i = 0.0;
+Color DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, int s){ 
+    Color i;
     Vector L = get_direction();  
     double ndl = N*L;
-    if(ndl > 0.0) i += (this->get_intensity()*ndl)/((~N)*(~L));
-    i += specular(N, L, V, s);
+    if(ndl > 0.0) i = i + (this->get_intensity()*ndl)/((~N)*(~L));
+    i = i + specular(N, L, V, s);
     return i;
 }
 

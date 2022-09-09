@@ -5,9 +5,9 @@
 
 class AmbientLight : public Light {
     public:
-        AmbientLight(double intensity);
+        AmbientLight(Color intensity);
     
-        double calculate_intensity(Vector P, Vector N, Vector V, int s);
+        Color calculate_intensity(Vector P, Vector N, Vector V, int s);
 };
 
 #endif

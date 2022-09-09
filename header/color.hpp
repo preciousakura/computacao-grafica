@@ -9,6 +9,9 @@ class Color {
         Color(double r, double g, double b);
 
         Color operator * (double n);
+        Color operator * (Color c);
+        Color operator / (double n);
+        Color operator + (Color c);
 
         unsigned int convert_red();
         unsigned int convert_green();

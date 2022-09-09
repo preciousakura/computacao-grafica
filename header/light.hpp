@@ -2,18 +2,19 @@
 #define LIGHT_HPP
 
 #include "vector.hpp"
+#include "color.hpp"
 
 class Light {
     private:
-        double intensity;
+        Color intensity;
 
     public:
-        Light(double i);
-        virtual double calculate_intensity(Vector P, Vector N, Vector V, int s) = 0;
-        double specular(Vector N, Vector L, Vector V, int s);
+        Light(Color intensity);
+        virtual Color calculate_intensity(Vector P, Vector N, Vector V, int s) = 0;
+        Color specular(Vector N, Vector L, Vector V, int s);
 
-        double get_intensity();
-        void set_intensity(double intensity);
+        Color get_intensity();
+        void set_intensity(Color intensity);
 };
 
 #endif

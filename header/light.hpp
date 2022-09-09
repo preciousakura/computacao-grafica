@@ -5,15 +5,15 @@
 
 class Light {
     private:
-        double intensity;
+        Vector intensity;
 
     public:
-        Light(double i);
-        virtual double calculate_intensity(Vector P, Vector N, Vector V, int s) = 0;
-        double specular(Vector N, Vector L, Vector V, int s);
+        Light(Vector i);
+        virtual Vector calculate_intensity(Vector P, Vector N, Vector V, int s) = 0;
+        Vector specular(Vector N, Vector L, Vector V, int s);
 
-        double get_intensity();
-        void set_intensity(double intensity);
+        Vector get_intensity();
+        void set_intensity(Vector intensity);
 };
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef COLOR_HPP
 #define COLOR_HPP
 
+#include "vector.hpp"
+
 class Color {
     private:
         double r, g, b;
@@ -9,6 +11,7 @@ class Color {
         Color(double r, double g, double b);
 
         Color operator * (double n);
+        Color operator * (Vector v);
 
         unsigned int convert_red();
         unsigned int convert_green();

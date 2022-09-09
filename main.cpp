@@ -24,9 +24,9 @@ int main(){
     scene.add_plan(Plan(Vector(0, -40, 0), Vector(0, 1, 0), Color(0.2, 0.7, 0.2), 1));
     scene.add_plan(Plan(Vector(0, 0, -200), Vector(0, 0, 1), Color(0.3, 0.3, 0.7), 1));
     
-    scene.add_light(new AmbientLight(0.3)); 
-    scene.add_light(new PointLight(0.7, Vector(0, 60, -30))); 
-    scene.add_light(new DirectionLight(0.0, Vector(0, 0, 0))); 
+    scene.add_light(new AmbientLight(Vector(0.3, 0.3, 0.3))); 
+    scene.add_light(new PointLight(Vector(0.7, 0.7, 0.7), Vector(0, 60, -30))); 
+    scene.add_light(new DirectionLight(Vector(0.0, 0.0, 0.0), Vector(0, 0, 0))); 
      
     scene.draw_scenario(); 
 

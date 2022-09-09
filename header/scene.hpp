@@ -18,7 +18,7 @@ class Scene {
         std::vector<Plan> plans;
         double dx, dy;
 
-        double compute_lighting(Vector P, Vector N, Vector V, int s);
+        Vector compute_lighting(Vector P, Vector N, Vector V, int s);
         Color trace_ray(Vector O, Vector D, double t_min, double t_max);
         std::tuple<double, Sphere> trace_ray_spheres(Vector O, Vector D, double t_min, double t_max);
         std::tuple<double, Plan> trace_ray_plans(Vector O, Vector D, double t_min, double t_max);

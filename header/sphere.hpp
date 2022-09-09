@@ -16,7 +16,6 @@ class Sphere {
         Sphere(Vector i, double j, double s, Color s_color);
 
         std::tuple<double, double> intersectRaysphere(Vector o, Vector d);
-        Vector getNormal(Vector p);
 
         Vector get_center();
         void set_center(Vector center);

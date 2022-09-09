@@ -14,19 +14,19 @@ using namespace std;
 
 int main(){
     Vector O(0, 0, 0); 
-    Viewport viewport(1, 1, 1);
-    Canva canva(500, 500, Color::convert_rgb(255, 255, 255)); 
+    Viewport viewport(60, 60, -30);
+    Canva canva(500, 500, Color::convert_rgb(100, 100, 100)); 
 
     Scene scene(O, viewport, canva);
     
-    scene.add_sphere(Sphere(Vector(0, -1, 3), 1, 500, Color::convert_rgb(255, 0, 0))); 
-    scene.add_sphere(Sphere(Vector(2, 0, 4), 1, 500, Color::convert_rgb(0, 0, 255))); 
-    scene.add_sphere(Sphere(Vector(-2, 0, 4), 1, 10, Color::convert_rgb(0, 255, 0))); 
-    scene.add_sphere(Sphere(Vector(0, -5001, 0), 5000, 1000, Color::convert_rgb(255, 255, 0))); 
+    scene.add_sphere(Sphere(Vector(0, 0, -100), 40, 10, Color::convert_rgb(0, 0, 255))); 
+
+    scene.add_plan(Plan(Vector(0, -40, 0), Vector(0, 1, 0), Color::convert_rgb(30, 40, 50), 1));
+    scene.add_plan(Plan(Vector(0, 0, -200), Vector(0, 0, 1), Color::convert_rgb(80, 90, 100), 1));
     
-    scene.add_light(new AmbientLight(0.2)); 
-    scene.add_light(new PointLight(0.6, Vector(2, 1, 0))); 
-    scene.add_light(new DirectionLight(0.2, Vector(1, 4, 4))); 
+    scene.add_light(new AmbientLight(0.3)); 
+    scene.add_light(new PointLight(0.7, Vector(0, 60, -30))); 
+    // scene.add_light(new DirectionLight(0.7, Vector(0, 5, 0))); 
      
     scene.draw_scenario(); 
 

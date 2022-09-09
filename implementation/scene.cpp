@@ -1,5 +1,6 @@
 #include <cmath>
 #include "../header/scene.hpp"
+#include "bits/stdc++.h"
 
 Scene::Scene(Vector O, Viewport vw, Canva c) : O(O), viewport(vw), canva(c) {
     this->dx = 1.0*vw.get_w()/c.get_w();
@@ -13,7 +14,7 @@ double Scene::compute_lighting(Vector P, Vector N, Vector V, int s) {
     return i;
 }
 
-Color Scene::trace_ray_spheres(Vector O, Vector D, double t_min, double t_max){
+std::tuple<double, Sphere> Scene::trace_ray_spheres(Vector O, Vector D, double t_min, double t_max){
     Sphere closest_sphere; 
     Color color = canva.get_background_color(); 
     bool nulo = true;
@@ -33,10 +34,49 @@ Color Scene::trace_ray_spheres(Vector O, Vector D, double t_min, double t_max){
         }
     }
 
-    if(nulo) return canva.get_background_color();
-    Vector P = O + D*closest;
-    Vector N = (P-closest_sphere.get_center())/closest_sphere.get_radius();
-    return closest_sphere.get_color() * compute_lighting(P, N, -D, closest_sphere.get_specular());
+    if(nulo) return {INFINITY, closest_sphere};
+    return {closest, closest_sphere};
+}
+
+std::tuple<double, Plan> Scene::trace_ray_plans(Vector O, Vector D, double t_min, double t_max) {
+    Plan closest_plan;
+    Color color = canva.get_background_color(); 
+    bool nulo = true;
+
+
+    double t, closest = INFINITY;
+    for(Plan p : plans) {
+        t = p.intersectRayPlan(O, D);
+        if(t >= t_min && t <= t_max && t < closest){
+            closest = t;
+            closest_plan = p;
+            nulo = false;
+        }
+    }
+
+    if(nulo) return {INFINITY, closest_plan};
+    return {closest, closest_plan};
+}
+
+Color Scene::trace_ray(Vector O, Vector D, double t_min, double t_max) {
+    double closest_t_sphere, closest_t_plan;
+    Plan closest_plan;
+    Sphere closest_sphere;
+
+    std::tie(closest_t_sphere, closest_sphere) = trace_ray_spheres(O, D, 1.0, INFINITY);
+    std::tie(closest_t_plan, closest_plan) = trace_ray_plans(O, D, 1.0, INFINITY);
+
+    if(closest_t_sphere == INFINITY && closest_t_plan == INFINITY) return canva.get_background_color();
+    
+    if(closest_t_sphere < closest_t_plan) {
+        Vector P = O + D * closest_t_sphere;
+        Vector N = (P-closest_sphere.get_center())/closest_sphere.get_radius();
+        return closest_sphere.get_color() * compute_lighting(P, N, -D, closest_sphere.get_specular());
+    } 
+
+    Vector P = O + D * closest_t_plan;
+    return closest_plan.get_color() * compute_lighting(P, closest_plan.get_n(), -D, closest_plan.get_specular());
+ 
 }
 
 Vector Scene::canva_to_viewport(int i, int j){ 
@@ -45,12 +85,13 @@ Vector Scene::canva_to_viewport(int i, int j){
 
 void Scene::add_sphere(Sphere s){ spheres.push_back(s); }
 void Scene::add_light(Light* l){ lights.push_back(l); }
+void Scene::add_plan(Plan p) { plans.push_back(p); }
 
 void Scene::draw_scenario(){
     for(int i = 0; i < canva.get_w(); i++){
         for(int j = 0; j < canva.get_h(); j++){
             Vector D = canva_to_viewport(i, j); 
-            Color color = trace_ray_spheres(this->O, D, 1.0, INFINITY);
+            Color color = trace_ray(this->O, D, 1.0, INFINITY);
             canva.to_color(i, j, color);
         }
     }

@@ -33,15 +33,14 @@ std::tuple<double, Object*> Scene::trace_ray_objects(Vector O, Vector D, double 
 }
 
 bool Scene::has_shadow(Vector P, Light* l) {
-    double s;
     Object *closest_object;
     Vector L = l->get_l(P);
-    L = L / ~L;
+    Vector N_L = L / ~L;
     if(~L == 0.0) return true;
-    std::tie(s, closest_object) = this->trace_ray_objects(P, L, 1.0, INFINITY);
-    if(s != INFINITY && s > ~L) return true;
+    double s;
+    std::tie(s, closest_object) = this->trace_ray_objects(P, N_L, 1.0, INFINITY);
+    if(s != INFINITY && s < ~L) return true;
     return false;
-    
 }
 
 Color Scene::compute_lighting(Vector P, Vector N, Vector V, int s, Object* o) {

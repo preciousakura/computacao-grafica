@@ -22,6 +22,7 @@ class Scene {
         Color trace_ray(Vector O, Vector D, double t_min, double t_max);
         std::tuple<double, Object*> trace_ray_objects(Vector O, Vector D, double t_min, double t_max);
         Vector canva_to_viewport(int x, int y);
+        bool has_shadow(Vector P, Light* l);
 
     public:
         Scene(Vector O, Viewport vp, Canva c);

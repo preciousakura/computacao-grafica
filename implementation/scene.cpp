@@ -7,12 +7,6 @@ Scene::Scene(Vector O, Viewport vw, Canva c) : O(O), viewport(vw), canva(c) {
     this->dy = 1.0*vw.get_h()/c.get_h(); 
 }
 
-Color Scene::compute_lighting(Vector P, Vector N, Vector V, int s, Object* o) {
-    Color i;
-    for(Light* l : lights)
-        i = i + l->calculate_intensity(P, N, V, s, o);
-    return i;
-}
 
 std::tuple<double, Object*> Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max){
     Object *closest_sphere; 
@@ -36,6 +30,25 @@ std::tuple<double, Object*> Scene::trace_ray_objects(Vector O, Vector D, double 
 
     if(nulo) return {INFINITY, closest_sphere};
     return {closest, closest_sphere};
+}
+
+bool Scene::has_shadow(Vector P, Light* l) {
+    double s;
+    Object *closest_object;
+    Vector L = l->get_l(P);
+    L = L / ~L;
+    if(~L == 0.0) return true;
+    std::tie(s, closest_object) = this->trace_ray_objects(P, L, 1.0, INFINITY);
+    if(s != INFINITY && s > ~L) return true;
+    return false;
+    
+}
+
+Color Scene::compute_lighting(Vector P, Vector N, Vector V, int s, Object* o) {
+    Color i;
+    for(Light* l : lights)
+        i = i + l->calculate_intensity(P, N, V, s, o, has_shadow(P, l));
+    return i;
 }
 
 

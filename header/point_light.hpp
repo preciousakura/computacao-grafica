@@ -8,9 +8,9 @@ class PointLight : public Light {
         Vector position; 
         
     public:
-        PointLight(Vector intensity, Vector position);
+        PointLight(Color intensity, Vector position);
     
-        Vector calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o);
+        Color calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o);
     
         Vector get_position();
         void set_position(Vector position);

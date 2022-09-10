@@ -1,15 +1,17 @@
 #include "../header/color.hpp"
 #include <algorithm>
 
-Color::Color(){ r = g = b = 1; } 
-Color::Color(double r, double g, double b): r(std::min(r, 1.0)), g(std::min(g, 1.0)), b(std::min(b, 1.0)){}
+Color::Color(){ r = g = b = 0; } 
+Color::Color(double r, double g, double b): r(r), g(g), b(b){}
 
 Color Color::operator*(double alp){ return Color(alp*this->r, alp*this->g, alp*this->b); }
-Color Color::operator*(Vector v){ return Color(v.get_x()*this->r, v.get_y()*this->g, v.get_z()*this->b); }
+Color Color::operator*(Color c){ return Color(c.get_r()*this->r, c.get_g()*this->g, c.get_b()*this->b); }
+Color Color::operator/(double n){ return Color(this->r/n, this->g/n, this->b/n); }
+Color Color::operator+(Color c){ return Color(c.get_r() + this->r, c.get_g() + this->g, c.get_b() + this->b); }
 
-unsigned int Color::convert_red() { return r * 255;}
-unsigned int Color::convert_green(){ return g * 255; }
-unsigned int Color::convert_blue(){ return b * 255; }
+unsigned int Color::convert_red() { return std::min(r, 1.0) * 255;}
+unsigned int Color::convert_green(){ return std::min(g, 1.0) * 255; }
+unsigned int Color::convert_blue(){ return std::min(b, 1.0) * 255; }
 
 double Color::get_r(){ return this->r; }
 void Color::set_r(double r) { this->r = r; }

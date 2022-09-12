@@ -42,7 +42,7 @@ int main() {
     for(int x = 0, c = 0; x < canva.w; x++){
         for(int y = 0; y < canva.h; y++) {
             Vector d = canva.canvasToViewport(x, y);
-            Color color = scene.traceRay(d, 1.0, INFINITY);
+            Color color = scene.traceRay(d, 1.0, INF);
             imageW[c++] = color.convert_r(), imageW[c++] = color.convert_g(), imageW[c++] = color.convert_b();
         }
     }

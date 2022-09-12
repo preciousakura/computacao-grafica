@@ -12,7 +12,7 @@ std::tuple<double, double> Sphere::intersect(Vector O, Vector D){
     double c = CO*CO - this->radius*this->radius;
     double delta = b*b - 4*a*c;
     
-    if(delta < 0) return {INFINITY, INFINITY};        
+    if(delta < 0) return {INFINITY,INFINITY};        
     double t1 = (-b + sqrt(delta))/(2*a);
     double t2 = (-b - sqrt(delta))/(2*a);
 

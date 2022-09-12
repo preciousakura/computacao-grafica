@@ -61,8 +61,8 @@ typedef struct Sphere {
 
         double delta = b*b - 4 * a * c;
         if(delta < 0) {
-            t1 = INFINITY;
-            t2 = INFINITY;
+            t1 = INF;
+            t2 = INF;
             return;
         }
 
@@ -119,7 +119,7 @@ typedef struct Scene {
     }
 
     Color traceRay(Vector d, double t_min, double t_max) {
-        double closest_t = INFINITY;
+        double closest_t = INF;
         Sphere closest_sphere;
         double t1, t2;
 

@@ -18,7 +18,7 @@ class Scene {
         std::vector<Light*> lights;
         double dx, dy;
 
-        Color compute_lighting(Vector P, Vector N, Vector V, int s, Object* O);
+        Color compute_lighting(Vector P, Vector V, int s, Object* O);
         Color trace_ray(Vector O, Vector D, double t_min, double t_max);
         std::tuple<double, Object*> trace_ray_objects(Vector O, Vector D, double t_min, double t_max);
         Vector canva_to_viewport(int x, int y);

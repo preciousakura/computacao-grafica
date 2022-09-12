@@ -16,12 +16,12 @@ std::tuple<double, Object*> Scene::trace_ray_objects(Vector O, Vector D, double 
     double t1, t2, closest = INFINITY;
     for(Object *s : objects){
         std::tie(t1, t2) = s->intersect(O, D); 
-        if(t1 >= t_min && t1 <= t_max && t1 < closest){
+        if(t1 - EPS >= t_min && t1 <= t_max && t1 < closest){
             closest = t1;
             closest_sphere = s;
             nulo = false;
         }
-        if(t2 >= t_min && t2 <= t_max && t2 < closest){
+        if(t2 - EPS >= t_min && t2 <= t_max && t2 < closest){
             closest = t2;
             closest_sphere = s;
             nulo = false;
@@ -38,13 +38,14 @@ bool Scene::has_shadow(Vector P, Light* l) {
     Vector N_L = L / ~L;
     if(~L == 0.0) return true;
     double s;
-    std::tie(s, closest_object) = this->trace_ray_objects(P, N_L, 1.0, INFINITY);
+    std::tie(s, closest_object) = this->trace_ray_objects(P, N_L, 0, INFINITY);
     if(s != INFINITY && s < ~L) return true;
     return false;
 }
 
-Color Scene::compute_lighting(Vector P, Vector N, Vector V, int s, Object* o) {
+Color Scene::compute_lighting(Vector P, Vector V, int s, Object* o) {
     Color i;
+    Vector N = o->get_normal(P);
     for(Light* l : lights)
         i = i + l->calculate_intensity(P, N, V, s, o, has_shadow(P, l));
     return i;
@@ -55,13 +56,12 @@ Color Scene::trace_ray(Vector O, Vector D, double t_min, double t_max) {
     double closest_t;
     Object *closest_object;
 
-    std::tie(closest_t, closest_object) = trace_ray_objects(O, D, 1.0, INFINITY);
+    std::tie(closest_t, closest_object) = trace_ray_objects(O, D, 0, INFINITY);
 
     if(closest_t == INFINITY) return canva.get_background_color();
     
-
     Vector P = O + D * closest_t;
-    return compute_lighting(P, closest_object->get_normal(P), -D, closest_object->get_specular(), closest_object);    
+    return compute_lighting(P, -D, closest_object->get_specular(), closest_object);    
 }
 
 Vector Scene::canva_to_viewport(int i, int j){ 
@@ -75,7 +75,7 @@ void Scene::draw_scenario(){
     for(int i = 0; i < canva.get_w(); i++){
         for(int j = 0; j < canva.get_h(); j++){
             Vector D = canva_to_viewport(i, j); 
-            Color color = trace_ray(this->O, D, 1.0, INFINITY);
+            Color color = trace_ray(this->O, (D/~D), 1.0, INFINITY);
             canva.to_color(i, j, color);
         }
     }

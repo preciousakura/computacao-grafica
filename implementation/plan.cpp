@@ -3,13 +3,14 @@
 
 Plan::Plan(){}
 Plan::Plan(Vector p, Vector n, Color kd, Color ka, Color ke, double s) : P(p), N(n), Object(kd, ka, ke, s) {}
+Plan::Plan(Vector P, Vector N): P(P), N(N), Object() {}
 
 std::tuple<double, double> Plan::intersect(Vector O, Vector D) {
     Vector W = O - P;
     double ti = -(W * N) / (D * N); 
     if(ti < 0) return {INFINITY, INFINITY};
 
-    return {ti, INFINITY};
+    return {ti, ti};
 }
 
 Vector Plan::get_normal(Vector P) {

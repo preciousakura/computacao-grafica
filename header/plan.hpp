@@ -11,6 +11,7 @@ class Plan : public Object {
 
     public:
         Plan(Vector P, Vector N, Color kd, Color ka, Color ke, double s);
+        Plan(Vector P, Vector N);
         Plan();
 
         std::tuple<double, double> intersect(Vector p, Vector d);

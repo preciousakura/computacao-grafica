@@ -4,6 +4,7 @@
 #include "color.hpp"
 #include "vector.hpp"
 #include <tuple>
+#include <cmath>
 
 class Object {
     private:

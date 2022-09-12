@@ -1,6 +1,9 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+#define EPS 0.0000001
+
+
 class Vector {
     private:
         double x, y, z;

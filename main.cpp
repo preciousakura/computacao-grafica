@@ -3,6 +3,7 @@
 #include "header/viewport.hpp"
 #include "header/canva.hpp"
 #include "header/sphere.hpp"
+#include "header/cone.hpp"
 #include "header/scene.hpp"
 #include "header/light.hpp"
 #include "header/cylinder.hpp"
@@ -21,7 +22,9 @@ int main() {
     Scene scene(O, viewport, canva);
     
     // scene.add_object(new Sphere(Vector(0, 0, -100), 40, Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), 10)); 
-    scene.add_object(new Cylinder(Vector(0, 0, -100), Vector(0, 1, 1), 36, 30, Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), 10)); 
+    // scene.add_object(new Cylinder(Vector(0, 0, -100), Vector(0, 1, 1), 36, 30, Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), 10)); 
+    // scene.add_object(new Cone(Vector(0, 0, -100), Vector(0, 1, 0), 36, 50, Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), 10));
+    scene.add_object(new Cone(Vector(0, 0, -100), Vector(30, 100, -200), 36, Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), 10));
 
     scene.add_object(new Plan(Vector(0, -40, 0), Vector(0, 1, 0), Color(0.2, 0.7, 0.2), Color(0.2, 0.7, 0.2), Color(0.0, 0.0, 0.0), 1));
     scene.add_object(new Plan(Vector(0, 0, -200), Vector(0, 0, 1), Color(0.3, 0.3, 0.7), Color(0.3, 0.3, 0.7), Color(0.0, 0.0, 0.0), 1));

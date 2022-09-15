@@ -9,6 +9,7 @@ Vector Vector::operator - (Vector v) { return Vector(this->x-v.x, this->y-v.y, t
 Vector Vector::operator - () { return Vector(-this->x, -this->y, -this->z); }
 double Vector::operator * (Vector v) { return this->x*v.x + this->y*v.y + this->z*v.z; }
 Vector Vector::operator * (double alp){ return Vector(this->x*alp, this->y*alp, this->z*alp); }
+Vector Vector::operator % (Vector n) { return Vector((this->get_y() * n.get_z()) - (this->get_z() * n.get_y()), (this->get_z() * n.get_x()) - (this->get_x() * n.get_z()), (this->get_x() * n.get_y()) - (this->get_y() * n.get_x()));  }
 Vector Vector::operator / (double alp) { return Vector(this->x/alp, this->y/alp, this->z/alp); }
 double Vector::operator ~ (){ return sqrt(this->x*this->x + this->y*this->y + this->z*this->z); }
 

@@ -12,6 +12,7 @@ class Vector {
         Vector(double x, double y, double z);
 
         Vector operator * (double n);
+        Vector operator % (Vector n);
         double operator * (Vector v); 
         Vector operator / (double n);
         Vector operator - (Vector v);

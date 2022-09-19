@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 
 Cylinder::Cylinder(){}
-Cylinder::Cylinder(Vector center, Vector dc, double radius, int h, Color kd, Color ka, Color ke, double s): center(center), dc(dc/~dc), height(h), radius(radius), Object(kd, ka, ke, s){}
+Cylinder::Cylinder(Vector center, Vector dc, double radius, int h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(kd, ka, ke, s){}
 
 bool Cylinder::in_shell(Vector P) {
     double projection = ((P - this->center) * this->dc);
@@ -42,33 +42,42 @@ std::tuple<double, double> Cylinder::intersect_cylinder_shell_vector(Vector O, V
 
 double Cylinder::ray_intersect_base(Vector O, Vector D, Vector PI, Vector DC) {
     double t; 
+    Vector aux;
     Plan plan(PI, DC);
-    std::tie(t, t) = plan.intersect(O, D);
+    std::tie(t, aux) = plan.intersect(O, D, -1, -1);
     Vector P = O + D*t;
     return (in_base(P, PI, DC)) ? t : INFINITY;
 }
 
-std::tuple<double, double> Cylinder::intersect(Vector O, Vector D) {
-    std::vector<double> t;
-    double t1, t2;
-    t1 = ray_intersect_base(O, D, this->center, -this->dc);
-    t2 = ray_intersect_base(O, D, this->center + (this->dc * this->height), this->dc);
-    t.push_back(t1);
-    t.push_back(t2);
-
+std::tuple<double, Vector> Cylinder::intersect(Vector O, Vector D, double t_min, double t_max) {
+    double t1 = INFINITY, t2 = INFINITY, t = INFINITY; 
+    Vector n; 
+    bool invert = false;
 
     std::tie(t1, t2) = intersect_cylinder_shell_vector(O, D);
-    t.push_back(t1);
-    t.push_back(t2);
-    
+    if(t1-EPS > t_min && t1 < t_max && t1 < t) t = t1, n = this->get_normal(O, D, t1);
+    if(t2-EPS > t_min && t2 < t_max && t2 < t) t = t2, n = this->get_normal(O, D, t2);
 
-    sort(t.begin(), t.end());
-    return {t[0], t[1]};
+    t1 = ray_intersect_base(O, D, this->center, -this->dc);
+    t2 = ray_intersect_base(O, D, this->center + (this->dc * this->height), this->dc);
+
+    if(t1-EPS > t_min && t1 < t_max && t1 < t){
+        if(this->has_base) t = t1, n = -this->dc, invert = false;
+        else invert = true;
+    }
+
+    if(t2-EPS > t_min && t2 < t_max && t2 < t){
+        if(this->has_top) t = t2, n = this->dc, invert = false;
+        else invert = true;
+    }
+
+    if(invert) n = -n;
+    
+    return {t, n};
 }
 
-Vector Cylinder::get_normal(Vector P) {
-    if(in_base(P, this->center, -this->dc)) return -this->dc;
-    if(in_base(P, this->center + (this->dc * this->height), this->dc)) return this->dc;
+Vector Cylinder::get_normal(Vector O, Vector D, double &t) {
+    Vector P = O + D*t;
     Vector CP = P - this->center;
     Vector AP = CP - (this->dc * (CP * dc));
     AP = AP / ~AP;

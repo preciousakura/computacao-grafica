@@ -13,8 +13,8 @@ class Sphere : public Object  {
         Sphere();
         Sphere(Vector i, double j, Color kd, Color ka, Color ke, double s);
 
-        std::tuple<double, double> intersect(Vector o, Vector d);
-        Vector get_normal(Vector P);
+        std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
+        Vector get_normal(Vector O, Vector D, double &t);
 
         Vector get_center();
         void set_center(Vector center);

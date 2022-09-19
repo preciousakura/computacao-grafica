@@ -4,22 +4,28 @@
 Sphere::Sphere(){}
 Sphere::Sphere(Vector center, double r, Color kd, Color ka, Color ke, double s) : center(center), radius(r), Object(kd, ka, ke, s){}
 
-std::tuple<double, double> Sphere::intersect(Vector O, Vector D){
+std::tuple<double, Vector> Sphere::intersect(Vector O, Vector D, double t_min, double t_max){
     Vector CO = O - this->center;
+    double t = INFINITY;
+    Vector n;
 
     double a = D*D;
     double b = 2*(CO*D);
     double c = CO*CO - this->radius*this->radius;
     double delta = b*b - 4*a*c;
     
-    if(delta < 0) return {INFINITY,INFINITY};        
+    if(delta < 0) return {INFINITY, n};        
     double t1 = (-b + sqrt(delta))/(2*a);
     double t2 = (-b - sqrt(delta))/(2*a);
 
-    return {t1, t2};
+    if(t1-EPS > t_min && t1 < t_max && t1 < t) t = t1, n = this->get_normal(O, D, t1);
+    if(t2-EPS > t_min && t2 < t_max && t2 < t) t = t2, n = this->get_normal(O, D, t2);
+
+    return {t, n};
 }
 
-Vector Sphere::get_normal(Vector P) {
+Vector Sphere::get_normal(Vector O, Vector D, double &t) {
+    Vector P = O + D*t;
     return (P - center)/ radius;
 }
 

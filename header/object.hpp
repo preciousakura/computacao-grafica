@@ -14,8 +14,8 @@ class Object {
 
         Object();
         Object(Color kd, Color ka, Color ke, double s);
-        virtual std::tuple<double, double> intersect(Vector p, Vector d) = 0;
-        virtual Vector get_normal(Vector P) = 0;
+        virtual std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max) = 0;
+        virtual Vector get_normal(Vector O, Vector D, double &t) = 0;
 
         void set_kd(Color color);
         Color get_kd();

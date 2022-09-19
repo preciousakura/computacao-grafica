@@ -7,6 +7,7 @@ class Cone : public Object {
     private:
         Vector center, V, dc;
         double specular, radius, height; // raio
+        bool has_base;
         Color kd, ka, ke;
 
         bool in_shell(Vector P);
@@ -16,11 +17,11 @@ class Cone : public Object {
 
     public:
         Cone();
-        Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s);
-        Cone(Vector c, Vector V, double r, Color kd, Color ka, Color ke, double s);
+        Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s, bool has_base);
+        Cone(Vector c, Vector V, double r, Color kd, Color ka, Color ke, double s, bool has_base);
 
-        std::tuple<double, double> intersect(Vector o, Vector d);
-        Vector get_normal(Vector P);
+        std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
+        Vector get_normal(Vector O, Vector D, double &t);
 
         Vector get_center();
         Vector get_v();

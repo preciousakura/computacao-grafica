@@ -3,8 +3,8 @@
 #include <bits/stdc++.h>
 
 Cone::Cone(){}
-Cone::Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s): center(c), dc(dc/~dc), radius(r), height(h), Object(ka, kd, ke, s){ V = c + (dc/~dc * h); }
-Cone::Cone(Vector c, Vector v, double r, Color kd, Color ka, Color ke, double s) : center(c), V(v), radius(r), Object(ka, kd, ke, s){ 
+Cone::Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(ka, kd, ke, s){ V = c + (dc/~dc * h); }
+Cone::Cone(Vector c, Vector v, double r, Color kd, Color ka, Color ke, double s, bool has_base) : has_base(has_base), center(c), V(v), radius(r), Object(ka, kd, ke, s){ 
     Vector vc = (V-c); 
     dc = vc / ~vc; 
     height = ~vc; 
@@ -32,7 +32,7 @@ std::tuple<double, double> Cone::intersect_cone_shell_vector(Vector O, Vector D)
     double dr_dc = (D * this->dc);
     double w_dc = W * this->dc;
 
-    double a = (dr_dc*dr_dc) - (D * D) * cos2;
+    double a = (dr_dc*dr_dc) - ((D * D) * cos2);
     double b = (((W * D) * cos2) - ((w_dc) * (dr_dc))) * 2;
     double c = (w_dc * w_dc) - ((W * W) * cos2);
     double delta = b*b - 4*a*c;
@@ -51,30 +51,48 @@ std::tuple<double, double> Cone::intersect_cone_shell_vector(Vector O, Vector D)
 
 double Cone::ray_intersect_base(Vector O, Vector D, Vector PI, Vector DC) {
     double t; 
+    Vector aux;
     Plan plan(PI, DC);
-    std::tie(t, t) = plan.intersect(O, D);
+    std::tie(t, aux) = plan.intersect(O, D, -1, -1);
     Vector P = O + D*t;
     return (in_base(P, PI, DC)) ? t : INFINITY;
 }
 
-std::tuple<double, double> Cone::intersect(Vector O, Vector D) {
-    std::vector<double> t;
-    double t1, t2;
-    t1 = ray_intersect_base(O, D, this->center, this->dc);
-    t.push_back(t1);
+std::tuple<double, Vector> Cone::intersect(Vector O, Vector D, double t_min, double t_max) {
+    double t1 = INFINITY, t2 = INFINITY, t = INFINITY; 
+    Vector n; 
+    bool invert = false;
 
     std::tie(t1, t2) = intersect_cone_shell_vector(O, D);
-    t.push_back(t1);
-    t.push_back(t2);
-    
+    if(t1-EPS > t_min && t1 < t_max && t1 < t) t = t1, n = this->get_normal(O, D, t1);
+    if(t2-EPS > t_min && t2 < t_max && t2 < t) t = t2, n = this->get_normal(O, D, t2);
 
-    sort(t.begin(), t.end());
-    return {t[0], t[1]};
+    t1 = ray_intersect_base(O, D, this->center, this->dc);
+    if(t1-EPS > t_min && t1 < t_max && t1 < t){
+        if(this->has_base) t = t1, n = -this->dc;
+        else invert = true;
+    }
+
+    if(invert) n = -n;
+
+    return {t, n};
 }
 
-Vector Cone::get_normal(Vector P) {
+Vector Cone::get_normal(Vector O, Vector D, double &t) {
+    Vector P = O + D*t;
     Vector w = this->V - P;
     Vector n_barra = w % this->dc;
+    Vector N = n_barra % w;
 
-    return (n_barra % w);
+    return (N/~N);
 }
+
+Vector Cone::get_center() { return this->center; }
+Vector Cone::get_v() { return this->V; }
+double Cone::get_radius() { return this->radius; }
+double Cone::get_height() { return this->height; }
+
+void Cone::set_center(Vector c) { this->center = c; }
+void Cone::set_v(Vector v) { this->V = v; }
+void Cone::set_radius(double r) { this->radius = r; }
+void Cone::set_height(double h) { this->height = h; }

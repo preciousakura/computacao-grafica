@@ -14,8 +14,8 @@ class Plan : public Object {
         Plan(Vector P, Vector N);
         Plan();
 
-        std::tuple<double, double> intersect(Vector p, Vector d);
-        Vector get_normal(Vector P);
+        std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
+        Vector get_normal(Vector O, Vector D, double &t);
 
         void set_p(Vector ponto);
         Vector get_p();

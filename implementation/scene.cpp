@@ -8,61 +8,51 @@ Scene::Scene(Vector O, Viewport vw, Canva c) : O(O), viewport(vw), canva(c) {
 }
 
 
-std::tuple<double, Object*> Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max){
-    Object *closest_sphere; 
+Color Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max){
+    Object *closest_object; 
     Color color = canva.get_background_color(); 
     bool nulo = true;
 
-    double t1, t2, closest = INFINITY;
+    double t, closest = INFINITY;
+    Vector aux_N, N;
+
     for(Object *s : objects){
-        std::tie(t1, t2) = s->intersect(O, D); 
-        if(t1 - EPS >= t_min && t1 <= t_max && t1 < closest){
-            closest = t1;
-            closest_sphere = s;
+        std::tie(t, aux_N) = s->intersect(O, D, t_min, t_max); 
+        if(t - EPS >= t_min && t <= t_max && t < closest){
+            closest = t;
+            closest_object = s;
             nulo = false;
-        }
-        if(t2 - EPS >= t_min && t2 <= t_max && t2 < closest){
-            closest = t2;
-            closest_sphere = s;
-            nulo = false;
+            N = aux_N;
         }
     }
 
-    if(nulo) return {INFINITY, closest_sphere};
-    return {closest, closest_sphere};
+    if(closest == INFINITY) return canva.get_background_color();
+    Vector P = O + D * closest;
+    return compute_lighting(P, N, -D, closest_object->get_specular(), closest_object, t_min, t_max);   
 }
 
-bool Scene::has_shadow(Vector P, Light* l) {
+bool Scene::has_shadow(Vector P, Light* l, double t_min, double t_max) {
     Object *closest_object;
     Vector L = l->get_l(P);
     Vector N_L = L / ~L;
     if(~L == 0.0) return true;
-    double s;
-    std::tie(s, closest_object) = this->trace_ray_objects(P, N_L, 0, INFINITY);
-    if(s != INFINITY && s < ~L) return true;
-    return false;
+    double t, closest = INFINITY;
+    Vector n;
+
+    for(Object* o : objects){
+        std::tie(t, n) = o->intersect(P, N_L, t_min, t_max); 
+        if(t-EPS > t_min && t < t_max && t < closest) closest = t;   
+    }
+    return !(closest >= (~L));
 }
 
-Color Scene::compute_lighting(Vector P, Vector V, int s, Object* o) {
+Color Scene::compute_lighting(Vector P, Vector N, Vector V, int s, Object* o, double t_min, double t_max) {
     Color i;
-    Vector N = o->get_normal(P);
     for(Light* l : lights)
-        i = i + l->calculate_intensity(P, N, V, s, o, has_shadow(P, l));
+        i = i + l->calculate_intensity(P, N, V, s, o, has_shadow(P, l, t_min, t_max));
     return i;
 }
 
-
-Color Scene::trace_ray(Vector O, Vector D, double t_min, double t_max) {
-    double closest_t;
-    Object *closest_object;
-
-    std::tie(closest_t, closest_object) = trace_ray_objects(O, D, 0, INFINITY);
-
-    if(closest_t == INFINITY) return canva.get_background_color();
-    
-    Vector P = O + D * closest_t;
-    return compute_lighting(P, -D, closest_object->get_specular(), closest_object);    
-}
 
 Vector Scene::canva_to_viewport(int i, int j){ 
     return Vector(-viewport.get_w()/2.0 + dx/2.0 + j*dx, viewport.get_h()/2.0 - dy/2.0 - i*dy, viewport.get_d());
@@ -75,7 +65,7 @@ void Scene::draw_scenario(){
     for(int i = 0; i < canva.get_w(); i++){
         for(int j = 0; j < canva.get_h(); j++){
             Vector D = canva_to_viewport(i, j); 
-            Color color = trace_ray(this->O, (D/~D), 1.0, INFINITY);
+            Color color = trace_ray_objects(this->O, (D/~D), 1.0, INFINITY);
             canva.to_color(i, j, color);
         }
     }

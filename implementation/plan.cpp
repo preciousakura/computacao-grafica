@@ -5,15 +5,15 @@ Plan::Plan(){}
 Plan::Plan(Vector p, Vector n, Color kd, Color ka, Color ke, double s) : P(p), N(n), Object(kd, ka, ke, s) {}
 Plan::Plan(Vector P, Vector N): P(P), N(N), Object() {}
 
-std::tuple<double, double> Plan::intersect(Vector O, Vector D) {
+std::tuple<double, Vector> Plan::intersect(Vector O, Vector D, double t_min, double t_max) {
     Vector W = O - P;
     double ti = -(W * N) / (D * N); 
-    if(ti < 0) return {INFINITY, INFINITY};
+    if(ti < 0) return {INFINITY, Vector()};
 
-    return {ti, ti};
+    return {ti, this->N};
 }
 
-Vector Plan::get_normal(Vector P) {
+Vector Plan::get_normal(Vector O, Vector D, double &t) {
     return N;
 }
 

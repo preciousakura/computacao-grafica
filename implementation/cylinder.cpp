@@ -78,8 +78,8 @@ std::tuple<double, Vector> Cylinder::intersect(Vector O, Vector D, double t_min,
 
 Vector Cylinder::get_normal(Vector O, Vector D, double &t) {
     Vector P = O + D*t;
-    Vector CP = P - this->center; // P - BASE
-    Vector AP = CP - (this->dc * (CP * this->dc)); //
+    Vector CP = P - this->center;
+    Vector AP = CP - (this->dc * (CP * dc));
     AP = AP / ~AP;
     return AP;
 }

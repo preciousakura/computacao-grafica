@@ -36,6 +36,6 @@ int main() {
      
     scene.draw_scenario(); 
 
-    scene.save_scenario("sphere.png");
+    scene.save_scenario("out.png");
     return 0;
 }

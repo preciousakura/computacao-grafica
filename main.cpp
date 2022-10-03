@@ -9,6 +9,7 @@
 #include "header/cylinder.hpp"
 #include "header/ambient_light.hpp"
 #include "header/point_light.hpp"
+#include "header/cube.hpp"
 #include "header/direction_light.hpp"
 
 #include <iostream>
@@ -23,9 +24,10 @@ int main() {
 
     double r = 40;
     
-    scene.add_object(new Sphere(Vector(0, 0, -100), r, Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), 10)); 
-    scene.add_object(new Cylinder(Vector(0, 0, -100), Vector(-1/sqrt(3), 1/sqrt(3), -1/sqrt(3)), r/3, 3 * r, Color(0.2, 0.3, 0.8), Color(0.2, 0.3, 0.8), Color(0.2, 0.3, 0.8), 10, true, true)); 
-    scene.add_object(new Cone(Vector(-69.282, 69.282, -169.282), Vector(-1/sqrt(3.0), 1/sqrt(3.0), -1/sqrt(3.0)), 1.5*r, r/3, Color(0.8, 0.3, 0.2), Color(0.8, 0.3, 0.2), Color(0.8, 0.3, 0.2), 10, false));
+    // scene.add_object(new Sphere(Vector(0, 0, -100), r, Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), 10)); 
+    // scene.add_object(new Cylinder(Vector(0, 0, -100), Vector(-1/sqrt(3), 1/sqrt(3), -1/sqrt(3)), r/3, 3 * r, Color(0.2, 0.3, 0.8), Color(0.2, 0.3, 0.8), Color(0.2, 0.3, 0.8), 10, true, true)); 
+    // scene.add_object(new Cone(Vector(-69.282, 69.282, -169.282), Vector(-1/sqrt(3.0), 1/sqrt(3.0), -1/sqrt(3.0)), 1.5*r, r/3, Color(0.8, 0.3, 0.2), Color(0.8, 0.3, 0.2), Color(0.8, 0.3, 0.2), 10, false));
+    scene.add_object(new Cube(Vector(0, 0, -100), 40, Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), Color(0.7, 0.2, 0.2), 10));
 
     scene.add_object(new Plan(Vector(0, -40, 0), Vector(0, 1, 0), Color(0.2, 0.7, 0.2), Color(0.2, 0.7, 0.2), Color(0.0, 0.0, 0.0), 1));
     scene.add_object(new Plan(Vector(0, 0, -200), Vector(0, 0, 1), Color(0.3, 0.3, 0.7), Color(0.3, 0.3, 0.7), Color(0.0, 0.0, 0.0), 1));

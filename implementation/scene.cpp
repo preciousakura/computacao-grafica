@@ -28,6 +28,9 @@ Color Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max){
 
     if(closest == INFINITY) return canva.get_background_color();
     Vector P = O + D * closest;
+
+    if((D * N) > 0.0) N = -N; 
+
     return compute_lighting(P, N, -D, closest_object->get_specular(), closest_object, t_min, t_max);   
 }
 

@@ -6,23 +6,22 @@ Mesh::Mesh() {}
 Mesh::Mesh(Vector center, Color kd, Color ka, Color ke, double s): center(center), Object(kd, ke, ka, s) {}
 
 std::tuple<double, Vector> Mesh::intersect(Vector O, Vector D, double t_min, double t_max) {
-    double t = INFINITY, t_aux, aux; 
+    double t = INFINITY, t_aux; 
     Vector normal, normal_aux;
     
     for(Face * f: this->faces) {
-        aux = f->get_normal() * D;
-        if(aux < 0.0) {
-            std::tie(t_aux, normal_aux) = f->intersect(O, D);
-            if(t_aux > t_min && t_aux < t_max && t_aux < t)
-                t = t_aux, normal = normal_aux; 
-        }
+        std::tie(t_aux, normal_aux) = f->intersect(O, D);
+        if(t_aux > t_min && t_aux < t_max && t_aux < t)
+            t = t_aux, normal = normal_aux; 
     }
+    
     return {t, normal};
 }
 
 Mesh::Face::Face() {}
 Mesh::Face::Face(Vector p1, Vector p2, Vector p3): p1(p1), p2(p2), p3(p3) {
-    this->normal = (this->p2 - this->p1) % (this->p3 - this->p1);
+    Vector N = (this->p2 - this->p1) % (this->p3 - this->p1);
+    this->normal = N / ~N;
 }
 
 bool Mesh::Face::in_face(Vector P) {
@@ -35,7 +34,7 @@ bool Mesh::Face::in_face(Vector P) {
     double c2 = ((this->p3 - P) % (this->p1 - P) * N) / area_total;
     double c3 = 1 - c1 - c2;
 
-    return (c1+EPS > 0.0) && (c2+EPS > 0.0) && (c3+EPS > 0.0);
+    return (c1 > 0.0-EPS) && (c2 > 0.0-EPS) && (c3-EPS > 0.0);
 }
 
 std::tuple<double, Vector> Mesh::Face::intersect(Vector O, Vector D) {
@@ -51,7 +50,7 @@ std::tuple<double, Vector> Mesh::Face::intersect(Vector O, Vector D) {
 }
 
 Vector Mesh::Face::get_normal() {
-    return this->normal / ~this->normal;
+    return this->normal;
 }
 
 void Mesh::set_center(Vector c) { this->center = c; }

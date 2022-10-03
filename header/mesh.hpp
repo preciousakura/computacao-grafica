@@ -21,7 +21,7 @@ class Mesh : public Object {
                 Face(Vector p1, Vector p2, Vector p3);
 
                 bool in_face(Vector P);
-                std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
+                std::tuple<double, Vector> intersect(Vector O, Vector D);
 
                 void set_p1(Vector v);
                 void set_p2(Vector v);

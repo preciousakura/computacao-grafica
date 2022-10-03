@@ -3,13 +3,14 @@
 
 Light::Light(Color intensity) : intensity(intensity){}
 
-Color Light::specular(Vector N, Vector L, Vector V, int s){
-    if(s != -1){
+double Light::specular(Vector N, Vector L, Vector V, double s) {
+    double fs = 0.0;
+    if(s > 0.0) {
         Vector R = (N*(N*L))*2 - L;
-        double rdv = R*V;
-        if(rdv > 0.0) return (this->get_intensity()*pow((rdv/((~R)*(~V))), s));
+        fs = R*V;
+        fs =  pow(fs, s);
     }
-    return Color();
+    return fs;
 }
 
 Color Light::get_intensity(){ return intensity; }

@@ -6,9 +6,13 @@ Color DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, int s,  
     Color i;
     if(has_shadow) return i;
     Vector L = get_direction();  
-    double ndl = N*L;
-    if(ndl > 0.0) i = i + (this->get_intensity()*ndl)/((~N)*(~L)) * o->get_kd();;
-    i = i + specular(N, L, V, s) * o->get_ke();
+    L = L/~L;
+    double fd = N*L;
+    if(fd > 0.0) i = i + ((this->get_intensity()) * o->get_kd()) * fd;
+
+    double fs = specular(N, L, V, s);
+    if(fs > 0.0) i = i + ((this->get_intensity()) * o->get_ke()) * fs;
+
     return i;
 }
 

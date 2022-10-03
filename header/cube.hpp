@@ -7,11 +7,11 @@
 
 class Cube: public Mesh {
     private:
-        int size; 
+        double size; 
 
     public:
         Cube();
-        Cube(Vector center, int size, Color kd, Color ka, Color ke, double s);
+        Cube(Vector center, double size, Color kd, Color ka, Color ke, double s);
 
         void set_size(int size);
         int get_size();

@@ -11,7 +11,7 @@ class Light {
         Light(Color i);
         virtual Color calculate_intensity(Vector P, Vector N, Vector V, int s, Object* o, bool has_shadow) = 0;
         virtual Vector get_l(Vector P) = 0;
-        Color specular(Vector N, Vector L, Vector V, int s);
+        double specular(Vector N, Vector L, Vector V, double s);
 
         Color get_intensity();
         void set_intensity(Color intensity);

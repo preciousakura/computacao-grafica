@@ -8,9 +8,12 @@ Color PointLight::calculate_intensity(Vector P, Vector N, Vector V, int s,  Obje
     if(has_shadow) return i;
     Vector L = this->get_position()-P;  
     L = L/~L;
-    double ndl = N*L;
-    if(ndl > 0.0) i = i + (this->get_intensity()*ndl)/((~N)*(~L)) * o->get_kd();
-    i = i + specular(N, L, V, s) * o->get_ke();
+    double fd = N*L;
+    if(fd > 0.0) i = i + ((this->get_intensity()) * o->get_kd()) * fd;
+
+    double fs = specular(N, L, V, s);
+    if(fs > 0.0) i = i + ((this->get_intensity()) * o->get_ke()) * fs;
+
     return i;
 }
 

@@ -24,7 +24,7 @@ bool Cone::in_base(Vector P, Vector PI, Vector DC) {
 }
 
 std::tuple<double, double> Cone::intersect_cone_shell_vector(Vector O, Vector D){
-    double t1 = INFINITY, t2 = INFINITY;
+    double t1 = INF, t2 = INF;
     Vector W = this->V - O;
     
     double h2 = this->height * this->height;
@@ -43,9 +43,9 @@ std::tuple<double, double> Cone::intersect_cone_shell_vector(Vector O, Vector D)
     t2 = (-b-sqrt(delta))/(2*a);
 
     Vector P1 = O + D*t1;
-    t1 = (in_shell(P1)) ? t1 : INFINITY;
+    t1 = (in_shell(P1)) ? t1 : INF;
     Vector P2 = O + D*t2;
-    t2 = (in_shell(P2)) ? t2 : INFINITY;
+    t2 = (in_shell(P2)) ? t2 : INF;
     return {t1, t2};
 }
 
@@ -55,11 +55,11 @@ double Cone::ray_intersect_base(Vector O, Vector D, Vector PI, Vector DC) {
     Plan plan(PI, DC);
     std::tie(t, aux) = plan.intersect(O, D, -1, -1);
     Vector P = O + D*t;
-    return (in_base(P, PI, DC)) ? t : INFINITY;
+    return (in_base(P, PI, DC)) ? t : INF;
 }
 
 std::tuple<double, Vector> Cone::intersect(Vector O, Vector D, double t_min, double t_max) {
-    double t1 = INFINITY, t2 = INFINITY, t = INFINITY; 
+    double t1 = INF, t2 = INF, t = INF; 
     Vector n; 
     bool invert = false;
 

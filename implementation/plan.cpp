@@ -8,7 +8,7 @@ Plan::Plan(Vector P, Vector N): P(P), N(N), Object() {}
 std::tuple<double, Vector> Plan::intersect(Vector O, Vector D, double t_min, double t_max) {
     Vector W = O - P;
     double ti = -(W * N) / (D * N); 
-    if(ti < 0.0) return {INFINITY, Vector()};
+    if(ti < 0.0) return {INF, Vector()};
 
     return {ti, this->N};
 }

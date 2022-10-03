@@ -6,10 +6,11 @@ Mesh::Mesh() {}
 Mesh::Mesh(Vector center, Color kd, Color ka, Color ke, double s): center(center), Object(kd, ke, ka, s) {}
 
 std::tuple<double, Vector> Mesh::intersect(Vector O, Vector D, double t_min, double t_max) {
-    double t = INFINITY, t_aux; 
+    double t = INF, t_aux; 
     Vector normal, normal_aux;
     
     for(Face * f: this->faces) {
+        if(f->get_normal() * D > 0.0) continue;
         std::tie(t_aux, normal_aux) = f->intersect(O, D);
         if(t_aux > t_min && t_aux < t_max && t_aux < t)
             t = t_aux, normal = normal_aux; 
@@ -25,7 +26,7 @@ Mesh::Face::Face(Vector p1, Vector p2, Vector p3): p1(p1), p2(p2), p3(p3) {
 }
 
 bool Mesh::Face::in_face(Vector P) {
-    double t = INFINITY;
+    double t = INF;
     Vector N = this->get_normal();
 
     double area_total = ((this->p2 - this->p1) % (this->p3 - this->p1)) * N;
@@ -45,7 +46,7 @@ std::tuple<double, Vector> Mesh::Face::intersect(Vector O, Vector D) {
     std::tie(t, n) = plan.intersect(O, D, -1, -1);
     Vector P = (O + D*t);
 
-    t = (this->in_face(P) ? t : INFINITY);
+    t = (this->in_face(P) ? t : INF);
     return {t, this->get_normal()};
 }
 

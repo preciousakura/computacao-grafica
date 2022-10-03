@@ -6,7 +6,7 @@ Sphere::Sphere(Vector center, double r, Color kd, Color ka, Color ke, double s) 
 
 std::tuple<double, Vector> Sphere::intersect(Vector O, Vector D, double t_min, double t_max){
     Vector CO = O - this->center;
-    double t = INFINITY;
+    double t = INF;
     Vector n;
 
     double a = D*D;
@@ -14,7 +14,7 @@ std::tuple<double, Vector> Sphere::intersect(Vector O, Vector D, double t_min, d
     double c = CO*CO - this->radius*this->radius;
     double delta = b*b - 4*a*c;
     
-    if(delta < 0) return {INFINITY, n};        
+    if(delta < 0) return {INF, n};        
     double t1 = (-b + sqrt(delta))/(2*a);
     double t2 = (-b - sqrt(delta))/(2*a);
 

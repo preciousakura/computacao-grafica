@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 
 #define EPS 0.0000001
+#define INF 1e18
 
 
 class Vector {

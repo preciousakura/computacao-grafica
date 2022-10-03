@@ -6,8 +6,6 @@
 class Plan : public Object {
     private:
         Vector P, N;
-        Color kd, ka, ke;
-        double specular;
 
     public:
         Plan(Vector P, Vector N, Color kd, Color ka, Color ke, double s);

@@ -6,9 +6,8 @@
 class Cone : public Object {
     private:
         Vector center, V, dc;
-        double specular, radius, height; // raio
+        double radius, height; // raio
         bool has_base;
-        Color kd, ka, ke;
 
         bool in_shell(Vector P);
         bool in_base(Vector P, Vector PI, Vector DC);

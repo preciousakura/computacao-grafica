@@ -12,8 +12,7 @@ class Cylinder : public Object {
 
         bool has_base, has_top;
 
-        Color kd, ka, ke;
-        double specular, radius;
+        double radius;
 
         bool in_shell(Vector P);
         bool in_base(Vector P, Vector PI, Vector DC);

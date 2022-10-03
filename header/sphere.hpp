@@ -6,8 +6,7 @@
 class Sphere : public Object  {
     private:
         Vector center; // Centro
-        double radius, specular; // raio
-        Color kd, ka, ke;
+        double radius; // raio
         
     public:
         Sphere();

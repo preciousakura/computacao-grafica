@@ -3,24 +3,28 @@
 #include <iostream>
 
 Mesh::Mesh() {}
-Mesh::Mesh(Vector p1, Vector p2, Vector p3): p1(p1), p2(p2), p3(p3) {
-    this->set_r1(this->p2 - this->p1);
-    this->set_r2(this->p3 - this->p1);
-    this->normal = (this->r1) % (this->r2);
+Mesh::Mesh(Vector center, Color kd, Color ka, Color ke, double s): center(center), Object(kd, ke, ka, s) {}
+
+std::tuple<double, Vector> Mesh::intersect(Vector O, Vector D, double t_min, double t_max) {
+    double t = INFINITY, t_aux; 
+    Vector normal, normal_aux;
+    
+    for(Face * f: this->faces){
+        std::tie(t_aux, normal_aux) = f->intersect(O, D, t_min, t_max);
+        if(t_aux > t_min && t_aux < t_max && t_aux < t)
+            t = t_aux, normal = normal_aux; 
+    }
+    return {t, normal_aux};
 }
 
-Vector Mesh::get_n() { 
-    return this->normal;
+Mesh::Face::Face() {}
+Mesh::Face::Face(Vector p1, Vector p2, Vector p3): p1(p1), p2(p2), p3(p3) {
+    this->normal = (this->p2 - this->p1) % (this->p3 - this->p1);
 }
 
-double Mesh::get_t_intersection(Vector O, Vector D) { 
-    Vector N = this->get_n();
-    return ((this->p1 - O) * N) / (D * N);
-}
-
-bool Mesh::intersect_with_face(Vector P) {
+bool Mesh::Face::in_face(Vector P) {
     double t = INFINITY;
-    Vector N = this->get_n();
+    Vector N = this->get_normal();
 
     double c1 = ((this->p1 - P) % (this->p2 - P) * (N/~N)) / (~N);
     double c2 = ((this->p3 - P) % (this->p1 - P) * (N/~N)) / (~N);
@@ -29,28 +33,21 @@ bool Mesh::intersect_with_face(Vector P) {
     return (c1+EPS > 0.0) && (c2+EPS > 0.0)  && (c3+EPS > 0.0);
 }
 
-std::tuple<double, Vector> Mesh::intersect(Vector O, Vector D, double t_min, double t_max) {
-    Plan plan(this->p1, this->get_n());
+std::tuple<double, Vector> Mesh::Face::intersect(Vector O, Vector D, double t_min, double t_max) {
+    Plan plan(this->p1, this->get_normal());
 
     double t; 
     Vector n; 
     std::tie(t, n) = plan.intersect(O, D, t_min, t_max);
     Vector P = (O + D*t);
 
-    t = (intersect_with_face(P) ? t : INFINITY);
-    return {t, this->get_n()};
+    t = (this->in_face(P) ? t : INFINITY);
+    return {t, this->get_normal()};
 }
 
-void Mesh::set_p1(Vector v) { this->p1 = v; }
-void Mesh::set_p2(Vector v) { this->p2 = v; }
-void Mesh::set_p3(Vector v) { this->p3 = v; }
+Vector Mesh::Face::get_normal() {
+    return this->normal;
+}
 
-void Mesh::set_r1(Vector v) { this->r1 = v; }
-void Mesh::set_r2(Vector v) { this->r2 = v; }
-
-Vector Mesh::get_p1() { return this->p1; }
-Vector Mesh::get_p2() { return this->p2; }
-Vector Mesh::get_p3() { return this->p3; }
-
-Vector Mesh::get_r1() { return this->r1; }
-Vector Mesh::get_r2() { return this->r2; }
+void Mesh::set_center(Vector c) { this->center = c; }
+Vector Mesh::get_center() { return this->center; }

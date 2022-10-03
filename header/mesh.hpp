@@ -3,34 +3,48 @@
 
 #include "object.hpp"
 #include "plan.hpp"
+#include <bits/stdc++.h>
 
-class Mesh {
-    private:
-        Vector p1, p2, p3;
-        Vector r1, r2;
-        Vector normal;
+class Mesh : public Object {
+    protected:
+        Vector center;
+
+        class Face {
+            private:
+                Vector p1, p2, p3;
+                Vector normal;
+
+                friend Mesh;
+
+            public:
+                Face();
+                Face(Vector p1, Vector p2, Vector p3);
+
+                bool in_face(Vector P);
+                std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
+
+                void set_p1(Vector v);
+                void set_p2(Vector v);
+                void set_p3(Vector v);
+
+                Vector get_p1();
+                Vector get_p2();
+                Vector get_p3();
+
+                void set_normal(Vector n);
+                Vector get_normal();
+        };
+
+        std::vector<Face*> faces;
+
     public:
         Mesh();
-        Mesh(Vector p1, Vector p2, Vector p3);
-
-        Vector get_n();
-        double get_t_intersection(Vector O, Vector D);
-        bool intersect_with_face(Vector O);
+        Mesh(Vector center, Color kd, Color ka, Color ke, double s);
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
-        
-        void set_p1(Vector v);
-        void set_p2(Vector v);
-        void set_p3(Vector v);
 
-        void set_r1(Vector v);
-        void set_r2(Vector v);
+        Vector get_center();
+        void set_center(Vector c);
 
-        Vector get_p1();
-        Vector get_p2();
-        Vector get_p3();
-
-        Vector get_r1();
-        Vector get_r2();
 };
 
 #endif

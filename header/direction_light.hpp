@@ -10,7 +10,7 @@ class DirectionLight : public Light {
     public:
         DirectionLight(Color intensity, Vector direction);
 
-        Color calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o, bool has_shadow);
+        Color calculate_intensity(Vector P, Vector N, Vector V, double s,  Object* o, bool has_shadow);
         Vector get_l(Vector P);
 
         Vector get_direction();

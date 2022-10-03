@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 
 Cylinder::Cylinder(){}
-Cylinder::Cylinder(Vector center, Vector dc, double radius, int h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(kd, ka, ke, s){}
+Cylinder::Cylinder(Vector center, Vector dc, double radius, double h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(kd, ka, ke, s){}
 
 bool Cylinder::in_shell(Vector P) {
     double projection = ((P - this->center) * this->dc);
@@ -86,10 +86,10 @@ Vector Cylinder::get_normal(Vector O, Vector D, double &t) {
 
 void Cylinder::set_center(Vector c) { center = c; }
 void Cylinder::set_dc(Vector c) { dc = c; }
-void Cylinder::set_height(int h) { height = h; }
-void Cylinder::set_radius(int r) { radius = r; }
+void Cylinder::set_height(double h) { height = h; }
+void Cylinder::set_radius(double r) { radius = r; }
 
 Vector Cylinder::get_center() { return center; }
 Vector Cylinder::get_dc() { return dc; }
-int Cylinder::get_height() { return height; }
-int Cylinder::get_radius() { return radius; }
+double Cylinder::get_height() { return height; }
+double Cylinder::get_radius() { return radius; }

@@ -2,7 +2,7 @@
 
 DirectionLight::DirectionLight(Color intensity, Vector direction) : Light(intensity), direction(direction){}
 
-Color DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o, bool has_shadow){ 
+Color DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, double s,  Object* o, bool has_shadow){ 
     Color i;
     if(has_shadow) return i;
     Vector L = get_direction();  

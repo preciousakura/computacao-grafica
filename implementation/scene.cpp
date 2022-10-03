@@ -29,8 +29,6 @@ Color Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max){
     if(closest == INFINITY) return canva.get_background_color();
     Vector P = O + D * closest;
 
-    if((D * N) > 0.0) N = -N; 
-
     return compute_lighting(P, N, -D, closest_object->get_specular(), closest_object, t_min, t_max);   
 }
 
@@ -49,7 +47,7 @@ bool Scene::has_shadow(Vector P, Light* l, double t_min, double t_max) {
     return !(closest >= (~L));
 }
 
-Color Scene::compute_lighting(Vector P, Vector N, Vector V, int s, Object* o, double t_min, double t_max) {
+Color Scene::compute_lighting(Vector P, Vector N, Vector V, double s, Object* o, double t_min, double t_max) {
     Color i;
     for(Light* l : lights)
         i = i + l->calculate_intensity(P, N, V, s, o, has_shadow(P, l, t_min, t_max));
@@ -65,8 +63,8 @@ void Scene::add_object(Object *o){ objects.push_back(o); }
 void Scene::add_light(Light* l){ lights.push_back(l); }
 
 void Scene::draw_scenario(){
-    for(int i = 0; i < canva.get_w(); i++){
-        for(int j = 0; j < canva.get_h(); j++){
+    for(int i = 0; i < canva.get_w(); i++) {
+        for(int j = 0; j < canva.get_h(); j++) {
             Vector D = canva_to_viewport(i, j); 
             Color color = trace_ray_objects(this->O, (D/~D), 1.0, INFINITY);
             canva.to_color(i, j, color);

@@ -3,7 +3,7 @@
 
 PointLight::PointLight(Color intensity, Vector position) : Light(intensity), position(position){}
 
-Color PointLight::calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o, bool has_shadow){ 
+Color PointLight::calculate_intensity(Vector P, Vector N, Vector V, double s,  Object* o, bool has_shadow){ 
     Color i;
     if(has_shadow) return i;
     Vector L = this->get_position()-P;  

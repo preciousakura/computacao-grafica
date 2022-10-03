@@ -18,7 +18,7 @@ class Scene {
         std::vector<Light*> lights;
         double dx, dy;
 
-        Color compute_lighting(Vector P, Vector N, Vector V, int s, Object* o, double t_min, double t_max);
+        Color compute_lighting(Vector P, Vector N, Vector V, double s, Object* o, double t_min, double t_max);
         Color trace_ray_objects(Vector O, Vector D, double t_min, double t_max);
         Vector canva_to_viewport(int x, int y);
         bool has_shadow(Vector P, Light* l, double t_min, double t_max);

@@ -8,7 +8,7 @@
 class Cylinder : public Object {
     private:
         Vector center, dc;
-        int height;
+        double height;
 
         bool has_base, has_top;
 
@@ -21,7 +21,7 @@ class Cylinder : public Object {
 
     public:
         Cylinder();
-        Cylinder(Vector center, Vector dc, double radius, int h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top);
+        Cylinder(Vector center, Vector dc, double radius, double h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top);
 
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
         Vector get_normal(Vector O, Vector D, double &t);
@@ -32,11 +32,11 @@ class Cylinder : public Object {
         void set_center(Vector c);
         Vector get_center();
 
-        void set_height(int h);
-        int get_height();
+        void set_height(double h);
+        double get_height();
 
-        void set_radius(int r);
-        int get_radius();
+        void set_radius(double r);
+        double get_radius();
 };
 
 #endif

@@ -2,7 +2,7 @@
 
 AmbientLight::AmbientLight(Color intensity) : Light(intensity){} 
 
-Color AmbientLight::calculate_intensity(Vector P, Vector N, Vector V, int s,  Object* o, bool has_shadow){ 
+Color AmbientLight::calculate_intensity(Vector P, Vector N, Vector V, double s,  Object* o, bool has_shadow){ 
     return this->get_intensity() * o->get_ka(); 
 }
 

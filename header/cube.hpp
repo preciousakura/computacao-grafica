@@ -13,7 +13,7 @@ class Cube: public Mesh {
         Cube();
         Cube(Vector center, double size, Color kd, Color ka, Color ke, double s);
 
-        void set_size(int size);
+        void set_size(double size);
         int get_size();
 };
 

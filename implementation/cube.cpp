@@ -24,5 +24,5 @@ Cube::Cube(Vector center, double size, Color kd, Color ka, Color ke, double s): 
     };
 }
 
-void Cube::set_size(int size) { this->size = size; }
+void Cube::set_size(double size) { this->size = size; }
 int Cube::get_size() { return this->size; }

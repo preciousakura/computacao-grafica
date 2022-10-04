@@ -40,7 +40,7 @@ bool Scene::has_shadow(Vector P, Light* l, double t_min, double t_max) {
     double t, closest = INF;
     Vector n;
 
-    for(Object* o : objects){
+    for(Object* o : objects) {
         std::tie(t, n) = o->intersect(P, N_L, t_min, t_max); 
         if(t-EPS > t_min && t < t_max && t < closest) closest = t;   
     }

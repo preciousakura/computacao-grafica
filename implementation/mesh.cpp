@@ -35,7 +35,9 @@ bool Mesh::Face::in_face(Vector P) {
     double c2 = ((this->p3 - P) % (this->p1 - P) * N) / area_total;
     double c3 = 1 - c1 - c2;
 
-    return (c1 > 0.0-EPS) && (c2 > 0.0-EPS) && (c3-EPS > 0.0);
+
+
+    return (c1 > 0.0-EPS) && (c2 > 0.0-EPS) && (c3 > 0.0-EPS);
 }
 
 std::tuple<double, Vector> Mesh::Face::intersect(Vector O, Vector D) {

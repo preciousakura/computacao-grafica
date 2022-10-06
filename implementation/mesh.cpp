@@ -4,6 +4,7 @@
 
 Mesh::Mesh() {}
 Mesh::Mesh(Vector center, Color kd, Color ka, Color ke, double s): center(center), Object(kd, ke, ka, s) {}
+Mesh::Mesh(Vector center, const char* name, double s): center(center), Object(name, s) {}
 
 std::tuple<double, Vector> Mesh::intersect(Vector O, Vector D, double t_min, double t_max) {
     double t = INF, t_aux; 

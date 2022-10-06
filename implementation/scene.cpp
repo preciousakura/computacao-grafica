@@ -8,7 +8,7 @@ Scene::Scene(Vector O, Viewport vw, Canva c) : O(O), viewport(vw), canva(c) {
 }
 
 
-Color Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max){
+Color Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max, int i, int j){
     Object *closest_object; 
     Color color = canva.get_background_color(); 
     bool nulo = true;
@@ -26,7 +26,10 @@ Color Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max){
         }
     }
 
+    
     if(closest == INF) return canva.get_background_color();
+    if(closest_object->has_image()) closest_object->set_current_color(i, j);
+
     Vector P = O + D * closest;
 
     return compute_lighting(P, N, -D, closest_object->get_specular(), closest_object, t_min, t_max);   
@@ -66,7 +69,7 @@ void Scene::draw_scenario(){
     for(int i = 0; i < canva.get_w(); i++) {
         for(int j = 0; j < canva.get_h(); j++) {
             Vector D = canva_to_viewport(i, j); 
-            Color color = trace_ray_objects(this->O, (D/~D), 1.0, INF);
+            Color color = trace_ray_objects(this->O, (D/~D), 1.0, INF, i, j);
             canva.to_color(i, j, color);
         }
     }

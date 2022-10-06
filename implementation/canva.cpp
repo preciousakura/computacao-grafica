@@ -13,8 +13,8 @@ Canva::Canva(int n, int m, Color bg): w(n), h(m), background(bg), pixels(n, std:
 void Canva::write_image(const char* image_name){
 	int width = w, height = h;
   	int8 *imageW = new int8[width * height * CHANNEL_NUM];
-	for(int i = 0, c = 0; i < height; i++)
-		for(int j = 0; j < width; j++)
+	for(int i = 0, c = 0; i < width; i++)
+		for(int j = 0; j < height; j++)
 			imageW[c++] = pixels[i][j].convert_red(), imageW[c++] = pixels[i][j].convert_green(), imageW[c++] = pixels[i][j].convert_blue();
 	stbi_write_png(image_name, width, height, CHANNEL_NUM, imageW, width * CHANNEL_NUM);
 }

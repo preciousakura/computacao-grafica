@@ -17,7 +17,9 @@ class Cone : public Object {
     public:
         Cone();
         Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s, bool has_base);
+        Cone(Vector c, Vector dc, double r, double h, const char * name, double s, bool has_base);
         Cone(Vector c, Vector V, double r, Color kd, Color ka, Color ke, double s, bool has_base);
+        Cone(Vector c, Vector V, double r, const char * name, double s, bool has_base);
 
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
         Vector get_normal(Vector O, Vector D, double &t);

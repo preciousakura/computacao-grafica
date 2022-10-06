@@ -9,6 +9,7 @@ class Plan : public Object {
 
     public:
         Plan(Vector P, Vector N, Color kd, Color ka, Color ke, double s);
+        Plan(Vector P, Vector N, const char * name, double s);
         Plan(Vector P, Vector N);
         Plan();
 

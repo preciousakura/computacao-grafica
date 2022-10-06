@@ -3,6 +3,7 @@
 
 Cylinder::Cylinder(){}
 Cylinder::Cylinder(Vector center, Vector dc, double radius, double h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(kd, ka, ke, s){}
+Cylinder::Cylinder(Vector center, Vector dc, double radius, double h, const char* name, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(name, s){}
 
 bool Cylinder::in_shell(Vector P) {
     double projection = ((P - this->center) * this->dc);

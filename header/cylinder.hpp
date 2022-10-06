@@ -22,6 +22,7 @@ class Cylinder : public Object {
     public:
         Cylinder();
         Cylinder(Vector center, Vector dc, double radius, double h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top);
+        Cylinder(Vector center, Vector dc, double radius, double h, const char * name, double s, bool has_base, bool has_top);
 
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
         Vector get_normal(Vector O, Vector D, double &t);

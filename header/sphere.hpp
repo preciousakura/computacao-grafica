@@ -11,6 +11,7 @@ class Sphere : public Object  {
     public:
         Sphere();
         Sphere(Vector i, double j, Color kd, Color ka, Color ke, double s);
+        Sphere(Vector i, double j, const char * name, double s);
 
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
         Vector get_normal(Vector O, Vector D, double &t);

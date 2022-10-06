@@ -1,17 +1,19 @@
 #include "../header/cube.hpp"
 
 Cube::Cube() {}
-Cube::Cube(Vector center, double size, Color kd, Color ka, Color ke, double s): size(size), Mesh(center, kd, ka, ke, s) {
-    
+Cube::Cube(Vector center, double size, Color kd, Color ka, Color ke, double s): size(size), Mesh(center, kd, ka, ke, s) { set_faces();}
+Cube::Cube(Vector center, double size, const char* name, double s): size(size), Mesh(center, name, s) { set_faces();}
+
+void Cube::set_faces() {
     std::vector<Vector> vertices = {  
-        Vector(center.get_x() - size/2, center.get_y() - size/2, center.get_z() + size/2),
-        Vector(center.get_x() + size/2, center.get_y() - size/2, center.get_z() + size/2),
-        Vector(center.get_x() + size/2, center.get_y() + size/2, center.get_z() + size/2),
-        Vector(center.get_x() - size/2, center.get_y() + size/2, center.get_z() + size/2),
-        Vector(center.get_x() - size/2, center.get_y() + size/2, center.get_z() - size/2),
-        Vector(center.get_x() - size/2, center.get_y() - size/2, center.get_z() - size/2),
-        Vector(center.get_x() + size/2, center.get_y() - size/2, center.get_z() - size/2),
-        Vector(center.get_x() + size/2, center.get_y() + size/2, center.get_z() - size/2)
+        Vector(this->center.get_x() - this->size/2, this->center.get_y() - this->size/2, this->center.get_z() + this->size/2),
+        Vector(this->center.get_x() + this->size/2, this->center.get_y() - this->size/2, this->center.get_z() + this->size/2),
+        Vector(this->center.get_x() + this->size/2, this->center.get_y() + this->size/2, this->center.get_z() + this->size/2),
+        Vector(this->center.get_x() - this->size/2, this->center.get_y() + this->size/2, this->center.get_z() + this->size/2),
+        Vector(this->center.get_x() - this->size/2, this->center.get_y() + this->size/2, this->center.get_z() - this->size/2),
+        Vector(this->center.get_x() - this->size/2, this->center.get_y() - this->size/2, this->center.get_z() - this->size/2),
+        Vector(this->center.get_x() + this->size/2, this->center.get_y() - this->size/2, this->center.get_z() - this->size/2),
+        Vector(this->center.get_x() + this->size/2, this->center.get_y() + this->size/2, this->center.get_z() - this->size/2)
     };
     
     this->faces = {

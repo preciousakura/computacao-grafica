@@ -40,11 +40,11 @@ class Mesh : public Object {
     public:
         Mesh();
         Mesh(Vector center, Color kd, Color ka, Color ke, double s);
+        Mesh(Vector center, const char * name, double s);
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
 
         Vector get_center();
         void set_center(Vector c);
-
 };
 
 #endif

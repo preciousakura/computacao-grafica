@@ -15,16 +15,19 @@ Color SpotLight::calculate_intensity(Vector P, Vector N, Vector V, double s,  Ob
     L = L/~L;
 
     Vector ds = this->direction / ~this->direction;
+
     double clds = L * (-ds);
     if(clds < cos(this->grau)) return i;
 
+    Color intensity_spot = this->get_intensity() * clds;
+
     double fd = N*L;
-    if(fd > 0.0) i = i + ((this->get_intensity()) * kd) * fd;
+    if(fd > 0.0) i = i + ((intensity_spot) * kd) * fd;
 
     double fs = specular(N, L, V, s);
-    if(fs > 0.0) i = i + ((this->get_intensity()) * ke) * fs;
+    if(fs > 0.0) i = i + ((intensity_spot) * ke) * fs;
 
-    return i * clds;
+    return i;
 }
 
 Vector SpotLight::get_l(Vector P) { return this->position - P; }

@@ -37,7 +37,7 @@ int main() {
     
     scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
     // scene.add_light(new PointLight(Color(0.7, 0.7, 0.7), Vector(-100, 140, -20))); 
-    // scene.add_light(new DirectionLight(Color(0.0, 0.0, 0.0), Vector(0, 0, 0))); 
+    scene.add_light(new DirectionLight(Color(0.0, 0.0, 0.0), Vector(0, 0, 0))); 
     scene.add_light(new SpotLight(Color(0.7, 0.7, 0.7), Vector(0, 140, 0), Vector(0, -150, -165), .5)); 
 
     scene.draw_scenario(); 

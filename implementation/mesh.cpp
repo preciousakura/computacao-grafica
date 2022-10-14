@@ -27,7 +27,6 @@ Mesh::Face::Face(Vector p1, Vector p2, Vector p3): p1(p1), p2(p2), p3(p3) {
 }
 
 bool Mesh::Face::in_face(Vector P) {
-    double t = INF;
     Vector N = this->get_normal();
 
     double area_total = ((this->p2 - this->p1) % (this->p3 - this->p1)) * N;

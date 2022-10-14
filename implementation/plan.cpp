@@ -18,6 +18,16 @@ Vector Plan::get_normal(Vector O, Vector D, double &t) {
     return N;
 }
 
+void Plan::transform() {
+
+}
+
+void Plan::rotation_x(double angle) {}
+void Plan::rotation_y(double angle) {}
+void Plan::rotation_z(double angle) {}
+void Plan::translation(Vector v) {}
+void Plan::scaling(double x, double y, double z) {}
+void Plan::scaling(double size) {}
 
 void Plan::set_p(Vector ponto) { P = ponto; }
 Vector Plan::get_p() { return P; }

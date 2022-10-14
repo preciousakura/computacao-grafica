@@ -1,8 +1,9 @@
 #include <cmath>
 #include "../header/vector.hpp"
 
-Vector::Vector() : x(0), y(0), z(0){}
-Vector::Vector(double x, double y, double z) : x(x), y(y), z(z){}
+Vector::Vector() : x(0), y(0), z(0), a(0){}
+Vector::Vector(double x, double y, double z) : x(x), y(y), z(z), a(0){}
+Vector::Vector(double x, double y, double z, double a) : x(x), y(y), z(z), a(a){}
 
 Vector Vector::operator + (Vector v) { return Vector(this->x+v.x, this->y+v.y, this->z+v.z); }
 Vector Vector::operator - (Vector v) { return Vector(this->x-v.x, this->y-v.y, this->z-v.z); }
@@ -19,3 +20,5 @@ double Vector::get_y(){ return this->y; }
 void Vector::set_y(double y){ this->y = y; }
 double Vector::get_z(){ return this->z; }
 void Vector::set_z(double z){ this->z = z; }
+double Vector::get_a(){ return this->a; }
+void Vector::set_a(double a){ this->a = a; }

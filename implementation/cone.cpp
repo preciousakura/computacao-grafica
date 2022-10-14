@@ -94,6 +94,15 @@ Vector Cone::get_normal(Vector O, Vector D, double &t) {
     return (N/~N);
 }
 
+void Cone::transform() {}
+
+void Cone::rotation_x(double angle) {}
+void Cone::rotation_y(double angle) {}
+void Cone::rotation_z(double angle) {}
+void Cone::translation(Vector v) {}
+void Cone::scaling(double x, double y, double z) {}
+void Cone::scaling(double size) {}
+
 Vector Cone::get_center() { return this->center; }
 Vector Cone::get_v() { return this->V; }
 double Cone::get_radius() { return this->radius; }

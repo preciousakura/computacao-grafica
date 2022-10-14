@@ -30,6 +30,17 @@ Vector Sphere::get_normal(Vector O, Vector D, double &t) {
     return (P - center)/ radius;
 }
 
+void Sphere::transform() {
+
+}
+
+void Sphere::rotation_x(double angle) {}
+void Sphere::rotation_y(double angle) {}
+void Sphere::rotation_z(double angle) {}
+void Sphere::translation(Vector v) {}
+void Sphere::scaling(double x, double y, double z) {}
+void Sphere::scaling(double size) {}
+
 Vector Sphere::get_center(){ return this->center; }
 void Sphere::set_center(Vector center){ this->center = center; }
 double Sphere::get_radius(){ return this->radius; }

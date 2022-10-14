@@ -26,6 +26,13 @@ class Cylinder : public Object {
 
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
         Vector get_normal(Vector O, Vector D, double &t);
+        void transform();
+        void rotation_x(double angle);
+        void rotation_y(double angle);
+        void rotation_z(double angle);
+        void translation(Vector v);
+        void scaling(double x, double y, double z);
+        void scaling(double size);
 
         void set_dc(Vector c);
         Vector get_dc();

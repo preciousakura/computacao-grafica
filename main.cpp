@@ -22,23 +22,30 @@ int main() {
     Canva canva(500, 500, Color::convert_rgb(100, 100, 100)); 
 
     Scene scene(O, viewport, canva);
-    
-    scene.add_object(new Sphere(Vector(0, 95, -200), 5, Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), 10)); 
-    scene.add_object(new Cube(Vector(0, -150, -165), 40, Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10));
-    scene.add_object(new Cone(Vector(0, -60, -200), Vector(0., 1., 0), 90, 150, Color(0., 1., 0.498), Color(0., 1., 0.498), Color(0., 1., 0.498), 10, false));
-    scene.add_object(new Cylinder(Vector(0, -150, -200), Vector(0., 1., 0), 5, 90, Color(0.824, 0.706, 0.549), Color(0.824, 0.706, 0.549), Color(0.824, 0.706, 0.549), 10, true, true)); 
 
-    scene.add_object(new Plan(Vector(0, -150, 0), Vector(0, 1, 0), "./utils/madeira.jpg", 1));
-    scene.add_object(new Plan(Vector(200, -150, 0), Vector(-1., 0., 0), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), 1));
-    scene.add_object(new Plan(Vector(200, -150, -400), Vector(0., 0., 1), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), 1));
-    scene.add_object(new Plan(Vector(-200, -150, 0), Vector(1., 0., 0.), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), Color(00.933, 0.933, 0.933), 1));
-    scene.add_object(new Plan(Vector(0, 150, 0), Vector(0., -1., 0.), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), 1));
+    Cube *cube = new Cube(Vector(0, 90, -165), 90, Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
+    // cube->rotation_x(0.885398);
+    // cube->rotation_y(0.185398);
+    // cube->scaling(10);
+    cube->translation(Vector(0, 9, -9));
+    cube->transform();
+
+    // scene.add_object(new Sphere(Vector(0, 95, -200), 5, Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), 10)); 
+    scene.add_object(cube);
+    // scene.add_object(new Cone(Vector(0, -60, -200), Vector(0., 1., 0), 90, 150, Color(0., 1., 0.498), Color(0., 1., 0.498), Color(0., 1., 0.498), 10, false));
+    // scene.add_object(new Cylinder(Vector(0, -150, -200), Vector(0., 1., 0), 5, 90, Color(0.824, 0.706, 0.549), Color(0.824, 0.706, 0.549), Color(0.824, 0.706, 0.549), 10, true, true)); 
+
+    // scene.add_object(new Plan(Vector(0, -150, 0), Vector(0, 1, 0), "./utils/madeira.jpg", 1));
+    // scene.add_object(new Plan(Vector(200, -150, 0), Vector(-1., 0., 0), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), 1));
+    // scene.add_object(new Plan(Vector(200, -150, -400), Vector(0., 0., 1), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), 1));
+    // scene.add_object(new Plan(Vector(-200, -150, 0), Vector(1., 0., 0.), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), Color(00.933, 0.933, 0.933), 1));
+    // scene.add_object(new Plan(Vector(0, 150, 0), Vector(0., -1., 0.), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), 1));
 
     
     scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
-    // scene.add_light(new PointLight(Color(0.7, 0.7, 0.7), Vector(-100, 140, -20))); 
-    scene.add_light(new DirectionLight(Color(0.0, 0.0, 0.0), Vector(0, 0, 0))); 
-    scene.add_light(new SpotLight(Color(0.7, 0.7, 0.7), Vector(0, 140, 0), Vector(0, -150, -165), .5)); 
+    scene.add_light(new PointLight(Color(0.7, 0.7, 0.7), Vector(-100, 140, -20))); 
+    // scene.add_light(new DirectionLight(Color(0.0, 0.0, 0.0), Vector(0, 0, 0))); 
+    // scene.add_light(new SpotLight(Color(0.7, 0.7, 0.7), Vector(0, 140, 0), Vector(0, -150, -165), .5)); 
 
     scene.draw_scenario(); 
 

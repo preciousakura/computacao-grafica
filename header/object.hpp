@@ -3,6 +3,7 @@
 
 #include "color.hpp"
 #include "vector.hpp"
+#include "matrix.hpp"
 #include <tuple>
 #include <cmath>
 #include <vector>
@@ -19,6 +20,8 @@ class Object {
         Color current_color;
         bool has_img = false;
 
+        std::vector<Matrix> transformations;
+
     public:
 
         Object();
@@ -26,6 +29,15 @@ class Object {
         Object(const char * name, double s);
         
         virtual std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max) = 0;
+
+        virtual void transform() = 0;
+
+        virtual void rotation_x(double angle) = 0;
+        virtual void rotation_y(double angle) = 0;
+        virtual void rotation_z(double angle) = 0;
+        virtual void translation(Vector v) = 0;
+        virtual void scaling(double x, double y, double z) = 0;
+        virtual void scaling(double size) = 0;
 
         void set_kd(Color color);
         Color get_kd();
@@ -47,6 +59,9 @@ class Object {
         Color get_current_color();
 
         bool has_image();
+
+        void set_transformation(Matrix m);
+        std::vector<Matrix> get_transformation();
 };
 
 #endif

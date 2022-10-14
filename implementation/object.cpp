@@ -38,6 +38,9 @@ Color Object::get_ke(){ return ke; }
 double Object::get_specular(){ return specular; }
 void Object::set_specular(double specular){ this->specular = specular; }
 
+std::vector<Matrix> Object::get_transformation() { return this->transformations; }
+void Object::set_transformation(Matrix m) { this->transformations.push_back(m); }
+
 // imagens
 
 bool Object::has_image() { return this->has_img; }

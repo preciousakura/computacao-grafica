@@ -85,6 +85,17 @@ Vector Cylinder::get_normal(Vector O, Vector D, double &t) {
     return AP;
 }
 
+void Cylinder::transform() {
+
+}
+
+void Cylinder::rotation_x(double angle) {}
+void Cylinder::rotation_y(double angle) {}
+void Cylinder::rotation_z(double angle) {}
+void Cylinder::translation(Vector v) {}
+void Cylinder::scaling(double x, double y, double z) {}
+void Cylinder::scaling(double size) {}
+
 void Cylinder::set_center(Vector c) { center = c; }
 void Cylinder::set_dc(Vector c) { dc = c; }
 void Cylinder::set_height(double h) { height = h; }

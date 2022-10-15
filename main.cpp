@@ -24,7 +24,7 @@ int main() {
     Scene scene(O, viewport, canva);
 
     Cube *cube = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
-    cube->rotation_y(0.885398);
+    cube->rotation_y(0.285398);
     cube->transform();
     // cube->rotation_y(0.185398);
     cube->scaling(90);

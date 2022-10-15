@@ -27,18 +27,18 @@ Matrix Matrix::operator * (Matrix M) {
 Vector Matrix::matrix_to_vector() {
     Vector v;
     v.set_x(this->values[0][0]);
-    v.set_y(this->values[0][1]);
-    v.set_z(this->values[0][2]);
-    v.set_a(this->values[0][3]);
+    v.set_y(this->values[1][0]);
+    v.set_z(this->values[2][0]);
+    v.set_a(this->values[3][0]);
     return v;
 }
 
 Matrix Matrix::vector_to_matrix(Vector v) {
-    Matrix M(1, 4);
+    Matrix M(4, 1);
     M.values[0][0] = v.get_x();
-    M.values[0][1] = v.get_y();
-    M.values[0][2] = v.get_z();
-    M.values[0][3] = v.get_a();
+    M.values[1][0] = v.get_y();
+    M.values[2][0] = v.get_z();
+    M.values[3][0] = 1;
     return M;
 }
 
@@ -80,11 +80,11 @@ Matrix Matrix::rotation_z_matrix(double angle) {
     return M;
 }
 
-Matrix Matrix::translation_matrix(double x, double y, double z) {
+Matrix Matrix::translation_matrix(Vector v) {
     Matrix M(4, 4);
-    M.values[0] = {1., 0., 0., x};
-    M.values[1] = {0., 1., 0., y};
-    M.values[2] = {0., 0., 1., z};
+    M.values[0] = {1., 0., 0., v.get_x()};
+    M.values[1] = {0., 1., 0., v.get_y()};
+    M.values[2] = {0., 0., 1., v.get_z()};
     M.values[3] = {0., 0., 0., 1.};
     return M;
 }

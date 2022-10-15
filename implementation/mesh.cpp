@@ -62,20 +62,21 @@ Vector Mesh::Face::get_normal() {
 }
 
 void Mesh::transform() {
-    if(this->get_transformation().size() > 0) {
-        Matrix M = Matrix::identity(4);
-        for(Matrix m:this->get_transformation()) M = M * m;
+    Matrix M = Matrix::identity(4);
+    for(Matrix m:this->get_transformation()) M = M * m;
 
-        for(Vector *&vertice : this->vertices) {
-            Vector v = (Matrix::vector_to_matrix(*vertice) * M).matrix_to_vector();  
+    this->center = (M * Matrix::vector_to_matrix(this->center)).matrix_to_vector();  
 
-            vertice->set_x(v.get_x());
-            vertice->set_y(v.get_y()); 
-            vertice->set_z(v.get_z());
-            vertice->set_a(v.get_a());
-        }
-        this->update_normals();
+    for(Vector *&vertice : this->vertices) {
+        Vector v = (M * Matrix::vector_to_matrix(*vertice)).matrix_to_vector();  
+
+        vertice->set_x(v.get_x());
+        vertice->set_y(v.get_y()); 
+        vertice->set_z(v.get_z());
+        vertice->set_a(v.get_a());
     }
+    this->update_normals();
+    this->clear_transform();
 }
 
 void Mesh::rotation_x(double angle) {
@@ -91,7 +92,7 @@ void Mesh::rotation_z(double angle) {
     this->set_transformation(r_z);
 }
 void Mesh::translation(Vector v) {
-    Matrix translation = Matrix::translation_matrix(v.get_x(), v.get_y(), v.get_z());
+    Matrix translation = Matrix::translation_matrix(v - center);
     this->set_transformation(translation);
 }
 void Mesh::scaling(double x, double y, double z) {

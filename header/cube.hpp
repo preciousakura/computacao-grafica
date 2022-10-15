@@ -11,8 +11,8 @@ class Cube: public Mesh {
 
     public:
         Cube();
-        Cube(Vector center, double size, Color kd, Color ka, Color ke, double s);
-        Cube(Vector center, double size, const char * name, double s);
+        Cube(Color kd, Color ka, Color ke, double s);
+        Cube(const char * name, double s);
 
         void set_size(double size);
         int get_size();

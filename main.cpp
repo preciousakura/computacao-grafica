@@ -23,11 +23,15 @@ int main() {
 
     Scene scene(O, viewport, canva);
 
-    Cube *cube = new Cube(Vector(0, 90, -165), 90, Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
-    // cube->rotation_x(0.885398);
+    Cube *cube = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
+    cube->rotation_y(0.885398);
+    cube->transform();
     // cube->rotation_y(0.185398);
-    // cube->scaling(10);
-    cube->translation(Vector(0, 9, -9));
+    cube->scaling(90);
+    cube->transform();
+
+
+    cube->translation(Vector(0, 90, -165));
     cube->transform();
 
     // scene.add_object(new Sphere(Vector(0, 95, -200), 5, Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), 10)); 

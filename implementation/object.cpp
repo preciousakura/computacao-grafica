@@ -40,6 +40,7 @@ void Object::set_specular(double specular){ this->specular = specular; }
 
 std::vector<Matrix> Object::get_transformation() { return this->transformations; }
 void Object::set_transformation(Matrix m) { this->transformations.push_back(m); }
+void Object::clear_transform() { this->transformations.clear(); }
 
 // imagens
 

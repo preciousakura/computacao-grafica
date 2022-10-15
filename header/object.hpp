@@ -59,6 +59,7 @@ class Object {
         Color get_current_color();
 
         bool has_image();
+        void clear_transform();
 
         void set_transformation(Matrix m);
         std::vector<Matrix> get_transformation();

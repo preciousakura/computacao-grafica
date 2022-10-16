@@ -33,6 +33,12 @@ void Mesh::update_normals() {
     for(Face * f: this->faces) f->update_normal();
 }
 
+void Mesh::update_normals(Matrix M) {
+    for(Face * f: this->faces) {
+        f->normal = (~M * Matrix::vector_to_matrix(f->normal)).matrix_to_vector();
+    }
+}
+
 bool Mesh::Face::in_face(Vector P) {
     Vector N = this->get_normal();
 
@@ -75,34 +81,107 @@ void Mesh::transform() {
         vertice->set_z(v.get_z());
         vertice->set_a(v.get_a());
     }
-    this->update_normals();
+    
     this->clear_transform();
 }
 
 void Mesh::rotation_x(double angle) {
     Matrix r_x = Matrix::rotation_x_matrix(angle);
     this->set_transformation(r_x);
+    this->transform();
+    this->update_normals();
 }
 void Mesh::rotation_y(double angle) {
     Matrix r_y = Matrix::rotation_y_matrix(angle);
     this->set_transformation(r_y);
+    this->transform();
+    this->update_normals();
 }
 void Mesh::rotation_z(double angle) {
     Matrix r_z = Matrix::rotation_z_matrix(angle);
     this->set_transformation(r_z);
+    this->transform();
+    this->update_normals();
 }
 void Mesh::translation(Vector v) {
     Matrix translation = Matrix::translation_matrix(v - center);
     this->set_transformation(translation);
+    this->transform();
+    this->update_normals();
 }
 void Mesh::scaling(double x, double y, double z) {
     Matrix scaling = Matrix::scaling_matrix(x, y, z);
     this->set_transformation(scaling);
+    this->transform();
+    this->update_normals();
 }
 void Mesh::scaling(double size) {
     Matrix scaling = Matrix::scaling_matrix(size, size, size);
     this->set_transformation(scaling);
+    this->transform();
+    this->update_normals();
 }
+void Mesh::shearing_xy(double angle) {
+    Matrix shear = Matrix::shearing_xy_matrix(angle);
+    this->set_transformation(shear);
+    this->transform();
+    this->update_normals();
+}
+void Mesh::shearing_xz(double angle) {
+    Matrix shear = Matrix::shearing_xz_matrix(angle);
+    this->set_transformation(shear);
+    this->transform();
+    this->update_normals();
+}
+void Mesh::shearing_yx(double angle) {
+    Matrix shear = Matrix::shearing_yx_matrix(angle);
+    this->set_transformation(shear);
+    this->transform();
+    this->update_normals();
+}
+void Mesh::shearing_yz(double angle) {
+    Matrix shear = Matrix::shearing_yz_matrix(angle);
+    this->set_transformation(shear);
+    this->transform();
+    this->update_normals();
+}
+void Mesh::shearing_zx(double angle) {
+    Matrix shear = Matrix::shearing_zx_matrix(angle);
+    this->set_transformation(shear);
+    this->transform();
+    this->update_normals();
+}
+void Mesh::shearing_zy(double angle) {
+    Matrix shear = Matrix::shearing_zy_matrix(angle);
+    this->set_transformation(shear);
+    this->transform();
+    this->update_normals();
+}
+void Mesh::reflection_xy() {
+    Matrix reflection = Matrix::reflection_xy_matrix();
+    this->set_transformation(reflection);  
+    this->transform();
+    this->update_normals(reflection);
+}
+void Mesh::reflection_yz() {
+    Matrix reflection = Matrix::reflection_yz_matrix();
+    this->set_transformation(reflection);
+    this->transform();
+    this->update_normals(reflection);
+}
+void Mesh::reflection_xz() {
+    Matrix reflection = Matrix::reflection_xz_matrix();
+    this->set_transformation(reflection);
+    this->transform();
+    this->update_normals(reflection);
+}
+void Mesh::reflection_at(Vector p, Vector n) {
+    Matrix reflection = Matrix::reflection_at_matrix(p, n);
+    this->set_transformation(reflection);
+    this->transform();
+    this->update_normals(reflection);
+}
+
 void Mesh::set_center(Vector c) { this->center = c; }
 Vector Mesh::get_center() { return this->center; }
 

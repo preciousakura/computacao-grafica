@@ -22,6 +22,16 @@ class Sphere : public Object  {
         void translation(Vector v);
         void scaling(double x, double y, double z);
         void scaling(double size);
+        void shearing_xy(double angle);
+        void shearing_xz(double angle);
+        void shearing_yx(double angle);
+        void shearing_yz(double angle);
+        void shearing_zx(double angle);
+        void shearing_zy(double angle);
+        void reflection_xy();
+        void reflection_yz();
+        void reflection_xz();
+        void reflection_at(Vector p, Vector n);
 
         Vector get_center();
         void set_center(Vector center);

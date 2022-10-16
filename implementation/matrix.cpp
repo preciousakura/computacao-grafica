@@ -24,6 +24,39 @@ Matrix Matrix::operator * (Matrix M) {
     return B;
 }
 
+Matrix Matrix::operator * (double e) {
+    Matrix A(this->row, this->col);
+    for(int i = 0; i < this->col; i++)
+        for(int j = 0; j < this->row; j++)
+            A.values[i][j] = this->values[i][j] * e;
+    return A;
+}
+
+Matrix Matrix::operator - (Matrix m) {
+    if(this->row != m.row || this->col != m.col) return Matrix(1, 1);
+    Matrix B(m.row, m.col);
+    for(int i = 0; i < this->col; i++)
+        for(int j = 0; j < this->row; j++)
+            B.values[i][j] = this->values[i][j] - m.values[i][j];
+    return B;
+}
+
+Matrix Matrix::operator - () {
+    Matrix A(this->row, this->col);
+    for(int i = 0; i < this->col; i++)
+        for(int j = 0; j < this->row; j++)
+            A.values[i][j] = -this->values[i][j];
+    return A;
+}
+
+Matrix Matrix::operator ~ () {  
+    Matrix A(this->col, this->row);  
+    for(int i = 0; i < this->col; i++)
+        for(int j = 0; j < this->row; j++)
+            A.values[i][j] = this->values[j][i];
+    return A; 
+}
+
 Vector Matrix::matrix_to_vector() {
     Vector v;
     v.set_x(this->values[0][0]);
@@ -96,6 +129,97 @@ Matrix Matrix::scaling_matrix(double x, double y, double z) {
     M.values[2] = {0., 0., z , 0.};
     M.values[3] = {0., 0., 0., 1.};
     return M;
+}
+
+Matrix Matrix::shearing_xy_matrix(double angle) {
+    Matrix M(4, 4);
+    M.values[0] = {1., tan(angle), 0., 0.};
+    M.values[1] = {0., 1.,         0., 0.};
+    M.values[2] = {0., 0.,         1., 0.};
+    M.values[3] = {0., 0.,         0., 1.};
+    return M;
+}
+
+Matrix Matrix::shearing_xz_matrix(double angle) {
+    Matrix M(4, 4);
+    M.values[0] = {1., 0., tan(angle), 0.};
+    M.values[1] = {0., 1., 0.,         0.};
+    M.values[2] = {0., 0., 1.,         0.};
+    M.values[3] = {0., 0., 0.,         1.};
+    return M;
+}
+
+Matrix Matrix::shearing_yx_matrix(double angle) {
+    Matrix M(4, 4);
+    M.values[0] = {1.,         0., 0., 0.};
+    M.values[1] = {tan(angle), 1., 0., 0.};
+    M.values[2] = {0.,         0., 1., 0.};
+    M.values[3] = {0.,         0., 0., 1.};
+    return M;
+}
+
+Matrix Matrix::shearing_yz_matrix(double angle) {
+    Matrix M(4, 4);
+    M.values[0] = {1., 0., 0.,         0.};
+    M.values[1] = {0., 1., tan(angle), 0.};
+    M.values[2] = {0., 0., 1.,         0.};
+    M.values[3] = {0., 0., 0.,         1.};
+    return M;
+}
+
+Matrix Matrix::shearing_zx_matrix(double angle) {
+    Matrix M(4, 4);
+    M.values[0] = {1.,         0., 0., 0.};
+    M.values[1] = {0.,         1., 0., 0.};
+    M.values[2] = {tan(angle), 0., 1., 0.};
+    M.values[3] = {0.,         0., 0., 1.};
+    return M;
+}
+
+Matrix Matrix::shearing_zy_matrix(double angle) {
+    Matrix M(4, 4);
+    M.values[0] = {1., 0.,         0., 0.};
+    M.values[1] = {0., 1.,         0., 0.};
+    M.values[2] = {0., tan(angle), 1., 0.};
+    M.values[3] = {0., 0.,         0., 1.};
+    return M;
+}
+
+Matrix Matrix::reflection_xy_matrix() {
+    Matrix M(4, 4);
+    M.values[0] = {1., 0.,  0., 0.};
+    M.values[1] = {0., 1.,  0., 0.};
+    M.values[2] = {0., 0., -1., 0.};
+    M.values[3] = {0., 0.,  0., 1.};
+    return M;
+}
+Matrix Matrix::reflection_yz_matrix() {
+    Matrix M(4, 4);
+    M.values[0] = {-1., 0., 0., 0.};
+    M.values[1] = { 0., 1., 0., 0.};
+    M.values[2] = { 0., 0., 1., 0.};
+    M.values[3] = { 0., 0., 0., 1.};
+    return M;
+}
+Matrix Matrix::reflection_xz_matrix() {
+    Matrix M(4, 4);
+    M.values[0] = {1.,  0., 0., 0.};
+    M.values[1] = {0., -1., 0., 0.};
+    M.values[2] = {0.,  0., 1., 0.};
+    M.values[3] = {0.,  0., 0., 1.};
+    return M;
+}
+
+Matrix Matrix::householder_matrix(Vector n) {
+    Matrix normal = Matrix::vector_to_matrix(n);
+    Matrix M = Matrix::identity(4) - normal * (~normal) * 2;
+    M.values[0][3] = M.values[1][3] = M.values[2][3] = M.values[3][0] = M.values[3][1] = M.values[3][2] = 0.;
+    M.values[3][3] = 1.;
+    return M;
+}
+
+Matrix Matrix::reflection_at_matrix(Vector p, Vector n) {
+    return Matrix::translation_matrix(p) * Matrix::householder_matrix(n/~n) * Matrix::translation_matrix(-p);
 }
 
 std::vector<std::vector<double>> Matrix::get_values() { return this->values; }

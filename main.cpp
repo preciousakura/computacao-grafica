@@ -18,21 +18,20 @@ using namespace std;
 
 int main() {
     Vector O(0, 0, 0); 
-    Viewport viewport(60, 60, -20);
+    Viewport viewport(60, 60, -10);
     Canva canva(500, 500, Color::convert_rgb(100, 100, 100)); 
 
     Scene scene(O, viewport, canva);
 
     Cube *cube = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
-    cube->rotation_y(0.285398);
-    cube->transform();
+    // cube->rotation_y(0.285398);
+    // cube->transform();
     // cube->rotation_y(0.185398);
-    cube->scaling(90);
-    cube->transform();
-
-
-    cube->translation(Vector(0, 90, -165));
-    cube->transform();
+    cube->scaling(90, 160, 90);
+    cube->shearing_xy(-0.76);
+    cube->translation(Vector(-120, -120, -165));
+    cube->reflection_at(Vector(0, 1, 0), Vector(1, 0, 0));
+    // cube->reflection_yz();
 
     // scene.add_object(new Sphere(Vector(0, 95, -200), 5, Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), 10)); 
     scene.add_object(cube);

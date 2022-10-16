@@ -102,6 +102,17 @@ void Cone::rotation_z(double angle) {}
 void Cone::translation(Vector v) {}
 void Cone::scaling(double x, double y, double z) {}
 void Cone::scaling(double size) {}
+void Cone::shearing_xy(double angle) {}
+void Cone::shearing_xz(double angle) {}
+void Cone::shearing_yx(double angle) {}
+void Cone::shearing_yz(double angle) {}
+void Cone::shearing_zx(double angle) {}
+void Cone::shearing_zy(double angle) {}
+void Cone::reflection_xy() {}
+void Cone::reflection_yz() {}
+void Cone::reflection_xz() {}
+void Cone::reflection_at(Vector p, Vector n) {}
+
 
 Vector Cone::get_center() { return this->center; }
 Vector Cone::get_v() { return this->V; }

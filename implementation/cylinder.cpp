@@ -95,6 +95,16 @@ void Cylinder::rotation_z(double angle) {}
 void Cylinder::translation(Vector v) {}
 void Cylinder::scaling(double x, double y, double z) {}
 void Cylinder::scaling(double size) {}
+void Cylinder::shearing_xy(double angle) {}
+void Cylinder::shearing_xz(double angle) {}
+void Cylinder::shearing_yx(double angle) {}
+void Cylinder::shearing_yz(double angle) {}
+void Cylinder::shearing_zx(double angle) {}
+void Cylinder::shearing_zy(double angle) {}
+void Cylinder::reflection_xy() {}
+void Cylinder::reflection_yz() {}
+void Cylinder::reflection_xz() {}
+void Cylinder::reflection_at(Vector p, Vector n) {}
 
 void Cylinder::set_center(Vector c) { center = c; }
 void Cylinder::set_dc(Vector c) { dc = c; }

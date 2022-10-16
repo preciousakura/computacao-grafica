@@ -40,6 +40,16 @@ void Sphere::rotation_z(double angle) {}
 void Sphere::translation(Vector v) {}
 void Sphere::scaling(double x, double y, double z) {}
 void Sphere::scaling(double size) {}
+void Sphere::shearing_xy(double angle) {}
+void Sphere::shearing_xz(double angle) {}
+void Sphere::shearing_yx(double angle) {}
+void Sphere::shearing_yz(double angle) {}
+void Sphere::shearing_zx(double angle) {}
+void Sphere::shearing_zy(double angle) {}
+void Sphere::reflection_xy() {}
+void Sphere::reflection_yz() {}
+void Sphere::reflection_xz() {}
+void Sphere::reflection_at(Vector p, Vector n) {}
 
 Vector Sphere::get_center(){ return this->center; }
 void Sphere::set_center(Vector center){ this->center = center; }

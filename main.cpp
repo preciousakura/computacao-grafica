@@ -17,38 +17,95 @@
 using namespace std;
 
 int main() {
-    Vector O(0, 0, 0); 
-    Viewport viewport(60, 60, -10);
+    Vector O(-390, 90, 0); 
+    Viewport viewport(60, 60, -5);
     Canva canva(500, 500, Color::convert_rgb(100, 100, 100)); 
 
     Scene scene(O, viewport, canva);
 
-    Cube *cube = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
-    // cube->rotation_y(0.285398);
-    // cube->transform();
-    // cube->rotation_y(0.185398);
-    cube->scaling(90, 160, 90);
-    cube->shearing_xy(-0.76);
-    cube->translation(Vector(-120, -120, -165));
-    cube->reflection_at(Vector(0, 1, 0), Vector(1, 0, 0));
-    // cube->reflection_yz();
+    // teto forro
+    
+    Cube *left_roof = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
+    Cube *right_roof = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
 
-    // scene.add_object(new Sphere(Vector(0, 95, -200), 5, Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), 10)); 
-    scene.add_object(cube);
-    // scene.add_object(new Cone(Vector(0, -60, -200), Vector(0., 1., 0), 90, 150, Color(0., 1., 0.498), Color(0., 1., 0.498), Color(0., 1., 0.498), 10, false));
-    // scene.add_object(new Cylinder(Vector(0, -150, -200), Vector(0., 1., 0), 5, 90, Color(0.824, 0.706, 0.549), Color(0.824, 0.706, 0.549), Color(0.824, 0.706, 0.549), 10, true, true)); 
+    left_roof->scaling(300, 50, 170);
+    left_roof->shearing_yx(0.75);
+    left_roof->translation(Vector(-125, 0, -265));
 
-    // scene.add_object(new Plan(Vector(0, -150, 0), Vector(0, 1, 0), "./utils/madeira.jpg", 1));
-    // scene.add_object(new Plan(Vector(200, -150, 0), Vector(-1., 0., 0), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), 1));
-    // scene.add_object(new Plan(Vector(200, -150, -400), Vector(0., 0., 1), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), 1));
-    // scene.add_object(new Plan(Vector(-200, -150, 0), Vector(1., 0., 0.), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), Color(00.933, 0.933, 0.933), 1));
-    // scene.add_object(new Plan(Vector(0, 150, 0), Vector(0., -1., 0.), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), 1));
+    right_roof->scaling(300, 50, 170);
+    right_roof->shearing_yx(0.75);
+    right_roof->translation(Vector(-175, 0, -265));
+    right_roof->reflection_yz();
 
+    scene.add_object(left_roof);
+    scene.add_object(right_roof);
+
+    // teto frontal
+
+    Cube *front_left_roof = new Cube(Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), 10);
+    Cube *front_right_roof = new Cube(Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), 10);
+
+    front_left_roof->scaling(300, 50, 30);
+    front_left_roof->shearing_yx(0.75);
+    front_left_roof->translation(Vector(-125, 0, -165));
+
+    front_right_roof->scaling(300, 50, 30);
+    front_right_roof->shearing_yx(0.75);
+    front_right_roof->translation(Vector(-175, 0, -165));
+    front_right_roof->reflection_yz();
+
+    
+    scene.add_object(front_left_roof);
+    scene.add_object(front_right_roof);
+
+    // teto traseiro
+
+    Cube *back_left_roof = new Cube(Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), 10);
+    Cube *back_right_roof = new Cube(Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), 10);
+
+    back_left_roof->scaling(300, 50, 30);
+    back_left_roof->shearing_yx(0.75);
+    back_left_roof->translation(Vector(-125, 0, -365));
+
+    back_right_roof->scaling(300, 50, 30);
+    back_right_roof->shearing_yx(0.75);
+    back_right_roof->translation(Vector(-175, 0, -365));
+    back_right_roof->reflection_yz();
+
+    
+    scene.add_object(back_left_roof);
+    scene.add_object(back_right_roof);
+
+    // vigas frontais
+
+    Cube *front_left_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
+    Cube *front_right_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
+
+    front_left_beam->scaling(50, 500, 30);
+    front_left_beam->translation(Vector(-300, -365, -165));
+
+    front_right_beam->scaling(50, 500, 30);
+    front_right_beam->translation(Vector(350, -365, -165));
+
+    scene.add_object(front_left_beam);
+    scene.add_object(front_right_beam);
+
+    // vigas traseiras
+
+    Cube *back_left_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
+    Cube *back_right_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
+
+    back_left_beam->scaling(50, 500, 30);
+    back_left_beam->translation(Vector(-300, -365, -365));
+
+    back_right_beam->scaling(50, 500, 30);
+    back_right_beam->translation(Vector(350, -365, -365));
+
+    scene.add_object(back_left_beam);
+    scene.add_object(back_right_beam);
     
     scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
     scene.add_light(new PointLight(Color(0.7, 0.7, 0.7), Vector(-100, 140, -20))); 
-    // scene.add_light(new DirectionLight(Color(0.0, 0.0, 0.0), Vector(0, 0, 0))); 
-    // scene.add_light(new SpotLight(Color(0.7, 0.7, 0.7), Vector(0, 140, 0), Vector(0, -150, -165), .5)); 
 
     scene.draw_scenario(); 
 

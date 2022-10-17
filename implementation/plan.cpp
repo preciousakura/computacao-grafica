@@ -18,26 +18,11 @@ Vector Plan::get_normal(Vector O, Vector D, double &t) {
     return N;
 }
 
-void Plan::transform() {
+void Plan::transform() {}
+void Plan::translate(Vector v) {}
+void Plan::update_normals() {}
+void Plan::update_normals(Matrix m) {}
 
-}
-
-void Plan::rotation_x(double angle) {}
-void Plan::rotation_y(double angle) {}
-void Plan::rotation_z(double angle) {}
-void Plan::translation(Vector v) {}
-void Plan::scaling(double x, double y, double z) {}
-void Plan::scaling(double size) {}
-void Plan::shearing_xy(double angle) {}
-void Plan::shearing_xz(double angle) {}
-void Plan::shearing_yx(double angle) {}
-void Plan::shearing_yz(double angle) {}
-void Plan::shearing_zx(double angle) {}
-void Plan::shearing_zy(double angle) {}
-void Plan::reflection_xy() {}
-void Plan::reflection_yz() {}
-void Plan::reflection_xz() {}
-void Plan::reflection_at(Vector p, Vector n) {}
 
 void Plan::set_p(Vector ponto) { P = ponto; }
 Vector Plan::get_p() { return P; }

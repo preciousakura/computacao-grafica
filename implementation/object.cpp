@@ -39,8 +39,112 @@ double Object::get_specular(){ return specular; }
 void Object::set_specular(double specular){ this->specular = specular; }
 
 std::vector<Matrix> Object::get_transformation() { return this->transformations; }
-void Object::set_transformation(Matrix m) { this->transformations.push_back(m); }
 void Object::clear_transform() { this->transformations.clear(); }
+
+void Object::rotation_x(double angle) {
+    Matrix r_x = Matrix::rotation_x_matrix(angle);
+    this->transformations.push_back(r_x);
+    this->transform();
+    this->update_normals();
+}
+void Object::rotation_y(double angle) {
+    Matrix r_y = Matrix::rotation_y_matrix(angle);
+    this->transformations.push_back(r_y);
+    this->transform();
+    this->update_normals();
+}
+void Object::rotation_z(double angle) {
+    Matrix r_z = Matrix::rotation_z_matrix(angle);
+    this->transformations.push_back(r_z);
+    this->transform();
+    this->update_normals();
+}
+
+void Object::scaling(double x, double y, double z) {
+    Matrix scaling = Matrix::scaling_matrix(x, y, z);
+    this->transformations.push_back(scaling);
+    this->transform();
+    this->update_normals();
+}
+void Object::scaling(double size) {
+    Matrix scaling = Matrix::scaling_matrix(size, size, size);
+    this->transformations.push_back(scaling);
+    this->transform();
+    this->update_normals();
+}
+void Object::shearing_xy(double angle) {
+    Matrix shear = Matrix::shearing_xy_matrix(angle);
+    this->transformations.push_back(shear);
+    this->transform();
+    this->update_normals();
+}
+void Object::shearing_xz(double angle) {
+    Matrix shear = Matrix::shearing_xz_matrix(angle);
+    this->transformations.push_back(shear);
+    this->transform();
+    this->update_normals();
+}
+void Object::shearing_yx(double angle) {
+    Matrix shear = Matrix::shearing_yx_matrix(angle);
+    this->transformations.push_back(shear);
+    this->transform();
+    this->update_normals();
+}
+void Object::shearing_yz(double angle) {
+    Matrix shear = Matrix::shearing_yz_matrix(angle);
+    this->transformations.push_back(shear);
+    this->transform();
+    this->update_normals();
+}
+void Object::shearing_zx(double angle) {
+    Matrix shear = Matrix::shearing_zx_matrix(angle);
+    this->transformations.push_back(shear);
+    this->transform();
+    this->update_normals();
+}
+void Object::shearing_zy(double angle) {
+    Matrix shear = Matrix::shearing_zy_matrix(angle);
+    this->transformations.push_back(shear);
+    this->transform();
+    this->update_normals();
+}
+void Object::reflection_xy() {
+    Matrix reflection = Matrix::reflection_xy_matrix();
+    this->transformations.push_back(reflection);  
+    this->transform();
+    this->update_normals(reflection);
+}
+void Object::reflection_yz() {
+    Matrix reflection = Matrix::reflection_yz_matrix();
+    this->transformations.push_back(reflection);
+    this->transform();
+    this->update_normals(reflection);
+}
+void Object::reflection_xz() {
+    Matrix reflection = Matrix::reflection_xz_matrix();
+    this->transformations.push_back(reflection);
+    this->transform();
+    this->update_normals(reflection);
+}
+void Object::reflection_at(Vector p, Vector n) {
+    Matrix reflection = Matrix::reflection_at_matrix(p, n);
+    this->transformations.push_back(reflection);
+    this->transform();
+    this->update_normals(reflection);
+}
+
+void Object::world_to_camera(Matrix wc) {
+    this->transformations.push_back(wc);
+    this->transform();
+    this->update_normals();
+}
+void Object::camera_to_world(Matrix cw) {
+    this->transformations.push_back(cw);
+    this->transform();
+    this->update_normals();
+}
+
+void Object::set_transformation(Matrix m) { this->transformations.push_back(m); }
 
 // imagens
 

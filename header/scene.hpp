@@ -29,6 +29,7 @@ class Scene {
         void add_light(Light *l);
         void draw_scenario();
         void save_scenario(const char* image_name);
+        void lookAt(Vector e, Vector at, Vector up);
 };
 
 #endif

@@ -31,24 +31,27 @@ class Object {
         virtual std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max) = 0;
 
         virtual void transform() = 0;
+        virtual void update_normals() = 0;
+        virtual void update_normals(Matrix M) = 0;
+        virtual void translate(Vector v) = 0;
 
-        virtual void rotation_x(double angle) = 0;
-        virtual void rotation_y(double angle) = 0;
-        virtual void rotation_z(double angle) = 0;
-        virtual void translation(Vector v) = 0;
-        virtual void scaling(double x, double y, double z) = 0;
-        virtual void scaling(double size) = 0;
-        virtual void shearing_xy(double angle) = 0;
-        virtual void shearing_xz(double angle) = 0;
-        virtual void shearing_yx(double angle) = 0;
-        virtual void shearing_yz(double angle) = 0;
-        virtual void shearing_zx(double angle) = 0;
-        virtual void shearing_zy(double angle) = 0;
-
-        virtual void reflection_xy() = 0;
-        virtual void reflection_yz() = 0;
-        virtual void reflection_xz() = 0;
-        virtual void reflection_at(Vector p, Vector n) = 0;
+        void rotation_x(double angle);
+        void rotation_y(double angle);
+        void rotation_z(double angle);
+        void scaling(double x, double y, double z);
+        void scaling(double size);
+        void shearing_xy(double angle);
+        void shearing_xz(double angle);
+        void shearing_yx(double angle);
+        void shearing_yz(double angle);
+        void shearing_zx(double angle);
+        void shearing_zy(double angle);
+        void reflection_xy();
+        void reflection_yz();
+        void reflection_xz();
+        void reflection_at(Vector p, Vector n);
+        void world_to_camera(Matrix wc);
+        void camera_to_world(Matrix cw);
 
         void set_kd(Color color);
         Color get_kd();

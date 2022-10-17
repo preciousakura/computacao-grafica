@@ -47,6 +47,9 @@ class Matrix {
         static Matrix householder_matrix(Vector n);
         static Matrix reflection_at_matrix(Vector p, Vector n);
 
+        static Matrix world_to_camera_matrix(Vector e, Vector at, Vector up);
+        static Matrix camera_to_world_matrix(Vector e, Vector at, Vector up);
+
         std::vector<std::vector<double>> get_values();
         void set_values(std::vector<std::vector<double>> v);
 

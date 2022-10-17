@@ -95,24 +95,9 @@ Vector Cone::get_normal(Vector O, Vector D, double &t) {
 }
 
 void Cone::transform() {}
-
-void Cone::rotation_x(double angle) {}
-void Cone::rotation_y(double angle) {}
-void Cone::rotation_z(double angle) {}
-void Cone::translation(Vector v) {}
-void Cone::scaling(double x, double y, double z) {}
-void Cone::scaling(double size) {}
-void Cone::shearing_xy(double angle) {}
-void Cone::shearing_xz(double angle) {}
-void Cone::shearing_yx(double angle) {}
-void Cone::shearing_yz(double angle) {}
-void Cone::shearing_zx(double angle) {}
-void Cone::shearing_zy(double angle) {}
-void Cone::reflection_xy() {}
-void Cone::reflection_yz() {}
-void Cone::reflection_xz() {}
-void Cone::reflection_at(Vector p, Vector n) {}
-
+void Cone::translate(Vector v) {}
+void Cone::update_normals() {}
+void Cone::update_normals(Matrix m) {}
 
 Vector Cone::get_center() { return this->center; }
 Vector Cone::get_v() { return this->V; }

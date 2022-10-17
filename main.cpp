@@ -17,24 +17,24 @@
 using namespace std;
 
 int main() {
-    Vector O(-390, 90, 0); 
-    Viewport viewport(60, 60, -5);
+    Vector O(0, 0, 0); 
+    Viewport viewport(60, 60, -40);
     Canva canva(500, 500, Color::convert_rgb(100, 100, 100)); 
 
     Scene scene(O, viewport, canva);
 
-    // teto forro
+ // teto forro
     
     Cube *left_roof = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
     Cube *right_roof = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
 
-    left_roof->scaling(300, 50, 170);
+    left_roof->scaling(300, 50, 970);
     left_roof->shearing_yx(0.75);
-    left_roof->translation(Vector(-125, 0, -265));
+    left_roof->translate(Vector(-125, 0, -665));
 
-    right_roof->scaling(300, 50, 170);
+    right_roof->scaling(300, 50, 970);
     right_roof->shearing_yx(0.75);
-    right_roof->translation(Vector(-175, 0, -265));
+    right_roof->translate(Vector(-175, 0, -665));
     right_roof->reflection_yz();
 
     scene.add_object(left_roof);
@@ -47,11 +47,11 @@ int main() {
 
     front_left_roof->scaling(300, 50, 30);
     front_left_roof->shearing_yx(0.75);
-    front_left_roof->translation(Vector(-125, 0, -165));
+    front_left_roof->translate(Vector(-125, 0, -165));
 
     front_right_roof->scaling(300, 50, 30);
     front_right_roof->shearing_yx(0.75);
-    front_right_roof->translation(Vector(-175, 0, -165));
+    front_right_roof->translate(Vector(-175, 0, -165));
     front_right_roof->reflection_yz();
 
     
@@ -65,11 +65,11 @@ int main() {
 
     back_left_roof->scaling(300, 50, 30);
     back_left_roof->shearing_yx(0.75);
-    back_left_roof->translation(Vector(-125, 0, -365));
+    back_left_roof->translate(Vector(-125, 0, -1165));
 
     back_right_roof->scaling(300, 50, 30);
     back_right_roof->shearing_yx(0.75);
-    back_right_roof->translation(Vector(-175, 0, -365));
+    back_right_roof->translate(Vector(-175, 0, -1165));
     back_right_roof->reflection_yz();
 
     
@@ -82,10 +82,10 @@ int main() {
     Cube *front_right_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
 
     front_left_beam->scaling(50, 500, 30);
-    front_left_beam->translation(Vector(-300, -365, -165));
+    front_left_beam->translate(Vector(-300, -365, -165));
 
     front_right_beam->scaling(50, 500, 30);
-    front_right_beam->translation(Vector(350, -365, -165));
+    front_right_beam->translate(Vector(350, -365, -165));
 
     scene.add_object(front_left_beam);
     scene.add_object(front_right_beam);
@@ -96,16 +96,18 @@ int main() {
     Cube *back_right_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
 
     back_left_beam->scaling(50, 500, 30);
-    back_left_beam->translation(Vector(-300, -365, -365));
+    back_left_beam->translate(Vector(-300, -365, -1165));
 
     back_right_beam->scaling(50, 500, 30);
-    back_right_beam->translation(Vector(350, -365, -365));
+    back_right_beam->translate(Vector(350, -365, -1165));
 
     scene.add_object(back_left_beam);
     scene.add_object(back_right_beam);
+
+    scene.lookAt(Vector(0, 800, -665), Vector(0, 0, -665), Vector(0, 800, -800));
     
     scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
-    scene.add_light(new PointLight(Color(0.7, 0.7, 0.7), Vector(-100, 140, -20))); 
+    scene.add_light(new PointLight(Color(0.7, 0.7, 0.7), Vector(0, 800, -20))); 
 
     scene.draw_scenario(); 
 

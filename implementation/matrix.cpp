@@ -222,6 +222,34 @@ Matrix Matrix::reflection_at_matrix(Vector p, Vector n) {
     return Matrix::translation_matrix(p) * Matrix::householder_matrix(n/~n) * Matrix::translation_matrix(-p);
 }
 
+Matrix Matrix::world_to_camera_matrix(Vector e, Vector at, Vector up) {
+    Vector k = (e - at) / ~(e - at);
+    Vector vUpk = (up - e) % k;
+    Vector i = vUpk / ~vUpk;
+    Vector j = (k % i);
+
+    Matrix M(4, 4);
+    M.values[0] = {i.get_x(),  i.get_y(), i.get_z(), -(i * e)};
+    M.values[1] = {j.get_x(),  j.get_y(), j.get_z(), -(j * e)};
+    M.values[2] = {k.get_x(),  k.get_y(), k.get_z(), -(k * e)};
+    M.values[3] = {0.,  0., 0., 1.};
+    return M;
+}
+
+Matrix Matrix::camera_to_world_matrix(Vector e, Vector at, Vector up) {
+    Vector vUp = up - e;
+    Vector k = (e - at) / ~(e - at);
+    Vector i = (vUp % k) / ~(vUp % k);
+    Vector j = (k % i);
+
+    Matrix M(4, 4);
+    M.values[0] = {i.get_x(),  j.get_x(), k.get_x(), e.get_x()};
+    M.values[1] = {i.get_y(),  j.get_y(), k.get_y(), e.get_y()};
+    M.values[2] = {i.get_z(),  j.get_z(), k.get_z(), e.get_z()};
+    M.values[3] = {0.,  0., 0., 1.};
+    return M;
+}
+
 std::vector<std::vector<double>> Matrix::get_values() { return this->values; }
 void Matrix::set_values(std::vector<std::vector<double>> v) { values =  v; }
 

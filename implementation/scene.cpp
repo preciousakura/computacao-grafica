@@ -62,6 +62,10 @@ Vector Scene::canva_to_viewport(int i, int j){
     return Vector(-viewport.get_w()/2.0 + dx/2.0 + j*dx, viewport.get_h()/2.0 - dy/2.0 - i*dy, viewport.get_d());
 }
 
+void Scene::lookAt(Vector e, Vector at, Vector up) {
+    for(Object *s : objects) s->world_to_camera(Matrix::world_to_camera_matrix(e, at, up));  
+}
+
 void Scene::add_object(Object *o){ objects.push_back(o); }
 void Scene::add_light(Light* l){ lights.push_back(l); }
 
@@ -70,6 +74,8 @@ void Scene::draw_scenario(){
         for(int j = 0; j < canva.get_h(); j++) {
             Vector D = canva_to_viewport(i, j); 
             Color color = trace_ray_objects(this->O, (D/~D), 1.0, INF, i, j);
+            // Vector D = Vector(0, 0, -1);
+            // Color color = trace_ray_objects(Vector(-viewport.get_w()/2.0 + dx/2.0 + j*dx, viewport.get_h()/2.0 - dy/2.0 - i*dy, viewport.get_d()), (D/~D), 1.0, INF, i, j);
             canva.to_color(i, j, color);
         }
     }

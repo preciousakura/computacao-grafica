@@ -2,8 +2,8 @@
 #include "../header/sphere.hpp"
 
 Sphere::Sphere(){}
-Sphere::Sphere(Vector center, double r, Color kd, Color ka, Color ke, double s) : center(center), radius(r), Object(kd, ka, ke, s){}
-Sphere::Sphere(Vector center, double r, const char * name, double s) : center(center), radius(r), Object(name, s) {}
+Sphere::Sphere(Vector center, double r, Color kd, Color ka, Color ke, double s) : center(center), radius(r), Object(center, kd, ka, ke, s){}
+Sphere::Sphere(Vector center, double r, const char * name, double s) : center(center), radius(r), Object(center, name, s) {}
 
 std::tuple<double, Vector> Sphere::intersect(Vector O, Vector D, double t_min, double t_max){
     Vector CO = O - this->center;
@@ -38,12 +38,7 @@ void Sphere::transform() {
     
     this->clear_transform();
 }
-void Sphere::translate(Vector v) {
-    Matrix translation = Matrix::translation_matrix(v - this->center);
-    this->set_transformation(translation);
-    this->transform();
-    this->update_normals();
-}
+
 void Sphere::update_normals() {}
 void Sphere::update_normals(Matrix m) {}
 

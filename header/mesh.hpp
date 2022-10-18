@@ -47,9 +47,9 @@ class Mesh : public Object {
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
 
         void transform();
-        void translate(Vector v);
         void update_normals();
         void update_normals(Matrix M);
+
 
         Vector get_center();
         void set_center(Vector c);

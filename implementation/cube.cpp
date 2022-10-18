@@ -1,8 +1,8 @@
 #include "../header/cube.hpp"
 
 Cube::Cube() {}
-Cube::Cube(Color kd, Color ka, Color ke, double s): size(1), Mesh(Vector(1, 1, 1, 1), kd, ka, ke, s) { set_faces();}
-Cube::Cube(const char* name, double s): size(1), Mesh(Vector(1, 1, 1, 1), name, s) { set_faces();}
+Cube::Cube(Color kd, Color ka, Color ke, double s): size(1), Mesh(Vector(0, 0, 0, 1), kd, ka, ke, s) { set_faces();}
+Cube::Cube(const char* name, double s): size(1), Mesh(Vector(0, 0, 0, 1), name, s) { set_faces();}
 
 void Cube::set_faces() {
     std::vector<Vector*> vertices = {  

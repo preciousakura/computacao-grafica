@@ -2,8 +2,8 @@
 #include <cmath>
 
 Mesh::Mesh() {}
-Mesh::Mesh(Vector center, Color kd, Color ka, Color ke, double s): center(center), Object(kd, ke, ka, s) {}
-Mesh::Mesh(Vector center, const char* name, double s): center(center), Object(name, s) {}
+Mesh::Mesh(Vector center, Color kd, Color ka, Color ke, double s): center(center), Object(center, kd, ke, ka, s) {}
+Mesh::Mesh(Vector center, const char* name, double s): center(center), Object(center, name, s) {}
 
 std::tuple<double, Vector> Mesh::intersect(Vector O, Vector D, double t_min, double t_max) {
     double t = INF, t_aux; 
@@ -26,17 +26,16 @@ Mesh::Face::Face(Vector *&p1, Vector *&p2, Vector *&p3): p1(p1), p2(p2), p3(p3) 
 
 void Mesh::Face::update_normal() {
     Vector N = (*this->p2 - *this->p1) % (*this->p3 - *this->p1);
-    this->normal = N / ~N;
+    this->normal = (N / ~N);
 }
 
 void Mesh::update_normals() {
     for(Face * f: this->faces) f->update_normal();
+    for(Face * f: this->faces) f->normal = f->normal * this->get_invert();
 }
 
 void Mesh::update_normals(Matrix M) {
-    for(Face * f: this->faces) {
-        f->normal = (~M * Matrix::vector_to_matrix(f->normal)).matrix_to_vector();
-    }
+    for(Face * f: this->faces) f->normal = (~M * Matrix::vector_to_matrix(f->normal)).matrix_to_vector();
 }
 
 bool Mesh::Face::in_face(Vector P) {
@@ -83,13 +82,6 @@ void Mesh::transform() {
     }
     
     this->clear_transform();
-}
-
-void Mesh::translate(Vector v) {
-    Matrix translation = Matrix::translation_matrix(v - this->center);
-    this->set_transformation(translation);
-    this->transform();
-    this->update_normals();
 }
 
 void Mesh::set_center(Vector c) { this->center = c; }

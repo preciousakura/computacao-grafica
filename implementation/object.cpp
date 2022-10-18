@@ -5,9 +5,10 @@
 #include "../header/stb_image_write.hpp"
 
 Object::Object(){}
-Object::Object(Color kd, Color ka, Color ke, double s) : kd(kd), ka(ka), ke(ke), specular(s) {}
+Object::Object(Vector center, Color kd, Color ka, Color ke, double s) : center(center), kd(kd), ka(ka), ke(ke), specular(s) {}
 
-Object::Object(const char* name, double s) { 
+Object::Object(Vector center, const char* name, double s) { 
+    this->center = center;
     this->has_img = true;
     this->specular = s;
     int8* image = stbi_load(name, &this->width, &this->height, &this->channel, 0);
@@ -64,7 +65,8 @@ void Object::scaling(double x, double y, double z) {
     Matrix scaling = Matrix::scaling_matrix(x, y, z);
     this->transformations.push_back(scaling);
     this->transform();
-    this->update_normals();
+    if(x != y && x != z && z != y) this->update_normals(scaling);
+    else this->update_normals();
 }
 void Object::scaling(double size) {
     Matrix scaling = Matrix::scaling_matrix(size, size, size);
@@ -109,28 +111,38 @@ void Object::shearing_zy(double angle) {
     this->update_normals();
 }
 void Object::reflection_xy() {
+    this->invert = this->invert * -1;
     Matrix reflection = Matrix::reflection_xy_matrix();
     this->transformations.push_back(reflection);  
     this->transform();
-    this->update_normals(reflection);
+    this->update_normals();
 }
 void Object::reflection_yz() {
+    this->invert = this->invert * -1;
     Matrix reflection = Matrix::reflection_yz_matrix();
     this->transformations.push_back(reflection);
     this->transform();
-    this->update_normals(reflection);
+    this->update_normals();
 }
 void Object::reflection_xz() {
+    this->invert = this->invert * -1;
     Matrix reflection = Matrix::reflection_xz_matrix();
     this->transformations.push_back(reflection);
     this->transform();
-    this->update_normals(reflection);
+    this->update_normals();
 }
 void Object::reflection_at(Vector p, Vector n) {
+    this->invert = this->invert * -1;
     Matrix reflection = Matrix::reflection_at_matrix(p, n);
     this->transformations.push_back(reflection);
     this->transform();
-    this->update_normals(reflection);
+    this->update_normals();
+}
+
+void Object::translate(Vector v) {
+    Matrix translate = Matrix::translation_matrix(v - this->center);
+    this->transformations.push_back(translate);
+    this->transform();
 }
 
 void Object::world_to_camera(Matrix wc) {
@@ -145,6 +157,8 @@ void Object::camera_to_world(Matrix cw) {
 }
 
 void Object::set_transformation(Matrix m) { this->transformations.push_back(m); }
+
+int Object::get_invert() { return this->invert; }
 
 // imagens
 

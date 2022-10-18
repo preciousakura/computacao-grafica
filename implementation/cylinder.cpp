@@ -2,8 +2,8 @@
 #include <bits/stdc++.h>
 
 Cylinder::Cylinder(){}
-Cylinder::Cylinder(Vector center, Vector dc, double radius, double h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(kd, ka, ke, s){}
-Cylinder::Cylinder(Vector center, Vector dc, double radius, double h, const char* name, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(name, s){}
+Cylinder::Cylinder(Vector center, Vector dc, double radius, double h, Color kd, Color ka, Color ke, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(center, kd, ka, ke, s){}
+Cylinder::Cylinder(Vector center, Vector dc, double radius, double h, const char* name, double s, bool has_base, bool has_top): has_base(has_base), has_top(has_top), center(center), dc(dc/~dc), height(h), radius(radius), Object(center, name, s){}
 
 bool Cylinder::in_shell(Vector P) {
     double projection = ((P - this->center) * this->dc);
@@ -93,13 +93,8 @@ void Cylinder::transform() {
     
     this->clear_transform();
 }
-void Cylinder::translate(Vector v) {
-    Matrix translation = Matrix::translation_matrix(v - this->center);
-    this->set_transformation(translation);
-    this->transform();
-    this->update_normals();
-}
-void Cylinder::update_normals() {}
+
+void Cylinder::update_normals() { dc = this->dc * this->get_invert(); }
 void Cylinder::update_normals(Matrix m) {
     dc = (~m * Matrix::vector_to_matrix(dc)).matrix_to_vector();
 }

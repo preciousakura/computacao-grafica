@@ -3,15 +3,15 @@
 #include <bits/stdc++.h>
 
 Cone::Cone(){}
-Cone::Cone(Vector c, Vector dc, double r, double h, const char* name, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(name, s){ V = c + (dc/~dc * h); }
-Cone::Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(ka, kd, ke, s){ V = c + (dc/~dc * h); }
-Cone::Cone(Vector c, Vector v, double r, Color kd, Color ka, Color ke, double s, bool has_base) : has_base(has_base), center(c), V(v), radius(r), Object(ka, kd, ke, s){ 
+Cone::Cone(Vector c, Vector dc, double r, double h, const char* name, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(c, name, s){ V = c + (dc/~dc * h); }
+Cone::Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(c, ka, kd, ke, s){ V = c + (dc/~dc * h); }
+Cone::Cone(Vector c, Vector v, double r, Color kd, Color ka, Color ke, double s, bool has_base) : has_base(has_base), center(c), V(v), radius(r), Object(c, ka, kd, ke, s){ 
     Vector vc = (V-c); 
     dc = vc / ~vc; 
     height = ~vc; 
 }
 
-Cone::Cone(Vector c, Vector v, double r, const char* name, double s, bool has_base) : has_base(has_base), center(c), V(v), radius(r), Object(name, s){ 
+Cone::Cone(Vector c, Vector v, double r, const char* name, double s, bool has_base) : has_base(has_base), center(c), V(v), radius(r), Object(c, name, s){ 
     Vector vc = (V-c); 
     dc = vc / ~vc; 
     height = ~vc; 
@@ -103,15 +103,10 @@ void Cone::transform() {
     
     this->clear_transform();
 }
-void Cone::translate(Vector v) {
-    Matrix translation = Matrix::translation_matrix(v - this->center);
-    this->set_transformation(translation);
-    this->transform();
-    this->update_normals();
-}
+
 void Cone::update_normals() {
     Vector vc = (V-this->center); 
-    dc = vc / ~vc; 
+    dc = (vc / ~vc) * this->get_invert(); 
     height = ~vc;
 }
 void Cone::update_normals(Matrix m) {

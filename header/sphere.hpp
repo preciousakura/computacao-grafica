@@ -16,9 +16,9 @@ class Sphere : public Object  {
         std::tuple<double, Vector> intersect(Vector O, Vector D, double t_min, double t_max);
         Vector get_normal(Vector O, Vector D, double &t);
         void transform();
-        void translate(Vector v);
         void update_normals();
         void update_normals(Matrix M);
+
 
         Vector get_center();
         void set_center(Vector center);

@@ -85,10 +85,24 @@ Vector Cylinder::get_normal(Vector O, Vector D, double &t) {
     return AP;
 }
 
-void Cylinder::transform() {}
-void Cylinder::translate(Vector v) {}
+void Cylinder::transform() {
+    Matrix M = Matrix::identity(4);
+    for(Matrix m:this->get_transformation()) M = M * m;
+
+    this->center = (M * Matrix::vector_to_matrix(this->center)).matrix_to_vector();  
+    
+    this->clear_transform();
+}
+void Cylinder::translate(Vector v) {
+    Matrix translation = Matrix::translation_matrix(v - this->center);
+    this->set_transformation(translation);
+    this->transform();
+    this->update_normals();
+}
 void Cylinder::update_normals() {}
-void Cylinder::update_normals(Matrix m) {}
+void Cylinder::update_normals(Matrix m) {
+    dc = (~m * Matrix::vector_to_matrix(dc)).matrix_to_vector();
+}
 
 void Cylinder::set_center(Vector c) { center = c; }
 void Cylinder::set_dc(Vector c) { dc = c; }

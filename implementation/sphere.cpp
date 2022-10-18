@@ -30,8 +30,20 @@ Vector Sphere::get_normal(Vector O, Vector D, double &t) {
     return (P - center)/ radius;
 }
 
-void Sphere::transform() {}
-void Sphere::translate(Vector v) {}
+void Sphere::transform() {
+    Matrix M = Matrix::identity(4);
+    for(Matrix m:this->get_transformation()) M = M * m;
+
+    this->center = (M * Matrix::vector_to_matrix(this->center)).matrix_to_vector();  
+    
+    this->clear_transform();
+}
+void Sphere::translate(Vector v) {
+    Matrix translation = Matrix::translation_matrix(v - this->center);
+    this->set_transformation(translation);
+    this->transform();
+    this->update_normals();
+}
 void Sphere::update_normals() {}
 void Sphere::update_normals(Matrix m) {}
 

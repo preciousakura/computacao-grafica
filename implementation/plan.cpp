@@ -18,7 +18,14 @@ Vector Plan::get_normal(Vector O, Vector D, double &t) {
     return N;
 }
 
-void Plan::transform() {}
+void Plan::transform() {
+    Matrix M = Matrix::identity(4);
+    for(Matrix m:this->get_transformation()) M = M * m;
+
+    this->P = (M * Matrix::vector_to_matrix(this->P)).matrix_to_vector();  
+    
+    this->clear_transform();
+}
 void Plan::translate(Vector v) {}
 void Plan::update_normals() {}
 void Plan::update_normals(Matrix m) {}

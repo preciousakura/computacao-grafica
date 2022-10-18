@@ -94,10 +94,29 @@ Vector Cone::get_normal(Vector O, Vector D, double &t) {
     return (N/~N);
 }
 
-void Cone::transform() {}
-void Cone::translate(Vector v) {}
-void Cone::update_normals() {}
-void Cone::update_normals(Matrix m) {}
+void Cone::transform() {
+    Matrix M = Matrix::identity(4);
+    for(Matrix m:this->get_transformation()) M = M * m;
+
+    this->center = (M * Matrix::vector_to_matrix(this->center)).matrix_to_vector();  
+    this->V = (M * Matrix::vector_to_matrix(this->V)).matrix_to_vector(); 
+    
+    this->clear_transform();
+}
+void Cone::translate(Vector v) {
+    Matrix translation = Matrix::translation_matrix(v - this->center);
+    this->set_transformation(translation);
+    this->transform();
+    this->update_normals();
+}
+void Cone::update_normals() {
+    Vector vc = (V-this->center); 
+    dc = vc / ~vc; 
+    height = ~vc;
+}
+void Cone::update_normals(Matrix m) {
+    dc = (~m * Matrix::vector_to_matrix(dc)).matrix_to_vector();
+}
 
 Vector Cone::get_center() { return this->center; }
 Vector Cone::get_v() { return this->V; }

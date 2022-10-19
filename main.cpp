@@ -18,7 +18,7 @@ using namespace std;
 
 int main() {
     Vector O(0, 0, 0); 
-    Viewport viewport(60, 60, -40);
+    Viewport viewport(60, 60, -20);
     Canva canva(500, 500, Color::convert_rgb(100, 100, 100)); 
 
     Scene scene(O, viewport, canva);
@@ -140,10 +140,10 @@ int main() {
     Cylinder *suport_tree_table = new Cylinder(Vector(0, -148, -665), Vector(0, 1, 0), 30, 9, Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), 10, true, true);
     scene.add_object(suport_tree_table);
 
-    Plan *floor = new Plan(Vector(0, -255, -165), Vector(0, 1, 0), Color(Color::convert_rgb(59, 158, 56)), Color(Color::convert_rgb(59, 158, 56)), Color(Color::convert_rgb(59, 158, 56)), 10);
+    Plan *floor = new Plan(Vector(0, -255, -165), Vector(0, 1, 0), "utils/grama.jpg", 10);
     scene.add_object(floor);
 
-    Plan *wall = new Plan(Vector(0, 0, -4000), Vector(0, 0, 1), "utils/montanhas.jpg", 10);
+    Plan *wall = new Plan(Vector(0, 0, -4000), Vector(0, 0, 1), Color(Color::convert_rgb(126, 166, 253)), Color(Color::convert_rgb(126, 166, 253)), Color(Color::convert_rgb(126, 166, 253)), 10);
     scene.add_object(wall);
 
     // scene.lookAt(Vector(0, 800, -665), Vector(0, 0, -665), Vector(0, 800, -800)); // CIMA
@@ -151,7 +151,7 @@ int main() {
     // scene.lookAt(Vector(665, 0, -665), Vector(0, 0, -165), Vector(665, 90, -665)); // DIREITA
     
     scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
-    scene.add_light(new PointLight(Color(1, 1, 0.7), Vector(0, 0, 0))); 
+    scene.add_light(new PointLight(Color(1, 1, 0.7), Vector(0, 1000, 0))); 
     scene.add_light(new SpotLight(Color(1, 1, 0.7), Vector(0, 380, -665), Vector(0, -1, 0), 0.4)); 
 
     scene.draw_scenario(); 

@@ -22,7 +22,13 @@ void Plan::transform() {
     Matrix M = Matrix::identity(4);
     for(Matrix m:this->get_transformation()) M = M * m;
 
+    std::cout << N.get_x() << ' ' << N.get_y() << ' ' << N.get_z() << std::endl;
+
     this->P = (M * Matrix::vector_to_matrix(this->P)).matrix_to_vector();  
+    this->N = (M * Matrix::vector_to_matrix(this->N)).matrix_to_vector(); 
+    this->N = this->N/~this->N; 
+
+    std::cout << N.get_x() << ' ' << N.get_y() << ' ' << N.get_z() << std::endl;
     
     this->clear_transform();
 }

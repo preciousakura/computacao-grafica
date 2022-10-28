@@ -20,6 +20,16 @@ Color DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, double s
     return i;
 }
 
+void DirectionLight::transform() {
+    Matrix M = Matrix::identity(4);
+    for(Matrix m:this->get_transformation()) M = M * m;
+
+    this->direction = (M * Matrix::vector_to_matrix(this->direction)).matrix_to_vector();  
+    this->direction = this->direction / ~this->direction;
+    
+    this->clear_transform();
+}
+
 Vector DirectionLight::get_l(Vector P) { return this->direction; }
 Vector DirectionLight::get_direction(){ return this->direction; }
 void DirectionLight::set_direction(Vector direction) { this->direction = direction; }

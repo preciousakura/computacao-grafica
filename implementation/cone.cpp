@@ -100,6 +100,8 @@ void Cone::transform() {
 
     this->center = (M * Matrix::vector_to_matrix(this->center)).matrix_to_vector();  
     this->V = (M * Matrix::vector_to_matrix(this->V)).matrix_to_vector(); 
+    this->dc = (M * Matrix::vector_to_matrix(this->dc)).matrix_to_vector(); 
+    this->dc = this->dc / ~this->dc;
     
     this->clear_transform();
 }
@@ -109,9 +111,7 @@ void Cone::update_normals() {
     dc = (vc / ~vc) * this->get_invert(); 
     height = ~vc;
 }
-void Cone::update_normals(Matrix m) {
-    dc = (~m * Matrix::vector_to_matrix(dc)).matrix_to_vector();
-}
+void Cone::update_normals(Matrix m) {}
 
 Vector Cone::get_center() { return this->center; }
 Vector Cone::get_v() { return this->V; }

@@ -63,7 +63,9 @@ Vector Scene::canva_to_viewport(int i, int j){
 }
 
 void Scene::lookAt(Vector e, Vector at, Vector up) {
-    for(Object *s : objects) s->world_to_camera(Matrix::world_to_camera_matrix(e, at, up));  
+    Matrix m = Matrix::world_to_camera_matrix(e, at, up);
+    for(Object *s : objects) s->world_to_camera(m);  
+    for(Light *l : lights) l->world_to_camera(m);  
 }
 
 void Scene::add_object(Object *o){ objects.push_back(o); }

@@ -2,7 +2,7 @@
 #include "../header/vector.hpp"
 
 Vector::Vector() : x(0), y(0), z(0), a(0){}
-Vector::Vector(double x, double y, double z) : x(x), y(y), z(z), a(0){}
+Vector::Vector(double x, double y, double z) : x(x), y(y), z(z), a(1){}
 Vector::Vector(double x, double y, double z, double a) : x(x), y(y), z(z), a(a){}
 
 Vector Vector::operator + (Vector v) { return Vector(this->x+v.x, this->y+v.y, this->z+v.z); }

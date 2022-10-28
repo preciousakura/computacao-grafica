@@ -22,6 +22,15 @@ Color PointLight::calculate_intensity(Vector P, Vector N, Vector V, double s,  O
     return i;
 }
 
+void PointLight::transform() {
+    Matrix M = Matrix::identity(4);
+    for(Matrix m:this->get_transformation()) M = M * m;
+
+    this->position = (M * Matrix::vector_to_matrix(this->position)).matrix_to_vector();  
+    
+    this->clear_transform();
+}
+
 Vector PointLight::get_l(Vector P) { return this->position - P; }
 Vector PointLight::get_position(){ return this->position; }
 void PointLight::set_position(Vector position) { this->position = position; }

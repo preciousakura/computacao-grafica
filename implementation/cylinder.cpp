@@ -90,14 +90,14 @@ void Cylinder::transform() {
     for(Matrix m:this->get_transformation()) M = M * m;
 
     this->center = (M * Matrix::vector_to_matrix(this->center)).matrix_to_vector();  
+    this->dc = (M * Matrix::vector_to_matrix(this->dc)).matrix_to_vector();  
+    this->dc = this->dc / ~this->dc;
     
     this->clear_transform();
 }
 
 void Cylinder::update_normals() { dc = this->dc * this->get_invert(); }
-void Cylinder::update_normals(Matrix m) {
-    dc = (~m * Matrix::vector_to_matrix(dc)).matrix_to_vector();
-}
+void Cylinder::update_normals(Matrix m) {}
 
 void Cylinder::set_center(Vector c) { center = c; }
 void Cylinder::set_dc(Vector c) { dc = c; }

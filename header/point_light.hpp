@@ -11,6 +11,7 @@ class PointLight : public Light {
         PointLight(Color intensity, Vector position);
         Color calculate_intensity(Vector P, Vector N, Vector V, double s,  Object* o, bool has_shadow);
         Vector get_l(Vector P);
+        void transform();
     
         Vector get_position();
         void set_position(Vector position);

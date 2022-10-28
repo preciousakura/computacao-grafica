@@ -147,8 +147,8 @@ int main() {
     scene.add_object(wall);
 
     // scene.lookAt(Vector(0, 800, -665), Vector(0, 0, -665), Vector(0, 800, -800)); // CIMA
-    scene.lookAt(Vector(0, 0, 0), Vector(0, 0, -165), Vector(0, 90, -165)); // FRENTE
-    // scene.lookAt(Vector(665, 0, -665), Vector(0, 0, -165), Vector(665, 90, -665)); // DIREITA
+    // scene.lookAt(Vector(0, 0, 0), Vector(0, 0, -165), Vector(0, 90, -165)); // FRENTE
+    scene.lookAt(Vector(665, 0, -665), Vector(0, 0, -165), Vector(665, 90, -665)); // DIREITA
     
     scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
     scene.add_light(new PointLight(Color(1, 1, 0.7), Vector(0, 1000, 0))); 

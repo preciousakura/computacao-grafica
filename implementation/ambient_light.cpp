@@ -7,4 +7,6 @@ Color AmbientLight::calculate_intensity(Vector P, Vector N, Vector V, double s, 
     return this->get_intensity() * ka; 
 }
 
+void AmbientLight::transform() {}
+
 Vector AmbientLight::get_l(Vector P) { return Vector(); }

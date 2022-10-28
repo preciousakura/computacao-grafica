@@ -19,6 +19,8 @@ void Canva::write_image(const char* image_name){
 	stbi_write_png(image_name, width, height, CHANNEL_NUM, imageW, width * CHANNEL_NUM);
 }
 
+Color Canva::get_pixel(int i, int j) { return this->pixels[i][j]; }
+
 void Canva::to_color(int i, int j, Color color){ this->pixels[i][j] = color; }
 
 int Canva::get_w(){ return this->w; }

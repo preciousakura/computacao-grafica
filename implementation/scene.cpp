@@ -83,6 +83,10 @@ void Scene::draw_scenario(){
     }
 }
 
+Color Scene::get_pixel(int i, int j) {
+    return canva.get_pixel(i, j);
+}
+
 void Scene::save_scenario(const char* image_name) {
     canva.write_image(image_name);
 }

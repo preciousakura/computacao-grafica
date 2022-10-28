@@ -8,8 +8,8 @@ Scene::Scene(Vector O, Viewport vw, Canva c) : O(O), viewport(vw), canva(c) {
 }
 
 
-Color Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max, int i, int j){
-    Object *closest_object; 
+std::tuple<Color, Object*> Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max, int i, int j){
+    Object *closest_object = nullptr; 
     Color color = canva.get_background_color(); 
     bool nulo = true;
 
@@ -27,12 +27,12 @@ Color Scene::trace_ray_objects(Vector O, Vector D, double t_min, double t_max, i
     }
 
     
-    if(closest == INF) return canva.get_background_color();
+    if(closest == INF) return {canva.get_background_color(), closest_object};
     if(closest_object->has_image()) closest_object->set_current_color(i, j);
 
     Vector P = O + D * closest;
 
-    return compute_lighting(P, N, -D, closest_object->get_specular(), closest_object, t_min, t_max);   
+    return {compute_lighting(P, N, -D, closest_object->get_specular(), closest_object, t_min, t_max), closest_object};   
 }
 
 bool Scene::has_shadow(Vector P, Light* l, double t_min, double t_max) {
@@ -68,16 +68,40 @@ void Scene::lookAt(Vector e, Vector at, Vector up) {
     for(Light *l : lights) l->world_to_camera(m);  
 }
 
+Object* Scene::picking(int i, int j) {
+    Color color; 
+    Object* obj;
+
+    Vector D = canva_to_viewport(i, j); 
+    std::tie(color, obj) = trace_ray_objects(this->O, (D/~D), 1.0, INF, i, j);
+    if(obj != nullptr) {
+        obj->change_color(Color(0.7, 0.2, 0.3));
+    }
+    return obj;
+}
+
 void Scene::add_object(Object *o){ objects.push_back(o); }
 void Scene::add_light(Light* l){ lights.push_back(l); }
 
 void Scene::draw_scenario(){
+    Color color; 
+    Object* obj;
     for(int i = 0; i < canva.get_w(); i++) {
         for(int j = 0; j < canva.get_h(); j++) {
             Vector D = canva_to_viewport(i, j); 
-            Color color = trace_ray_objects(this->O, (D/~D), 1.0, INF, i, j);
-            // Vector D = Vector(0, 0, -1);
-            // Color color = trace_ray_objects(Vector(-viewport.get_w()/2.0 + dx/2.0 + j*dx, viewport.get_h()/2.0 - dy/2.0 - i*dy, viewport.get_d()), (D/~D), 1.0, INF, i, j);
+            std::tie(color, obj) = trace_ray_objects(this->O, (D/~D), 1.0, INF, i, j);
+            canva.to_color(i, j, color);
+        }
+    }
+}
+
+void Scene::draw_scenario_parell(){
+    Color color; 
+    Object* obj;
+    for(int i = 0; i < canva.get_w(); i++) {
+        for(int j = 0; j < canva.get_h(); j++) {
+            Vector D = Vector(0, 0, -1);
+            std::tie(color, obj)  = trace_ray_objects(Vector(-viewport.get_w()/2.0 + dx/2.0 + j*dx, viewport.get_h()/2.0 - dy/2.0 - i*dy, viewport.get_d()), (D/~D), 1.0, INF, i, j);
             canva.to_color(i, j, color);
         }
     }

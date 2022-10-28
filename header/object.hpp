@@ -57,6 +57,8 @@ class Object {
         void world_to_camera(Matrix wc);
         void camera_to_world(Matrix cw);
 
+        void change_color(Color color);
+
         void set_kd(Color color);
         Color get_kd();
         void set_ka(Color color);

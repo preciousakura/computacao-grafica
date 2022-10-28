@@ -3,7 +3,7 @@ clear: compile
 	./main
 
 compile: object
-	g++ -o main *.o
+	g++ -o  main *.o -lSDL2
 object:
 	g++ -c main.cpp implementation/*.cpp
 

@@ -52,13 +52,12 @@ SDLEngine::~SDLEngine ()
 //*******************************************************************
 
 void SDLEngine::atualizarCanvas(Scene &cena){
-    for(int i = 0, px_position = 0; i < alturaCanvas; i++){
-        for(int j = 0; j < larguraCanvas; j++, px_position++){
-            Color pixel = cena.get_pixel(i, j);
-            _canvas[px_position] = ( ( (uint)(pixel.convert_red()) SHIFT_RED )   & R_MASK )
-                   + ( ( (uint)(pixel.convert_green()) SHIFT_GREEN ) & G_MASK )
-                   + ( ( (uint)(pixel.convert_blue()) SHIFT_BLUE )  & B_MASK )
-                   + A_MASK;
+    for(int i = 0, px_position = 0; i < alturaCanvas; i++) {         
+        for(int j = 0; j < larguraCanvas; j++, px_position++) {             
+            Color pixel = cena.get_pixel(i, j);             
+            _canvas[px_position] = ((pixel.convert_red() << 0) & R_MASK ) + 
+                                ((pixel.convert_green() << 8) & G_MASK) + 
+                                ((pixel.convert_blue() << 16) & B_MASK ) + A_MASK;
         }
     }
     copiarCanvas();

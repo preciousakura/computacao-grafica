@@ -160,6 +160,8 @@ void Object::set_transformation(Matrix m) { this->transformations.push_back(m); 
 
 int Object::get_invert() { return this->invert; }
 
+void Object::change_color(Color color) { this->ka = this->ke = this->kd = color; }
+
 // imagens
 
 bool Object::has_image() { return this->has_img; }

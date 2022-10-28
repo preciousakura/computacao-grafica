@@ -14,9 +14,7 @@ std::tuple<double, Vector> Plan::intersect(Vector O, Vector D, double t_min, dou
     return {ti, this->N};
 }
 
-Vector Plan::get_normal(Vector O, Vector D, double &t) {
-    return N;
-}
+Vector Plan::get_normal(Vector O, Vector D, double &t) { return N; }
 
 void Plan::transform() {
     Matrix M = Matrix::identity(4);
@@ -28,7 +26,7 @@ void Plan::transform() {
     
     this->clear_transform();
 }
-void Plan::update_normals() { this->N = this->N * this->get_invert(); }
+void Plan::update_normals() { this->N = this->N; }
 void Plan::update_normals(Matrix m) {}
 
 void Plan::set_p(Vector ponto) { P = ponto; }

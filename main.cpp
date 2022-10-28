@@ -7,11 +7,17 @@
 #include "header/scene.hpp"
 #include "header/light.hpp"
 #include "header/spot_light.hpp"
+#include "header/SDLEngine.hpp"
 #include "header/cylinder.hpp"
 #include "header/ambient_light.hpp"
 #include "header/point_light.hpp"
 #include "header/cube.hpp"
 #include "header/direction_light.hpp"
+
+#define LARGURA_TELA 500
+#define ALTURA_TELA  500
+#define LARGURA_CANVAS 500
+#define ALTURA_CANVAS  500
 
 #include <iostream>
 using namespace std;
@@ -147,8 +153,8 @@ int main() {
     scene.add_object(wall);
 
     // scene.lookAt(Vector(0, 800, -665), Vector(0, 0, -665), Vector(0, 800, -800)); // CIMA
-    // scene.lookAt(Vector(0, 0, 0), Vector(0, 0, -165), Vector(0, 90, -165)); // FRENTE
-    scene.lookAt(Vector(665, 0, -665), Vector(0, 0, -165), Vector(665, 90, -665)); // DIREITA
+    scene.lookAt(Vector(0, 0, 0), Vector(0, 0, -165), Vector(0, 90, -165)); // FRENTE
+    // scene.lookAt(Vector(665, 0, -665), Vector(0, 0, -165), Vector(665, 90, -665)); // DIREITA
     
     scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
     scene.add_light(new PointLight(Color(1, 1, 0.7), Vector(0, 1000, 0))); 
@@ -157,5 +163,50 @@ int main() {
     scene.draw_scenario(); 
 
     scene.save_scenario("out.png");
-    return 0;
+
+
+    SDLEngine sdlEngine{ "IMAGEM", 
+                        LARGURA_TELA, ALTURA_TELA, 
+                        LARGURA_CANVAS, ALTURA_CANVAS
+    };
+    
+    SDL_Event e;
+    bool quit = false;
+    bool teste = true;
+    int testeNum = 0; 
+
+    int press = 0, x, y, i, j;
+    
+    sdlEngine.atualizarCanvas( scene );
+    sdlEngine.atualizarJanela();
+
+    Object* obj_selected;
+
+    while (!quit){
+        while(SDL_PollEvent(&e)){
+            if(e.type == SDL_QUIT) quit = true;
+            if(SDL_MOUSEBUTTONDOWN == e.type) {
+                if(SDL_BUTTON_LEFT == e.button.button){
+                    if(!press) {
+                        SDL_GetMouseState(&x, &y);
+                        swap(x, y);
+                        std::cout << "LEFT BUTTON PRESSED AT xy: " << x << " " << y << "\n";
+                        obj_selected = scene.picking(x, y); 
+                        scene.draw_scenario();
+                        sdlEngine.atualizarCanvas( scene );
+                        sdlEngine.atualizarJanela();
+                        press ^= 1;
+                    } else {
+                        SDL_GetMouseState(&i, &j);
+                        swap(i, j);
+                        std::cout << "LEFT BUTTON PRESSED AT ij: " << i << " " << j << "\n";
+                        scene.draw_scenario();
+                        sdlEngine.atualizarCanvas( scene );
+                        sdlEngine.atualizarJanela();
+                        press ^= 1;
+                    }
+                }
+            }
+        }
+    }
 }

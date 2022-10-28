@@ -23,6 +23,7 @@ class Canva {
         void set_h(int m);
         Color get_background_color();
         void set_background_color(Color background_color);
+        Color get_pixel(int i, int j);
 };
 
 #endif

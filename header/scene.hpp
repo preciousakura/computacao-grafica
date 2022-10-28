@@ -30,6 +30,7 @@ class Scene {
         void draw_scenario();
         void save_scenario(const char* image_name);
         void lookAt(Vector e, Vector at, Vector up);
+        Color get_pixel(int i, int j);
 };
 
 #endif

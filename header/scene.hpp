@@ -34,6 +34,7 @@ class Scene {
         Color get_pixel(int i, int j);
         Object* get_object(int i, int j);
         Object* picking(int i, int j);
+        void erase_object(Object* o);
 };
 
 #endif

@@ -42,23 +42,27 @@ void Object::set_specular(double specular){ this->specular = specular; }
 std::vector<Matrix> Object::get_transformation() { return this->transformations; }
 void Object::clear_transform() { this->transformations.clear(); }
 
+
 void Object::rotation_x(double angle) {
     Matrix r_x = Matrix::rotation_x_matrix(angle);
     this->transformations.push_back(r_x);
     this->transform();
     this->update_normals();
+    this->translate(this->center);
 }
 void Object::rotation_y(double angle) {
     Matrix r_y = Matrix::rotation_y_matrix(angle);
     this->transformations.push_back(r_y);
     this->transform();
     this->update_normals();
+    this->translate(this->center);
 }
 void Object::rotation_z(double angle) {
     Matrix r_z = Matrix::rotation_z_matrix(angle);
     this->transformations.push_back(r_z);
     this->transform();
     this->update_normals();
+    this->translate(this->center);
 }
 
 void Object::scaling(double x, double y, double z) {
@@ -162,11 +166,6 @@ int Object::get_invert() { return this->invert; }
 
 void Object::change_color(Color color) { this->ka = this->ke = this->kd = color; }
 
-void Object::translate(Vector begin, Vector end) {
-    Matrix translate = Matrix::translation_matrix(end - begin);
-    this->transformations.push_back(translate);
-    this->transform();
-}
 
 // imagens
 

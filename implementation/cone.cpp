@@ -100,9 +100,8 @@ void Cone::transform() {
 
     this->center = (M * Matrix::vector_to_matrix(this->center)).matrix_to_vector();  
     this->V = (M * Matrix::vector_to_matrix(this->V)).matrix_to_vector(); 
-    this->dc = (M * Matrix::vector_to_matrix(this->dc)).matrix_to_vector(); 
-    this->dc = this->dc / ~this->dc;
-    
+    this->update_normals();
+
     this->clear_transform();
 }
 

@@ -73,6 +73,8 @@ Object* Scene::picking(int i, int j) { return canva.get_object(i, j); }
 void Scene::add_object(Object *o){ objects.push_back(o); }
 void Scene::add_light(Light* l){ lights.push_back(l); }
 
+void Scene::erase_object(Object* o){  }
+
 void Scene::draw_scenario(){
     Color color; 
     Object* obj;

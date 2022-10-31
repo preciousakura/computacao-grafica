@@ -53,7 +53,6 @@ class Object {
         void reflection_yz();
         void reflection_xz();
         void translate(Vector v);
-        void translate(Vector begin, Vector end);
         void reflection_at(Vector p, Vector n);
         void world_to_camera(Matrix wc);
         void camera_to_world(Matrix cw);

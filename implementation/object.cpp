@@ -162,8 +162,16 @@ int Object::get_invert() { return this->invert; }
 
 void Object::change_color(Color color) { this->ka = this->ke = this->kd = color; }
 
+void Object::translate(Vector begin, Vector end) {
+    Matrix translate = Matrix::translation_matrix(end - begin);
+    this->transformations.push_back(translate);
+    this->transform();
+}
+
 // imagens
 
+Vector Object::get_center() { return this->center; }
+void Object::set_center(Vector c) { this->center = c; }
 bool Object::has_image() { return this->has_img; }
 int Object::get_width() { return this->width; }
 void Object::set_width(int w) { this->width = w; }

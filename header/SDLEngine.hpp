@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include "scene.hpp"
+#include <set>
 
 #include <SDL2/SDL.h>
 
@@ -118,7 +119,7 @@ public:
      *
      * \param novoCanvas Array com as novas cores do canvas, com cada valor variando de 0 a 1
     */
-    void atualizarCanvas ( Scene &cena );
+    void atualizarCanvas ( Scene &cena, Object* o, std::set<Object*> &objs );
 
     /*!
      * Muda a regra de stretch

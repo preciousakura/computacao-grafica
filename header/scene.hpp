@@ -17,7 +17,7 @@ class Scene {
         std::vector<Object*> objects;
         std::vector<Light*> lights;
         double dx, dy;
-
+        
         Color compute_lighting(Vector P, Vector N, Vector V, double s, Object* o, double t_min, double t_max);
         std::tuple<Color, Object*> trace_ray_objects(Vector O, Vector D, double t_min, double t_max, int i, int j);
         Vector canva_to_viewport(int x, int y);
@@ -32,6 +32,7 @@ class Scene {
         void save_scenario(const char* image_name);
         void lookAt(Vector e, Vector at, Vector up);
         Color get_pixel(int i, int j);
+        Object* get_object(int i, int j);
         Object* picking(int i, int j);
 };
 

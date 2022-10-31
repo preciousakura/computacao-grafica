@@ -68,17 +68,7 @@ void Scene::lookAt(Vector e, Vector at, Vector up) {
     for(Light *l : lights) l->world_to_camera(m);  
 }
 
-Object* Scene::picking(int i, int j) {
-    Color color; 
-    Object* obj;
-
-    Vector D = canva_to_viewport(i, j); 
-    std::tie(color, obj) = trace_ray_objects(this->O, (D/~D), 1.0, INF, i, j);
-    if(obj != nullptr) {
-        obj->change_color(Color(0.7, 0.2, 0.3));
-    }
-    return obj;
-}
+Object* Scene::picking(int i, int j) { return canva.get_object(i, j); }
 
 void Scene::add_object(Object *o){ objects.push_back(o); }
 void Scene::add_light(Light* l){ lights.push_back(l); }
@@ -91,6 +81,7 @@ void Scene::draw_scenario(){
             Vector D = canva_to_viewport(i, j); 
             std::tie(color, obj) = trace_ray_objects(this->O, (D/~D), 1.0, INF, i, j);
             canva.to_color(i, j, color);
+            canva.to_buffer(i, j, obj);
         }
     }
 }
@@ -101,15 +92,15 @@ void Scene::draw_scenario_parell(){
     for(int i = 0; i < canva.get_w(); i++) {
         for(int j = 0; j < canva.get_h(); j++) {
             Vector D = Vector(0, 0, -1);
-            std::tie(color, obj)  = trace_ray_objects(Vector(-viewport.get_w()/2.0 + dx/2.0 + j*dx, viewport.get_h()/2.0 - dy/2.0 - i*dy, viewport.get_d()), (D/~D), 1.0, INF, i, j);
+            std::tie(color, obj)  = trace_ray_objects(canva_to_viewport(i, j), (D/~D), 1.0, INF, i, j);
             canva.to_color(i, j, color);
+            canva.to_buffer(i, j, obj);
         }
     }
 }
 
-Color Scene::get_pixel(int i, int j) {
-    return canva.get_pixel(i, j);
-}
+Color Scene::get_pixel(int i, int j) { return canva.get_pixel(i, j); }
+Object* Scene::get_object(int i, int j) { return canva.get_object(i, j); }
 
 void Scene::save_scenario(const char* image_name) {
     canva.write_image(image_name);

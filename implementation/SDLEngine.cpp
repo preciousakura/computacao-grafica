@@ -51,13 +51,20 @@ SDLEngine::~SDLEngine ()
 //*******************************************************************
 //*******************************************************************
 
-void SDLEngine::atualizarCanvas(Scene &cena){
+void SDLEngine::atualizarCanvas(Scene &cena, Object* o, std::set<Object*> &objs){
+    if(o != nullptr && objs.count(o)) objs.erase(o);
+    else if(o != nullptr) objs.insert(o);
+
     for(int i = 0, px_position = 0; i < alturaCanvas; i++) {         
-        for(int j = 0; j < larguraCanvas; j++, px_position++) {             
-            Color pixel = cena.get_pixel(i, j);             
+        for(int j = 0; j < larguraCanvas; j++, px_position++) {        
+            Object* obj = cena.get_object(i, j);     
+            Color pixel = cena.get_pixel(i, j); 
+            int a = 255;
+            if(objs.count(obj)) { a = 127;}
             _canvas[px_position] = ((pixel.convert_red() << 0) & R_MASK ) + 
-                                ((pixel.convert_green() << 8) & G_MASK) + 
-                                ((pixel.convert_blue() << 16) & B_MASK ) + A_MASK;
+                                   ((pixel.convert_green() << 8) & G_MASK) + 
+                                   ((pixel.convert_blue() << 16) & B_MASK ) + 
+                                   ((a << 24) & A_MASK );
         }
     }
     copiarCanvas();
@@ -176,7 +183,7 @@ void SDLEngine::atualizarProporcaoImagem ()
 void SDLEngine::copiarCanvas ()
 {
     SDL_Rect imgRect = _imagem;
-    
+    SDL_FillRect(_surfaceScreen, nullptr, A_MASK);
     if ( _scretchCanvas == StretchCanvas::NO_STRETCH )
         SDL_BlitSurface( _surfaceCanvas, nullptr, _surfaceScreen, &imgRect );
     else

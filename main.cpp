@@ -28,142 +28,33 @@ int main() {
     Canva canva(500, 500, Color::convert_rgb(100, 100, 100)); 
 
     Scene scene(O, viewport, canva);
-
-    // teto forro
     
-    Cube *left_roof = new Cube(Color(Color::convert_rgb(214, 214, 214)), Color(Color::convert_rgb(214, 214, 214)), Color(Color::convert_rgb(214, 214, 214)), 10);
-    Cube *right_roof = new Cube(Color(Color::convert_rgb(214, 214, 214)), Color(Color::convert_rgb(214, 214, 214)), Color(Color::convert_rgb(214, 214, 214)), 10);
+    scene.add_object(new Sphere(Vector(0, 95, -200), 5, Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), Color(0.854, 0.647, 0.125), 10)); 
+    Cube *cb = new Cube(Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), Color(1., 0.078, 0.576), 10);
+    cb->scaling(40, 40, 40);
+    cb->transform();
+    cb->translate(Vector(0, -150, -165));
+    scene.add_object(cb);
+    scene.add_object(new Cone(Vector(0, -60, -200), Vector(0., 1., 0), 90, 150, Color(0., 1., 0.498), Color(0., 1., 0.498), Color(0., 1., 0.498), 10, false));
+    scene.add_object(new Cylinder(Vector(0, -150, -200), Vector(0., 1., 0), 5, 90, Color(0.824, 0.706, 0.549), Color(0.824, 0.706, 0.549), Color(0.824, 0.706, 0.549), 10, true, true)); 
 
-    left_roof->scaling(300, 50, 970);
-    left_roof->shearing_yx(0.75);
-    left_roof->translate(Vector(-150, 363, -665));
+    scene.add_object(new Plan(Vector(0, -150, 0), Vector(0, 1, 0), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 1));
+    scene.add_object(new Plan(Vector(200, -150, 0), Vector(-1., 0., 0), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), 1));
+    scene.add_object(new Plan(Vector(200, -150, -400), Vector(0., 0., 1), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), Color(0.686, 0.933, 0.933), 1));
+    scene.add_object(new Plan(Vector(-200, -150, 0), Vector(1., 0., 0.), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), Color(00.933, 0.933, 0.933), 1));
+    scene.add_object(new Plan(Vector(0, 150, 0), Vector(0., -1., 0.), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), Color(0.933, 0.933, 0.933), 1));
 
-    right_roof->scaling(300, 50, 970);
-    right_roof->shearing_yx(0.75);
-    right_roof->translate(Vector(-150, 363, -665));
-    right_roof->reflection_yz();
-
-    scene.add_object(left_roof);
-    scene.add_object(right_roof);
-
-    // teto frontal
-
-    Cube *front_left_roof = new Cube(Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), 10);
-    Cube *front_right_roof = new Cube(Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), 10);
-
-    front_left_roof->scaling(300, 50, 30);
-    front_left_roof->shearing_yx(0.75);
-    front_left_roof->translate(Vector(-150, 363, -165));
-
-    front_right_roof->scaling(300, 50, 30);
-    front_right_roof->shearing_yx(0.75);
-    front_right_roof->translate(Vector(-150, 363, -165));
-    front_right_roof->reflection_yz();
-    
-    scene.add_object(front_left_roof);
-    scene.add_object(front_right_roof);
-
-    // teto traseiro
-
-    Cube *back_left_roof = new Cube(Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), 10);
-    Cube *back_right_roof = new Cube(Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), Color(0.5882, 0.2941, 0), 10);
-
-    back_left_roof->scaling(300, 50, 30);
-    back_left_roof->shearing_yx(0.75);
-    back_left_roof->translate(Vector(-150, 363, -1165));
-
-    back_right_roof->scaling(300, 50, 30);
-    back_right_roof->shearing_yx(0.75);
-    back_right_roof->translate(Vector(-150, 363, -1165));
-    back_right_roof->reflection_yz();
-
-    
-    scene.add_object(back_left_roof);
-    scene.add_object(back_right_roof);
-
-    // vigas frontais
-
-    Cube *front_left_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
-    Cube *front_right_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
-
-    front_left_beam->scaling(50, 500, 30);
-    front_left_beam->translate(Vector(-325, 0, -165));
-
-    front_right_beam->scaling(50, 500, 30);
-    front_right_beam->translate(Vector(325, 0, -165));
-
-    scene.add_object(front_left_beam);
-    scene.add_object(front_right_beam);
-
-    // // vigas traseiras
-
-    Cube *back_left_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
-    Cube *back_right_beam = new Cube(Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), Color(0.3725, 0.3058, 0.2784), 10);
-
-    back_left_beam->scaling(50, 500, 30);
-    back_left_beam->translate(Vector(-325, -0, -1165));
-
-    back_right_beam->scaling(50, 500, 30);
-    back_right_beam->translate(Vector(325, -0, -1165));
-
-    scene.add_object(back_left_beam);
-    scene.add_object(back_right_beam);
-
-    // mesa
-
-    Cube *table = new Cube(Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), 10);
-
-    table->scaling(250, 5, 150);
-    table->translate(Vector(0, -151, -665));
-
-    scene.add_object(table);
-
-    Cube *left_suport = new Cube(Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), 10);
-
-    left_suport->scaling(5, 95, 150);
-    left_suport->translate(Vector(-122.5, -202.5, -665));
-
-    scene.add_object(left_suport);
-
-    Cube *right_suport = new Cube(Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), 10);
-
-    right_suport->scaling(5, 95, 150);
-    right_suport->translate(Vector(122.5, -202.5, -665));
-
-    scene.add_object(right_suport);
-
-    // árvore de natal
-
-    Sphere *ball_tree = new Sphere(Vector(0, 50, -665), 4.5, Color(1, 1, 0), Color(1, 1, 0), Color(1, 1, 0), 10);
-    scene.add_object(ball_tree);
-
-    Cone *tree = new Cone(Vector(0, -100, -665), Vector(0, 1, 0), 60, 150, Color(Color::convert_rgb(33, 112, 48)), Color(Color::convert_rgb(33, 112, 48)), Color(Color::convert_rgb(33, 112, 48)), 10, true);
-    scene.add_object(tree);
-
-    Cylinder *suport_tree = new Cylinder(Vector(0, -140, -665), Vector(0, 1, 0), 6, 40, Color(Color::convert_rgb(92, 79, 69)), Color(Color::convert_rgb(92, 79, 69)), Color(Color::convert_rgb(92, 79, 69)), 10, true, true);
-    scene.add_object(suport_tree);
-
-    Cylinder *suport_tree_table = new Cylinder(Vector(0, -148, -665), Vector(0, 1, 0), 30, 9, Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), 10, true, true);
-    scene.add_object(suport_tree_table);
-
-    Plan *floor = new Plan(Vector(0, -255, -165), Vector(0, 1, 0), "utils/grama.jpg", 10);
-    scene.add_object(floor);
-
-    Plan *wall = new Plan(Vector(0, 0, -4000), Vector(0, 0, 1), Color(Color::convert_rgb(126, 166, 253)), Color(Color::convert_rgb(126, 166, 253)), Color(Color::convert_rgb(126, 166, 253)), 10);
-    scene.add_object(wall);
+    scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
+    scene.add_light(new PointLight(Color(0.7, 0.7, 0.7), Vector(-100, 140, -20))); 
+    scene.add_light(new DirectionLight(Color(0.0, 0.0, 0.0), Vector(0, 0, 0))); 
 
     // scene.lookAt(Vector(0, 800, -665), Vector(0, 0, -665), Vector(0, 800, -800)); // CIMA
-    scene.lookAt(Vector(0, 0, 0), Vector(0, 0, -165), Vector(0, 90, -165)); // FRENTE
+    // scene.lookAt(Vector(0, 0, 0), Vector(0, 0, -165), Vector(0, 90, -165)); // FRENTE
     // scene.lookAt(Vector(665, 0, -665), Vector(0, 0, -165), Vector(665, 90, -665)); // DIREITA
     
-    scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
-    scene.add_light(new PointLight(Color(1, 1, 0.7), Vector(0, 1000, 0))); 
-    scene.add_light(new SpotLight(Color(1, 1, 0.7), Vector(0, 380, -665), Vector(0, -1, 0), 0.4)); 
-
     scene.draw_scenario(); 
 
     scene.save_scenario("out.png");
-
 
     SDLEngine sdlEngine{ "IMAGEM", 
                         LARGURA_TELA, ALTURA_TELA, 
@@ -175,9 +66,11 @@ int main() {
     bool teste = true;
     int testeNum = 0; 
 
-    int press = 0, x, y, i, j;
+    std::set<Object*> objs_select;
+
+    int i, j;
     
-    sdlEngine.atualizarCanvas( scene );
+    sdlEngine.atualizarCanvas( scene, nullptr, objs_select );
     sdlEngine.atualizarJanela();
 
     Object* obj_selected;
@@ -187,26 +80,13 @@ int main() {
             if(e.type == SDL_QUIT) quit = true;
             if(SDL_MOUSEBUTTONDOWN == e.type) {
                 if(SDL_BUTTON_LEFT == e.button.button){
-                    if(!press) {
-                        SDL_GetMouseState(&x, &y);
-                        swap(x, y);
-                        std::cout << "LEFT BUTTON PRESSED AT xy: " << x << " " << y << "\n";
-                        obj_selected = scene.picking(x, y); 
-                        scene.draw_scenario();
-                        sdlEngine.atualizarCanvas( scene );
-                        sdlEngine.atualizarJanela();
-                        press ^= 1;
-                    } else {
-                        SDL_GetMouseState(&i, &j);
-                        swap(i, j);
-                        std::cout << "LEFT BUTTON PRESSED AT ij: " << i << " " << j << "\n";
-                        scene.draw_scenario();
-                        sdlEngine.atualizarCanvas( scene );
-                        sdlEngine.atualizarJanela();
-                        press ^= 1;
-                    }
+                    SDL_GetMouseState(&j, &i);
+                    obj_selected = scene.picking(i, j); 
+                    sdlEngine.atualizarCanvas( scene, obj_selected, objs_select );
+                    sdlEngine.atualizarJanela();
                 }
             }
         }
-    }
+    } 
+    return 0;
 }

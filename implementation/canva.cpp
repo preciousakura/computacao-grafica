@@ -8,9 +8,9 @@
 #include <bits/stdc++.h>
 
 Canva::Canva(){}
-Canva::Canva(int n, int m, Color bg): w(n), h(m), background(bg), pixels(n, std::vector<Color>(m, bg)){}
+Canva::Canva(int n, int m, Color bg): w(n), h(m), background(bg), pixels(n, std::vector<Color>(m, bg)), z_buffer(n, std::vector<Object *>(m, nullptr)){}
 
-void Canva::write_image(const char* image_name){
+void Canva::write_image(const char* image_name) {
 	int width = w, height = h;
   	int8 *imageW = new int8[width * height * CHANNEL_NUM];
 	for(int i = 0, c = 0; i < width; i++)
@@ -20,8 +20,10 @@ void Canva::write_image(const char* image_name){
 }
 
 Color Canva::get_pixel(int i, int j) { return this->pixels[i][j]; }
+Object* Canva::get_object(int i, int j) { return this->z_buffer[i][j]; }
 
-void Canva::to_color(int i, int j, Color color){ this->pixels[i][j] = color; }
+void Canva::to_color(int i, int j, Color color) { this->pixels[i][j] = color; }
+void Canva::to_buffer(int i, int j, Object* o) { this->z_buffer[i][j] = o; }
 
 int Canva::get_w(){ return this->w; }
 void Canva::set_w(int w){ this->w = w; }

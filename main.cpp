@@ -285,7 +285,11 @@ int main() {
                         }
                     }
                     else if(op == 7) for(Object* o : objs_selected) scene.erase_object(o); 
-                    else continue;    
+                    
+                    else {    
+                        scene.save_scenario("out.png");
+                        continue;  
+                    }  
                     
                     scene.draw_scenario();
                     sdlEngine.atualizarCanvas(scene, obj_selected, objs_selected);

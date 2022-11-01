@@ -207,6 +207,7 @@ int main() {
                     std::cout << "(6) - Mudar Coloração\n";
                     std::cout << "(7) - Deletar\n";
                     std::cout << "(8) - Selecionar/Deselecionar Objetos\n";
+                    std::cout << "(0) - Sair e salvar imagem\n";
                     cout << "Digite a sua opção: "; cin >> op;
 
                     if(op == 1) {
@@ -285,12 +286,9 @@ int main() {
                         }
                     }
                     else if(op == 7) for(Object* o : objs_selected) scene.erase_object(o); 
-                    
-                    else {    
-                        scene.save_scenario("out.png");
-                        continue;  
-                    }  
-                    
+                    else if(op == 0) scene.save_scenario("out.png");
+                    else continue;  
+                      
                     scene.draw_scenario();
                     sdlEngine.atualizarCanvas(scene, obj_selected, objs_selected);
                     sdlEngine.atualizarJanela();

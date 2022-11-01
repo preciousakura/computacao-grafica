@@ -48,21 +48,18 @@ void Object::rotation_x(double angle) {
     this->transformations.push_back(r_x);
     this->transform();
     this->update_normals();
-    this->translate(this->center);
 }
 void Object::rotation_y(double angle) {
     Matrix r_y = Matrix::rotation_y_matrix(angle);
     this->transformations.push_back(r_y);
     this->transform();
     this->update_normals();
-    this->translate(this->center);
 }
 void Object::rotation_z(double angle) {
     Matrix r_z = Matrix::rotation_z_matrix(angle);
     this->transformations.push_back(r_z);
     this->transform();
     this->update_normals();
-    this->translate(this->center);
 }
 
 void Object::scaling(double x, double y, double z) {

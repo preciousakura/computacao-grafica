@@ -146,13 +146,13 @@ int main() {
     Cylinder *suport_tree_table = new Cylinder(Vector(0, -148, -665), Vector(0, 1, 0), 30, 9, Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), Color(Color::convert_rgb(92, 63, 41)), 10, true, true);
     scene.add_object(suport_tree_table);
 
-    Plan *floor = new Plan(Vector(0, -255, -165), Vector(0, 1, 0, 0), "utils/grama.jpg", 10);
+    Plan *floor = new Plan(Vector(0, -255, -165), Vector(0, 1, 0), "utils/grama.jpg", 10);
     scene.add_object(floor);
 
-    scene.add_light(new PointLight(Color(1, 1, 0.7), Vector(300, 1000, -665, 1))); 
+    scene.add_light(new PointLight(Color(1, 1, 0.7), Vector(300, 1000, -665))); 
     scene.add_light(new AmbientLight(Color(0.3, 0.3, 0.3))); 
-    scene.add_light(new PointLight(Color(0.3, 0.3, 0.3), Vector(0, 0, -40, 1))); 
-    scene.add_light(new SpotLight(Color(1, 1, 0.7), Vector(0, 380, -665, 1), Vector(0, -1, 0, 0), 0.4)); 
+    scene.add_light(new PointLight(Color(0.3, 0.3, 0.3), Vector(0, 0, -40))); 
+    scene.add_light(new SpotLight(Color(1, 1, 0.7), Vector(0, 380, -665), Vector(0, -1, 0), 0.4)); 
 
     scene.lookAt(Vector(600, 0, -665), Vector(0, 0, -665), Vector(600, 500, -665)); // FRENTE
     // scene.lookAt(Vector(0, 800, -665), Vector(0, 0, -665), Vector(0, 800, -800)); // CIMA

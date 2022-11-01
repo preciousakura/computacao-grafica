@@ -90,7 +90,7 @@ void Cylinder::transform() {
     for(Matrix m:this->get_transformation()) M = M * m;
 
     this->center = (M * Matrix::vector_to_matrix(this->center)).matrix_to_vector();  
-    this->dc = (M * Matrix::vector_to_matrix(this->dc)).matrix_to_vector();  
+    this->dc = (M * Matrix::vector_to_matrix(this->dc, 0)).matrix_to_vector();  
     this->dc = this->dc / ~this->dc;
     
     this->clear_transform();

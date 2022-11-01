@@ -35,7 +35,7 @@ void SpotLight::transform() {
     for(Matrix m:this->get_transformation()) M = M * m;
 
     this->position = (M * Matrix::vector_to_matrix(this->position)).matrix_to_vector();  
-    this->direction = (M * Matrix::vector_to_matrix(this->direction)).matrix_to_vector();  
+    this->direction = (M * Matrix::vector_to_matrix(this->direction, 0)).matrix_to_vector();  
     this->direction = this->direction / ~this->direction;
     
     this->clear_transform();

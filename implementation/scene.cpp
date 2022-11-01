@@ -53,7 +53,7 @@ bool Scene::has_shadow(Vector P, Light* l, double t_min, double t_max) {
 Color Scene::compute_lighting(Vector P, Vector N, Vector V, double s, Object* o, double t_min, double t_max) {
     Color i;
     for(Light* l : lights)
-        i = i + l->calculate_intensity(P, N, V, s, o, has_shadow(P, l, t_min, t_max));
+        i = i + l->calculate_intensity(P, N, V, s, o, false);
     return i;
 }
 

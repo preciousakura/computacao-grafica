@@ -21,7 +21,7 @@ void Plan::transform() {
     for(Matrix m:this->get_transformation()) M = M * m;
 
     this->P = (M * Matrix::vector_to_matrix(this->P)).matrix_to_vector();  
-    this->N = (M * Matrix::vector_to_matrix(this->N)).matrix_to_vector(); 
+    this->N = (M * Matrix::vector_to_matrix(this->N, 0)).matrix_to_vector(); 
     this->N = this->N/~this->N; 
     
     this->clear_transform();

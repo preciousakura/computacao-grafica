@@ -66,12 +66,12 @@ Vector Matrix::matrix_to_vector() {
     return v;
 }
 
-Matrix Matrix::vector_to_matrix(Vector v) {
+Matrix Matrix::vector_to_matrix(Vector v, bool ponto) {
     Matrix M(4, 1);
     M.values[0][0] = v.get_x();
     M.values[1][0] = v.get_y();
     M.values[2][0] = v.get_z();
-    M.values[3][0] = 1;
+    M.values[3][0] = ponto;
     return M;
 }
 

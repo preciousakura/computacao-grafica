@@ -24,7 +24,7 @@ class Matrix {
         void print();
 
         Vector matrix_to_vector();
-        static Matrix vector_to_matrix(Vector v);
+        static Matrix vector_to_matrix(Vector v, bool ponto = true);
 
         static Matrix identity(int size);
 

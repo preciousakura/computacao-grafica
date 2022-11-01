@@ -286,7 +286,10 @@ int main() {
                         }
                     }
                     else if(op == 7) for(Object* o : objs_selected) scene.erase_object(o); 
-                    else if(op == 0) scene.save_scenario("out.png");
+                    else if(op == 0) {
+                        scene.save_scenario("out.png");
+                        break;
+                    }
                     else continue;  
                       
                     scene.draw_scenario();

@@ -1,6 +1,6 @@
 #include "../header/direction_light.hpp"
 
-DirectionLight::DirectionLight(Color intensity, Vector direction) : Light(intensity), direction(direction){}
+DirectionLight::DirectionLight(Color intensity, Vector direction) : Light(intensity), direction(direction){direction.set_a(1);}
 
 Color DirectionLight::calculate_intensity(Vector P, Vector N, Vector V, double s,  Object* o, bool has_shadow){ 
     Color i;

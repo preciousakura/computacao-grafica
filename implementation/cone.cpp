@@ -3,18 +3,20 @@
 #include <bits/stdc++.h>
 
 Cone::Cone(){}
-Cone::Cone(Vector c, Vector dc, double r, double h, const char* name, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(c, name, s){ V = c + (dc/~dc * h); }
-Cone::Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(c, ka, kd, ke, s){ V = c + (dc/~dc * h); }
+Cone::Cone(Vector c, Vector dc, double r, double h, const char* name, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(c, name, s){ V = c + (dc/~dc * h); dc.set_a(1); }
+Cone::Cone(Vector c, Vector dc, double r, double h, Color kd, Color ka, Color ke, double s, bool has_base): has_base(has_base), center(c), dc(dc/~dc), radius(r), height(h), Object(c, ka, kd, ke, s){ V = c + (dc/~dc * h); dc.set_a(1); }
 Cone::Cone(Vector c, Vector v, double r, Color kd, Color ka, Color ke, double s, bool has_base) : has_base(has_base), center(c), V(v), radius(r), Object(c, ka, kd, ke, s){ 
     Vector vc = (V-c); 
     dc = vc / ~vc; 
     height = ~vc; 
+    dc.set_a(1);
 }
 
 Cone::Cone(Vector c, Vector v, double r, const char* name, double s, bool has_base) : has_base(has_base), center(c), V(v), radius(r), Object(c, name, s){ 
     Vector vc = (V-c); 
     dc = vc / ~vc; 
     height = ~vc; 
+    dc.set_a(1);
 }
 
 bool Cone::in_shell(Vector P) {

@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-SpotLight::SpotLight(Color intensity, Vector position, Vector direction, double grau) : Light(intensity), position(position), direction(direction/~direction), grau(grau){}
+SpotLight::SpotLight(Color intensity, Vector position, Vector direction, double grau) : Light(intensity), position(position), direction(direction/~direction), grau(grau){direction.set_a(1);}
 
 Color SpotLight::calculate_intensity(Vector P, Vector N, Vector V, double s,  Object* o, bool has_shadow){ 
     Color i;

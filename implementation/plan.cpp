@@ -2,9 +2,9 @@
 #include <cmath>
 
 Plan::Plan(){}
-Plan::Plan(Vector p, Vector n, Color kd, Color ka, Color ke, double s) : P(p), N(n), Object(p, kd, ka, ke, s) {}
-Plan::Plan(Vector p, Vector n, const char * name, double s): P(p), N(n), Object(p, name, s) {}
-Plan::Plan(Vector P, Vector N): P(P), N(N), Object() {}
+Plan::Plan(Vector p, Vector n, Color kd, Color ka, Color ke, double s) : P(p), N(n), Object(p, kd, ka, ke, s) {N.set_a(1);}
+Plan::Plan(Vector p, Vector n, const char * name, double s): P(p), N(n), Object(p, name, s) {N.set_a(1);}
+Plan::Plan(Vector P, Vector N): P(P), N(N), Object() {N.set_a(1);}
 
 std::tuple<double, Vector> Plan::intersect(Vector O, Vector D, double t_min, double t_max) {
     Vector W = O - P;
